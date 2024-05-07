@@ -1,22 +1,16 @@
+import Container from '@mui/material/Container';
+import Card from './Card'
 function Content(){
     return(
-      <div id='mainContent'>
-           <div id="yourCard" className="card">
-
-           </div>
-           <div className="cards card">
-
-           </div>
-           <div className="cards card" >
-            
-           </div>
-           <div className="cards card" >
-            
-           </div>
-           <div className="cards card" >
-            
-           </div>
-      </div>
+      <Container id='mainContent'>
+           <Card/>
+           <Card/>
+           <Card/>
+           <Card/>
+           <Card/>
+           <Card/>
+           <Card/>
+      </Container>
     )
  }
  
