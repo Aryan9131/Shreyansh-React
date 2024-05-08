@@ -4,7 +4,7 @@ import Container from '@mui/material/Container';
 
 function Content(){
     return(
-      <Container id='content'  style={{ width: '70vw',margin:"10px 5px" }}>
+      <Container id='content'  style={{ width: '90vw',margin:"10px 5px" }}>
           <SearchBar/>
           <MainContent/>
       </Container>

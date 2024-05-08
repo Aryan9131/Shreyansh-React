@@ -26,7 +26,7 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
-export default function RecipeReviewCard() {
+export default function RecipeReviewCard(props) {
   const [expanded, setExpanded] = React.useState(false);
 
   const handleExpandClick = () => {
@@ -34,27 +34,31 @@ export default function RecipeReviewCard() {
   };
 
   return (
-    <Card id="card" sx={{ maxWidth: 345 ,bgcolor: "whitesmoke"}}>
+    <Card id="card" sx={{ maxWidth: 345 ,backgroundColor: "rgba (72, 50,133, 0)", padding:"20px", border:"none", boxShadow: "none"}}>
       <CardHeader
         avatar={
-          <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-            R
-          </Avatar>
+          <Avatar
+              alt="Remy Sharp"
+              src="https://mui.com/static/images/avatar/1.jpg"
+              sx={{ width: 46, height: 46 }}
+              variant="rounded"
+            />
         }
         action={
           <IconButton aria-label="settings">
             <MoreVertIcon />
           </IconButton>
         }
-        title="Shrimp and Chorizo Paella"
+        title="Aryan Nayak"
         subheader="September 14, 2016"
       />
-      <CardMedia
-        component="img"
-        height="194"
-        image="https://mui.com/static/images/cards/paella.jpg"
-        alt="Paella dish"
-      />
+          <CardMedia
+            component="img"
+            height="180"
+            image={props.imgUrl}
+            alt="Paella dish"
+            style={{display : props.imgUrl ?"block":"none", borderRadius:"10px"}}
+          />
       <CardContent>
         <Typography variant="body2" color="text.secondary">
           This impressive paella is a perfect party dish and a fun meal to cook

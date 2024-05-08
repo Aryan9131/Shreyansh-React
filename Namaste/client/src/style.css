@@ -43,6 +43,7 @@ body{
     /* justify-content: center; */
     width: 100vw;
     height: 100vh;
+    background-color: whitesmoke;
 }
 
 #search{
@@ -61,7 +62,7 @@ body{
 
 #content{
     min-height: 100vh;
-    width: 70vw;
+    width: 90vw;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -76,11 +77,20 @@ body{
     overflow-y: scroll;
     display: flex;
     flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: flex-start;
+    flex-wrap: nowrap;
+    justify-content: center;
     align-items: flex-start;
     align-content: flex-start;
 }
+#leftContent{
+    width: 45vw;
+    margin-right: 0px;
+}
+#rightContent{
+    width: 40vw;
+}
 #card{
-    margin:10px;
+    /* box-sizing: border-box; */
+    margin:25px 10px;
+    border-radius: 15px;
 }
