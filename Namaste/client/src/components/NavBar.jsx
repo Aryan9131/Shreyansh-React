@@ -5,14 +5,15 @@ import { FaRegEnvelope } from "react-icons/fa6";
 import { FaRegUser } from "react-icons/fa";
 import { IoSettingsOutline } from "react-icons/io5";
 import { IconContext } from "react-icons";
+import Box from '@mui/material/Box';
 
 function Navbar() {
     return (
-        <div id='nav'>
-            <div id="logo">
+        <Box id='nav'>
+            <Box id="logo">
                 <img src="https://www.guerra-creativa.com/img/uploads/designs/850x849/rlt4nom0.gif" alt="logo" />
-            </div>
-            <div id="nav-icons">
+            </Box>
+            <Box id="nav-icons">
                 <IconContext.Provider value={{ className: "shared-class", size: 30 , color:"white"}}>
                     <a href="#"><TiHomeOutline className='navitems' /></a>
                     <a href="#"><LuCalendarDays className='navitems' /></a>
@@ -20,8 +21,8 @@ function Navbar() {
                     <a href="#"><FaRegUser className='navitems' /></a>
                     <a href="#"><IoSettingsOutline className='navitems' /></a>
                 </IconContext.Provider>
-            </div>
-        </div>
+            </Box>
+        </Box>
     )
 }
 

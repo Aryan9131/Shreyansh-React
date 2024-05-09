@@ -1,13 +1,13 @@
 import SearchBar from './Search'
 import MainContent from './MainContent'
-import Container from '@mui/material/Container';
+import Box from '@mui/material/Box';
 
 function Content(){
     return(
-      <Container id='content'  style={{ width: '90vw',margin:"10px 5px" }}>
+      <Box id='content'  style={{ width: '90vw',margin:"10px 5px" }}>
           <SearchBar/>
           <MainContent/>
-      </Container>
+      </Box>
     )
  }
  

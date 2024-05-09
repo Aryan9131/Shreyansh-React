@@ -3,8 +3,19 @@
     padding: 0;
 }
 body{
-    width: 100%;
+    width: 100vw;
+    height: 100vh;
     overflow: hidden;
+}
+#root{
+    width: 100%;
+    height: 100%;
+}
+#homePage{
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    background-color: whitesmoke;
 }
 #nav{
     width: 10vw;
@@ -38,13 +49,7 @@ body{
     border-radius: 10px ;
     margin: 10px 0px;
 }
-#homePage{
-    display: flex;
-    /* justify-content: center; */
-    width: 100vw;
-    height: 100vh;
-    background-color: whitesmoke;
-}
+
 
 #search{
     margin: 20px 5px;
@@ -77,17 +82,22 @@ body{
     overflow-y: scroll;
     display: flex;
     flex-direction: row;
-    flex-wrap: nowrap;
-    justify-content: center;
+    flex-wrap: wrap;
     align-items: flex-start;
     align-content: flex-start;
 }
 #leftContent{
-    width: 45vw;
+    width: 25vw;
     margin-right: 0px;
+    min-height: 100vh;
 }
 #rightContent{
-    width: 40vw;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    width: 60vw;
+    height: 100vh;
 }
 #card{
     /* box-sizing: border-box; */

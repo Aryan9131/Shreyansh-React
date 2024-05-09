@@ -14,6 +14,10 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShareIcon from '@mui/icons-material/Share';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+const CardTitle=styled('div')`
+  margin:15px 0px
+`
+   
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -34,36 +38,40 @@ export default function RecipeReviewCard(props) {
   };
 
   return (
-    <Card id="card" sx={{ maxWidth: 345 ,backgroundColor: "rgba (72, 50,133, 0)", padding:"20px", border:"none", boxShadow: "none"}}>
-      <CardHeader
-        avatar={
-          <Avatar
-              alt="Remy Sharp"
-              src="https://mui.com/static/images/avatar/1.jpg"
-              sx={{ width: 46, height: 46 }}
-              variant="rounded"
-            />
-        }
-        action={
-          <IconButton aria-label="settings">
-            <MoreVertIcon />
-          </IconButton>
-        }
-        title="Aryan Nayak"
-        subheader="September 14, 2016"
-      />
+        <Card id="card" sx={{ maxWidth: 345 ,backgroundColor: "rgba (72, 50,133, 0)", padding:"20px", border:"none", boxShadow: "none"}}>
+          <CardHeader
+            avatar={
+              <Avatar
+                  alt="Remy Sharp"
+                  src="https://mui.com/static/images/avatar/1.jpg"
+                  sx={{ width: 46, height: 46 }}
+                  variant="rounded"
+                />
+            }
+            action={
+              <IconButton aria-label="settings">
+                <MoreVertIcon />
+              </IconButton>
+            }
+            title="Aryan Nayak"
+            subheader="September 14, 2016"
+          />
+          <CardTitle>
+            <Typography variant="body2" color="text.secondary">
+              This impressive paella is a perfect party dish fresh good fresh.
+            </Typography>
+          </CardTitle>
           <CardMedia
             component="img"
-            height="180"
+             
             image={props.imgUrl}
             alt="Paella dish"
-            style={{display : props.imgUrl ?"block":"none", borderRadius:"10px"}}
+            style={{display : props.imgUrl ?"block":"none", borderRadius:"10px", maxHeight:"300px"}}
           />
       <CardContent>
         <Typography variant="body2" color="text.secondary">
           This impressive paella is a perfect party dish and a fun meal to cook
-          together with your guests. Add 1 cup of frozen peas along with the mussels,
-          if you like.
+          together with your guests.
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
