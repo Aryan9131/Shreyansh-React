@@ -69,6 +69,9 @@ export default function RecipeReviewCard(props) {
             style={{display : props.imgUrl ?"block":"none", borderRadius:"10px", maxHeight:"300px"}}
           />
       <CardContent>
+      <Typography variant="body1" color="text.primary" style={{fontWeight:"bold", margin:"5px 0px"}} >
+          This impressive paella is a perfect party dish and a fun meal.
+        </Typography>
         <Typography variant="body2" color="text.secondary">
           This impressive paella is a perfect party dish and a fun meal to cook
           together with your guests.
