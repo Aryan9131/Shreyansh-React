@@ -6,7 +6,7 @@ import { FaRegUser } from "react-icons/fa";
 import { IoSettingsOutline } from "react-icons/io5";
 import { IconContext } from "react-icons";
 import Box from '@mui/material/Box';
-
+import { NavLink } from 'react-router-dom';
 function Navbar() {
     return (
         <Box id='nav'>
@@ -15,11 +15,11 @@ function Navbar() {
             </Box>
             <Box id="nav-icons">
                 <IconContext.Provider value={{ className: "shared-class", size: 30 , color:"white"}}>
-                    <a href="#"><TiHomeOutline className='navitems' /></a>
-                    <a href="#"><LuCalendarDays className='navitems' /></a>
-                    <a href="#"><FaRegEnvelope className='navitems' /></a>
-                    <a href="#"><FaRegUser className='navitems' /></a>
-                    <a href="#"><IoSettingsOutline className='navitems' /></a>
+                    <NavLink to="/"><TiHomeOutline className='navitems' /></NavLink>
+                    <NavLink to="/about"><LuCalendarDays className='navitems' /></NavLink>
+                    <NavLink><FaRegEnvelope className='navitems' /></NavLink>
+                    <NavLink><FaRegUser className='navitems' /></NavLink>
+                    <NavLink><IoSettingsOutline className='navitems' /></NavLink>
                 </IconContext.Provider>
             </Box>
         </Box>
