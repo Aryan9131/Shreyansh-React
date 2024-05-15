@@ -5,9 +5,9 @@ function Search(){
    return(
       <>
         <div id="search">
-                <SearchIcon/>
-                <input type="text" id="searchInput" /> 
-               <MoreIcon/>
+                <SearchIcon id="searchIcon" sx={{color:"grey"}}/>
+                <input type="text" id="searchInput"  placeholder='Search in social' sx={{color:"grey"}}/> 
+               <MoreIcon id="moreIcon" sx={{color:"grey"}}/>
         </div>
       </>
    )
