@@ -16,9 +16,11 @@ function Layout() {
                     <Grid item xs={1}>
                         <NavBar/>
                     </Grid>
-                    <Grid item xs={12} md={11}>
+                    <Grid item xs={12} md={11} id="mainContent" >
                         <Search/>
+                        <Outlet/>
                     </Grid>
+
                 </Grid>
             </Box>
         </>
