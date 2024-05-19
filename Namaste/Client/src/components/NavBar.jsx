@@ -9,7 +9,7 @@ import SocialMediaIcon from './Icon'
 function NavBar() {
     const isMobile = window.innerWidth < 768;
     return (
-        <Box id="navbar" sx={{ height: { xs: "10vh", md: "100vh" }, width: { xs: "100vw", md: "100%" },flexDirection: { xs: "row", md: "column"} }}>
+        <Box id="navbar" sx={{ height: { xs: "10vh", md: "100vh" }, width: { xs: "100vw", md: "65%" },flexDirection: { xs: "row", md: "column"} }}>
             <div id="logo">
                 <SocialMediaIcon/>
             </div>

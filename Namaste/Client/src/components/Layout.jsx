@@ -12,11 +12,11 @@ function Layout() {
     return (
         <>
             <Box sx={{ flexGrow: 1 }}>
-                <Grid container spacing={2} sx={{ flexDirection: { xs: "column", md: "row"} }}>
-                    <Grid item xs={1}>
-                        <NavBar/>
+                <Grid container spacing={2} sx={{ flexDirection: { xs: "column", md: "row"}}}>
+                    <Grid item xs={2} >
+                        <NavBar />
                     </Grid>
-                    <Grid item xs={12} md={11} id="mainContent" >
+                    <Grid item xs={12} md={10} id="mainContent" >
                         <Search/>
                         <Outlet/>
                     </Grid>

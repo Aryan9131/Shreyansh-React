@@ -24,7 +24,7 @@ body{
     justify-content: space-evenly;
 }
 .navIcon{
-    background-color: rgba(255, 255, 255, 0.399);
+    background-color: rgba(255, 255, 255, 0.397);
     padding: 8px 15px;
     border-radius: 10px;
 }
@@ -58,6 +58,9 @@ body{
     position: relative;
     top: 4%;
     right: 2%;
+}
+#featuredStories::-webkit-scrollbar{
+    display:none;
 }
 #rightContent{
     display: flex;

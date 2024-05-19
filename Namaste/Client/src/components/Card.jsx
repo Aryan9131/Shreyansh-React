@@ -27,7 +27,7 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
-export default function PostCard() {
+export default function GeneralCard(props) {
   const [expanded, setExpanded] = React.useState(false);
 
   const handleExpandClick = () => {
@@ -39,7 +39,7 @@ export default function PostCard() {
   const ariaLabel = { 'aria-label': 'description' };
 
   return (
-    <Card sx={{ maxWidth: 400 , marginBottom:"15px", boxShadow:'0', border:"0px", borderRadius:"15px",padding:"10px"}} >
+    <Card sx={{ maxWidth: 376 , marginBottom:"15px", boxShadow:'0', border:"0px", borderRadius:"15px",padding:"10px 20px", boxSizing:"border-box"}} >
       <CardHeader
         avatar={
             <Avatar alt="Remy Sharp" src="https://mui.com/static/images/avatar/2.jpg" />
@@ -55,14 +55,14 @@ export default function PostCard() {
       <CardMedia
         component="img"
         height="194"
-        image="https://cdn.pixabay.com/photo/2024/04/13/10/20/peacock-8693634_640.jpg"
+        image={props.img}
         alt="Paella dish"
+        sx={{borderRadius:"10px", display:props.img ? "block" :"none"}}
       />
       <CardContent>
         <Typography variant="body2" color="text.secondary">
           This impressive paella is a perfect party dish and a fun meal to cook
-          together with your guests. Add 1 cup of frozen peas along with the mussels,
-          if you like.
+          together with your guests.
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
