@@ -6,7 +6,9 @@ import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import Card from './Card';
 import PostCard from './PostCard';
-import Stories from './Stories'
+import FeaturedStories from './FeaturedStories'
+import { NavLink } from "react-router-dom";
+
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
   ...theme.typography.body2,
@@ -19,35 +21,36 @@ export default function Home() {
   return (
     <Box sx={{ flexGrow: 1 , marginTop:"50px"}}>
       <Grid container spacing={2} >
-        <Grid item xs={12} sm={12} sx={{marginLeft:"10px"}} >
+        <Grid item xs={12} sm={12} sx={{marginLeft:"10px", display:"flex", justifyContent:"space-between"}} >
            <h4>Stories: </h4>
+           <h5 ><NavLink to="/stories">See All</NavLink></h5>
         </Grid>
          <Grid item xs={12} sm={12} id="featuredStories" sx={{display:"flex", overflowX:"scroll", justifyContent:"flex-start"}}>
-            <Stories img={"https://mui.com/static/images/cards/live-from-space.jpg"}/>
-            <Stories img={"https://mui.com/static/images/avatar/3.jpg"}/>
-            <Stories img={"https://cdn.pixabay.com/photo/2016/11/14/05/29/children-1822704_640.jpg"}/>
-            <Stories img={"https://cdn.pixabay.com/photo/2015/06/22/08/37/children-817365_640.jpg"}/>
-            <Stories img={"https://cdn.pixabay.com/photo/2015/01/08/18/24/children-593313_640.jpg"}/>
-            <Stories img={"https://mui.com/static/images/cards/live-from-space.jpg"}/>
-            <Stories img={"https://mui.com/static/images/avatar/3.jpg"}/>
-            <Stories img={"https://cdn.pixabay.com/photo/2016/11/14/05/29/children-1822704_640.jpg"}/>
-            <Stories img={"https://cdn.pixabay.com/photo/2015/06/22/08/37/children-817365_640.jpg"}/>
-            <Stories img={"https://cdn.pixabay.com/photo/2015/01/08/18/24/children-593313_640.jpg"}/>
-            <Stories img={"https://mui.com/static/images/cards/live-from-space.jpg"}/>
-            <Stories img={"https://mui.com/static/images/avatar/3.jpg"}/>
-            <Stories img={"https://cdn.pixabay.com/photo/2016/11/14/05/29/children-1822704_640.jpg"}/>
-            <Stories img={"https://cdn.pixabay.com/photo/2015/06/22/08/37/children-817365_640.jpg"}/>
-            <Stories img={"https://cdn.pixabay.com/photo/2015/01/08/18/24/children-593313_640.jpg"}/>
-            <Stories img={"https://mui.com/static/images/cards/live-from-space.jpg"}/>
-            <Stories img={"https://mui.com/static/images/avatar/3.jpg"}/>
-            <Stories img={"https://cdn.pixabay.com/photo/2016/11/14/05/29/children-1822704_640.jpg"}/>
-            <Stories img={"https://cdn.pixabay.com/photo/2015/06/22/08/37/children-817365_640.jpg"}/>
-            <Stories img={"https://cdn.pixabay.com/photo/2015/01/08/18/24/children-593313_640.jpg"}/>
-            <Stories img={"https://mui.com/static/images/cards/live-from-space.jpg"}/>
-            <Stories img={"https://mui.com/static/images/avatar/3.jpg"}/>
-            <Stories img={"https://cdn.pixabay.com/photo/2016/11/14/05/29/children-1822704_640.jpg"}/>
-            <Stories img={"https://cdn.pixabay.com/photo/2015/06/22/08/37/children-817365_640.jpg"}/>
-            <Stories img={"https://cdn.pixabay.com/photo/2015/01/08/18/24/children-593313_640.jpg"}/>
+            <FeaturedStories img={"https://mui.com/static/images/cards/live-from-space.jpg"}/>
+            <FeaturedStories img={"https://mui.com/static/images/avatar/3.jpg"}/>
+            <FeaturedStories img={"https://cdn.pixabay.com/photo/2016/11/14/05/29/children-1822704_640.jpg"}/>
+            <FeaturedStories img={"https://cdn.pixabay.com/photo/2015/06/22/08/37/children-817365_640.jpg"}/>
+            <FeaturedStories img={"https://cdn.pixabay.com/photo/2015/01/08/18/24/children-593313_640.jpg"}/>
+            <FeaturedStories img={"https://mui.com/static/images/cards/live-from-space.jpg"}/>
+            <FeaturedStories img={"https://mui.com/static/images/avatar/3.jpg"}/>
+            <FeaturedStories img={"https://cdn.pixabay.com/photo/2016/11/14/05/29/children-1822704_640.jpg"}/>
+            <FeaturedStories img={"https://cdn.pixabay.com/photo/2015/06/22/08/37/children-817365_640.jpg"}/>
+            <FeaturedStories img={"https://cdn.pixabay.com/photo/2015/01/08/18/24/children-593313_640.jpg"}/>
+            <FeaturedStories img={"https://mui.com/static/images/cards/live-from-space.jpg"}/>
+            <FeaturedStories img={"https://mui.com/static/images/avatar/3.jpg"}/>
+            <FeaturedStories img={"https://cdn.pixabay.com/photo/2016/11/14/05/29/children-1822704_640.jpg"}/>
+            <FeaturedStories img={"https://cdn.pixabay.com/photo/2015/06/22/08/37/children-817365_640.jpg"}/>
+            <FeaturedStories img={"https://cdn.pixabay.com/photo/2015/01/08/18/24/children-593313_640.jpg"}/>
+            <FeaturedStories img={"https://mui.com/static/images/cards/live-from-space.jpg"}/>
+            <FeaturedStories img={"https://mui.com/static/images/avatar/3.jpg"}/>
+            <FeaturedStories img={"https://cdn.pixabay.com/photo/2016/11/14/05/29/children-1822704_640.jpg"}/>
+            <FeaturedStories img={"https://cdn.pixabay.com/photo/2015/06/22/08/37/children-817365_640.jpg"}/>
+            <FeaturedStories img={"https://cdn.pixabay.com/photo/2015/01/08/18/24/children-593313_640.jpg"}/>
+            <FeaturedStories img={"https://mui.com/static/images/cards/live-from-space.jpg"}/>
+            <FeaturedStories img={"https://mui.com/static/images/avatar/3.jpg"}/>
+            <FeaturedStories img={"https://cdn.pixabay.com/photo/2016/11/14/05/29/children-1822704_640.jpg"}/>
+            <FeaturedStories img={"https://cdn.pixabay.com/photo/2015/06/22/08/37/children-817365_640.jpg"}/>
+            <FeaturedStories img={"https://cdn.pixabay.com/photo/2015/01/08/18/24/children-593313_640.jpg"}/>
          </Grid>
         <Grid item xs={12} sm={5} md={4}  id="leftContent">
             <PostCard/>

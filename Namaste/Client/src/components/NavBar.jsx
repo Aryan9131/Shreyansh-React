@@ -6,6 +6,8 @@ import { FaRegEnvelope } from "react-icons/fa6";
 import { MdNotificationsNone } from "react-icons/md";
 import { FaRegUser } from "react-icons/fa";
 import SocialMediaIcon from './Icon'
+import { NavLink } from "react-router-dom";
+
 function NavBar() {
     const isMobile = window.innerWidth < 768;
     return (
@@ -14,11 +16,11 @@ function NavBar() {
                 <SocialMediaIcon/>
             </div>
             <Box id="navitems" sx={{flexDirection: { xs: "row", md: "column"} }}>
-                <TiHomeOutline color="white" className='navIcon'/>
-                <FaRegCalendarAlt  color="white"   className='navIcon' />
-                <FaRegEnvelope    color="white" className='navIcon'  />
-                <MdNotificationsNone  color="white"   className='navIcon'/>
-                <FaRegUser  color="white" className='navIcon' />
+               <NavLink to="/"><TiHomeOutline color="white" className='navIcon'/></NavLink> 
+               <NavLink to="/stories"><FaRegCalendarAlt  color="white"   className='navIcon' /></NavLink> 
+               <NavLink to=""><FaRegEnvelope    color="white" className='navIcon'  /></NavLink> 
+               <NavLink to=""> <MdNotificationsNone  color="white"   className='navIcon'/></NavLink>
+               <NavLink to=""><FaRegUser  color="white" className='navIcon' /></NavLink> 
             </Box>
         </Box>
     )

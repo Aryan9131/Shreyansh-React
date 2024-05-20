@@ -16,7 +16,7 @@ function Layout() {
                     <Grid item xs={2} >
                         <NavBar />
                     </Grid>
-                    <Grid item xs={12} md={10} id="mainContent" >
+                    <Grid item xs={12} md={10} id="mainContent" sx={{backgroundColor:"red"}} >
                         <Search/>
                         <Outlet/>
                     </Grid>

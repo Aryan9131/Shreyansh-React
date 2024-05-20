@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client'
 import {RouterProvider, createBrowserRouter} from 'react-router-dom'
 import Layout from './components/Layout'
 import Home from './components/Home'
+import Stories from './components/Stories'
 import './index.css'
 const router=createBrowserRouter([
   {
@@ -12,7 +13,12 @@ const router=createBrowserRouter([
       {
         path:'/',
         element:<Home/>
-      }
+      },
+      {
+        path:'/stories',
+        element:<Stories/>
+      },
+
     ]
   }
 ])
