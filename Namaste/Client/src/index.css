@@ -81,14 +81,13 @@ body{
 #storiesNav{
     display: flex;
     align-items: center;
-    /* justify-content: space-evenly; */
-    height: 30px;
     background-color: rgb(40, 40, 40);
     border-radius: 10px;
     padding: 10px 25px;
     list-style-type: none;
     width: 60%;
     text-align: left;
+    line-height: 2;
 }
 .storiesNavItems{
     font-size: 16px;
@@ -105,10 +104,19 @@ body{
 @media (min-width: 600px) {
     .navIcon {
       font-size: 30px;
- }
+    }
+    #storiesNav{
+        flex-direction: row;
+    }
 }
 @media (max-width: 600px) {
     .navIcon {
       font-size: 25px;
  }
+ #storiesNav{
+    flex-direction: column;
+    height:"auto";
+    justify-content: flex-start;
+    align-items: flex-start;
+}
 }
