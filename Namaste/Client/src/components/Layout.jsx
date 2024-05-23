@@ -11,7 +11,7 @@ import NavBar from '../components/NavBar'
 function Layout() {
     return (
         <>
-            <Box sx={{ flexGrow: 1 }}>
+            <Box sx={{ flexGrow: 1,display: "flex", justifyContent: "center" }}>
                 <Grid container spacing={2} sx={{ flexDirection: { xs: "column", md: "row"}}}>
                     <Grid item xs={2} >
                         <NavBar />

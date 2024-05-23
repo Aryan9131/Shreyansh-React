@@ -27,7 +27,7 @@ export default function PostCard() {
     const ariaLabel = { 'aria-label': 'description' };
 
     return (
-        <Card sx={{ width: 376, marginBottom: "15px", boxShadow: '0', border: "0px", borderRadius: "15px", padding: "10px 20px", boxSizing: "border-box" }} >
+        <Card sx={{ width: 376,minWidth:260 , marginBottom: "15px", boxShadow: '0', border: "0px", borderRadius: "15px", padding: "10px 20px", boxSizing: "border-box" }} >
             <CardHeader
                 avatar={
                     <Avatar alt="Remy Sharp" src="https://mui.com/static/images/avatar/1.jpg" />
