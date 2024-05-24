@@ -42,7 +42,7 @@ export default function GeneralCard(props) {
     <Card sx={{ maxWidth: 376, minWidth:260, marginBottom:"15px", boxShadow:'0', border:"0px", borderRadius:"15px",padding:"10px 20px", boxSizing:"border-box"}} >
       <CardHeader
         avatar={
-            <Avatar alt="Remy Sharp" src="https://mui.com/static/images/avatar/2.jpg" />
+            <Avatar alt="Remy Sharp" src="https://mui.com/static/images/avatar/2.jpg" variant="rounded" sx={{borderRadius:"15px"}}/>
         }
         action={
           <IconButton aria-label="settings">
