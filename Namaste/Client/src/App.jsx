@@ -11,10 +11,12 @@ const App = () => {
     if (event && event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
       return;
     }
+    console.log("Toggling drawer to:", open); // Debug log
     setDrawerOpen(open);
   };
 
   const handleCardClick = () => {
+    console.log("Card clicked"); // Debug log
     toggleDrawer(true)();
   };
 
@@ -29,7 +31,7 @@ const App = () => {
         },
         {
           path: '/stories',
-          element: <Stories handleCardClick={handleCardClick} open={drawerOpen} toggleDrawer={toggleDrawer} />,
+          element: <Stories />,
         },
       ],
     },

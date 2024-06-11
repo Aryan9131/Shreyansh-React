@@ -7,7 +7,7 @@ import Avatar from '@mui/material/Avatar';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
-export default function SwipeableTemporaryDrawer({ open, toggleDrawer }) {
+export default function SwipeableTemporaryDrawer({ open, toggle }) {
   const list = () => (
     <Box
       sx={{ width: "100vw", backgroundColor:"#1f1f21"}}
@@ -16,7 +16,7 @@ export default function SwipeableTemporaryDrawer({ open, toggleDrawer }) {
       <Grid container spacing={2} sx={{ flexDirection: { xs: "column", md: "row"}, boxSizing:"border-box", color:"whitesmoke"}}>
         <Grid item sm={11} md={8} sx={{display:"flex", justifyContent:"center", flexDirection:"column"}}>
           <Grid item sm={12} sx={{display:"flex", justifyContent:"space-around",boxSizing:"border-box"}}>
-            <Button onClick={toggleDrawer(false)} sx={{ margin: 2 }}>
+            <Button onClick={toggle(false)} sx={{ margin: 2 }}>
               Back
             </Button>
             <Box sx={{display:"flex", justifyContent:"space-between", alignItems:"center", paddingRight:"5px"}}>
@@ -45,8 +45,8 @@ export default function SwipeableTemporaryDrawer({ open, toggleDrawer }) {
     <SwipeableDrawer
       anchor="right"
       open={open}
-      onClose={toggleDrawer(false)}
-      onOpen={toggleDrawer(true)}
+      onClose={toggle(false)}
+      onOpen={toggle(true)}
     >
       {list()}
     </SwipeableDrawer>
