@@ -3,7 +3,7 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import Layout from './components/Layout';
 import Home from './components/Home';
 import Stories from './components/Stories';
-
+import Events from './components/Events'
 const App = () => {
   const [drawerOpen, setDrawerOpen] = React.useState(false);
 
@@ -33,6 +33,10 @@ const App = () => {
           path: '/stories',
           element: <Stories />,
         },
+        {
+          path: '/events',
+          element: <Events />,
+        }
       ],
     },
   ]);

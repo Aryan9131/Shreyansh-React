@@ -17,8 +17,8 @@ function NavBar() {
             </div>
             <Box id="navitems" sx={{flexDirection: { xs: "row", md: "column"} }}>
                <NavLink to="/"><TiHomeOutline color="white" className='navIcon'/></NavLink> 
-               <NavLink to="/stories"><FaRegCalendarAlt  color="white"   className='navIcon' /></NavLink> 
-               <NavLink to=""><FaRegEnvelope    color="white" className='navIcon'  /></NavLink> 
+               <NavLink to="/events"><FaRegCalendarAlt  color="white"   className='navIcon' /></NavLink> 
+               <NavLink to="/stories"><FaRegEnvelope    color="white" className='navIcon'  /></NavLink> 
                <NavLink to=""> <MdNotificationsNone  color="white"   className='navIcon'/></NavLink>
                <NavLink to=""><FaRegUser  color="white" className='navIcon' /></NavLink> 
             </Box>
