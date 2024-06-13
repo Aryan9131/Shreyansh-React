@@ -32,6 +32,21 @@ export default function Home({ handleCardClick, open, toggleDrawer }) {
           <FeaturedStories img={"https://cdn.pixabay.com/photo/2016/11/14/05/29/children-1822704_640.jpg"} onClick={handleCardClick} />
           <FeaturedStories img={"https://cdn.pixabay.com/photo/2015/06/22/08/37/children-817365_640.jpg"} />
           <FeaturedStories img={"https://cdn.pixabay.com/photo/2015/01/08/18/24/children-593313_640.jpg"} />
+          <FeaturedStories img={"https://mui.com/static/images/cards/live-from-space.jpg"} onClick={handleCardClick} />
+          <FeaturedStories img={"https://mui.com/static/images/avatar/3.jpg"} />
+          <FeaturedStories img={"https://cdn.pixabay.com/photo/2016/11/14/05/29/children-1822704_640.jpg"} onClick={handleCardClick} />
+          <FeaturedStories img={"https://cdn.pixabay.com/photo/2015/06/22/08/37/children-817365_640.jpg"} />
+          <FeaturedStories img={"https://cdn.pixabay.com/photo/2015/01/08/18/24/children-593313_640.jpg"} />
+          <FeaturedStories img={"https://mui.com/static/images/cards/live-from-space.jpg"} onClick={handleCardClick} />
+          <FeaturedStories img={"https://mui.com/static/images/avatar/3.jpg"} />
+          <FeaturedStories img={"https://cdn.pixabay.com/photo/2016/11/14/05/29/children-1822704_640.jpg"} onClick={handleCardClick} />
+          <FeaturedStories img={"https://cdn.pixabay.com/photo/2015/06/22/08/37/children-817365_640.jpg"} />
+          <FeaturedStories img={"https://cdn.pixabay.com/photo/2015/01/08/18/24/children-593313_640.jpg"} />
+          <FeaturedStories img={"https://mui.com/static/images/cards/live-from-space.jpg"} onClick={handleCardClick} />
+          <FeaturedStories img={"https://mui.com/static/images/avatar/3.jpg"} />
+          <FeaturedStories img={"https://cdn.pixabay.com/photo/2016/11/14/05/29/children-1822704_640.jpg"} onClick={handleCardClick} />
+          <FeaturedStories img={"https://cdn.pixabay.com/photo/2015/06/22/08/37/children-817365_640.jpg"} />
+          <FeaturedStories img={"https://cdn.pixabay.com/photo/2015/01/08/18/24/children-593313_640.jpg"} />
           {/* Repeat FeaturedStories with handleCardClick as necessary */}
         </Grid>
         <Grid item xs={12} sm={6} md={4} id="leftContent">
