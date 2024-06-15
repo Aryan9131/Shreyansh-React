@@ -38,17 +38,17 @@ export default function PostCard() {
             />
 
             <CardActions disableSpacing sx={{marginTop:"30px"}}>
-                <IconButton aria-label="add to favorites"  sx={{padding:"8px", backgroundColor:"rgba(210, 210, 210, 0.599)"}}>
-                    <CameraAltIcon />
+                <IconButton aria-label="add to favorites"  sx={{padding:"8px", backgroundColor:"rgba(210, 210, 210, 0.599)", borderRadius:"10px"}}>
+                    <CameraAltIcon sx={{height:"15px", width:"15px"}} />
                 </IconButton>
-                <IconButton aria-label="share"  sx={{padding:"8px", backgroundColor:"rgba(210, 210, 210, 0.599)", margin:"0px 5px"}}>
-                    <VideocamIcon />
+                <IconButton aria-label="share"  sx={{padding:"8px", backgroundColor:"rgba(210, 210, 210, 0.599)", margin:"0px 5px", borderRadius:"10px"}}>
+                    <VideocamIcon  sx={{height:"15px", width:"15px"}}  />
                 </IconButton>
-                <IconButton aria-label="share"  sx={{padding:"8px", backgroundColor:"rgba(210, 210, 210, 0.599)"}}>
-                    <AddIcon />
+                <IconButton aria-label="share"  sx={{padding:"8px", backgroundColor:"rgba(210, 210, 210, 0.599)", borderRadius:"10px"}}>
+                    <AddIcon  sx={{height:"15px", width:"15px"}} />
                 </IconButton>
                 <IconButton aria-label="share">
-                    <Button variant="contained">Share<KeyboardArrowRightIcon/></Button>
+                    <Button variant="contained" sx={{display:"flex", justifyContent:"center",padding:"2px 5px",backgroundColor:"rgba(103, 107,236, 1)",textTransform:"capitalize"}}>Share<KeyboardArrowRightIcon/></Button>
                 </IconButton>
             </CardActions>
         </Card>

@@ -7,7 +7,8 @@ import Avatar from '@mui/material/Avatar';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
-export default function SwipeableTemporaryDrawer({ open, toggleDrawer }) {
+export default function DrawerTemplate({open, toggleDrawer }) {
+  console.log(toggleDrawer)
   const list = () => (
     <Box
       sx={{ width: "100vw",height:"100vh", backgroundColor:"#1f1f21"}}

@@ -12,9 +12,9 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import GroupAvatars from './AvatarGroup'
 
 
-export default function ImgMediaCard() {
+export default function ImgMediaCard(props) {
   return (
-    <Card sx={{ maxWidth: 400, boxShadow:"none", borderRadius:"10px" ,margin:"20px 10px", boxSizing:"border-box", padding:"20px"}}>
+    <Card sx={{ maxWidth: 400, boxShadow:"none", borderRadius:"10px" ,margin:"20px 10px", boxSizing:"border-box", padding:"20px"}} onClick={props.onClick} >
       <CardMedia
         component="img"
         alt="green iguana"
