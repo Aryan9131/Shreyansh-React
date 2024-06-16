@@ -105,6 +105,11 @@ body{
     text-decoration: underline;
     color: white;
 }
+
+#messagesContainer{
+    scrollbar-width: thin
+}
+
 @media (min-width: 600px) {
     .navIcon {
       font-size: 30px;

@@ -37,6 +37,10 @@ const App = () => {
         {
           path: '/events',
           element: <Events handleCardClick={handleCardClick} open={drawerOpen} toggleDrawer={toggleDrawer}  />,
+        },
+        {
+          path: '/messages',
+          element: <Messages/>,
         }
       ],
     },
