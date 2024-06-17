@@ -5,6 +5,7 @@ import Home from './components/Home';
 import Stories from './components/Stories';
 import Events from './components/Events'
 import Messages from './components/Messages'
+import Profile from './components/Profile'
 const App = () => {
   const [drawerOpen, setDrawerOpen] = React.useState(false);
 
@@ -41,6 +42,10 @@ const App = () => {
         {
           path: '/messages',
           element: <Messages/>,
+        },
+        {
+          path: '/profile',
+          element: <Profile/>,
         }
       ],
     },

@@ -20,7 +20,7 @@ function NavBar() {
                <NavLink to="/events"><FaRegCalendarAlt  color="white"   className='navIcon' /></NavLink> 
                <NavLink to="/messages"><FaRegEnvelope    color="white" className='navIcon'  /></NavLink> 
                <NavLink to=""> <MdNotificationsNone  color="white"   className='navIcon'/></NavLink>
-               <NavLink to=""><FaRegUser  color="white" className='navIcon' /></NavLink> 
+               <NavLink to="/profile"><FaRegUser  color="white" className='navIcon' /></NavLink> 
             </Box>
         </Box>
     )
