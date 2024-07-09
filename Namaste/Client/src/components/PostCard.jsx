@@ -11,13 +11,14 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import CameraAltIcon from '@mui/icons-material/CameraAlt';
 import VideocamIcon from '@mui/icons-material/Videocam';
-import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import Button from '@mui/material/Button';
+import useImgPreview from '../hooks/handleImgPreview'
+import PostDrawer from './PostDrawer'
 import AddIcon from '@mui/icons-material/Add';
 
 export default function PostCard() {
     const [expanded, setExpanded] = React.useState(false);
-
+    const imgRef=React.useRef(null);
     const handleExpandClick = () => {
         setExpanded(!expanded);
     };
@@ -25,6 +26,8 @@ export default function PostCard() {
         e.target.style.color = "red"
     }
     const ariaLabel = { 'aria-label': 'description' };
+
+    const {handleMediaChange, mediaUrl, isVideo} =useImgPreview() 
 
     return (
         <Card sx={{ width: 376,minWidth:260 , marginBottom: "15px", boxShadow: '0', border: "0px", borderRadius: "15px", padding: "10px 20px", boxSizing: "border-box" }} >
@@ -39,16 +42,17 @@ export default function PostCard() {
 
             <CardActions disableSpacing sx={{marginTop:"30px"}}>
                 <IconButton aria-label="add to favorites"  sx={{padding:"8px", backgroundColor:"rgba(210, 210, 210, 0.599)", borderRadius:"10px"}}>
-                    <CameraAltIcon sx={{height:"15px", width:"15px"}} />
+                    <input type="file" name="img" id="file-upload" placeholder ="hello" ref={imgRef} hidden onChange={handleMediaChange} />
+                    <CameraAltIcon sx={{height:"15px", width:"15px"}} onClick={()=>imgRef.current.click()} />
                 </IconButton>
                 <IconButton aria-label="share"  sx={{padding:"8px", backgroundColor:"rgba(210, 210, 210, 0.599)", margin:"0px 5px", borderRadius:"10px"}}>
                     <VideocamIcon  sx={{height:"15px", width:"15px"}}  />
                 </IconButton>
                 <IconButton aria-label="share"  sx={{padding:"8px", backgroundColor:"rgba(210, 210, 210, 0.599)", borderRadius:"10px"}}>
-                    <AddIcon  sx={{height:"15px", width:"15px"}} />
+                   <AddIcon  sx={{height:"15px", width:"15px"}}/>
                 </IconButton>
                 <IconButton aria-label="share">
-                    <Button variant="contained" sx={{display:"flex", justifyContent:"center",padding:"2px 5px",backgroundColor:"rgba(103, 107,236, 1)",textTransform:"capitalize"}}>Share<KeyboardArrowRightIcon/></Button>
+                   <PostDrawer/>
                 </IconButton>
             </CardActions>
         </Card>

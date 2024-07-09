@@ -1,8 +1,12 @@
 const express=require('express');
-const db=require('./config/mongoose')
+const db=require('./config/mongoose');
+const cors=require('cors')
 const app=express();
 const port=8000;
-app.use(express.urlencoded())
+
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(cors());
 app.use('/',require('./routes'))
 
 app.listen(port, (err)=>{

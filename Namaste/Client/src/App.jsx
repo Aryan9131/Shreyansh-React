@@ -5,7 +5,9 @@ import Home from './components/Home';
 import Stories from './components/Stories';
 import Events from './components/Events'
 import Messages from './components/Messages'
-import Profile from './components/Profile'
+import Profile from './components/Profile';
+import SignIn from './components/SignIn'
+import SignUp from './components/SignUp'
 const App = () => {
   const [drawerOpen, setDrawerOpen] = React.useState(false);
 
@@ -49,6 +51,14 @@ const App = () => {
         }
       ],
     },
+    {
+      path: '/sign-in',
+      element: <SignIn />,
+    },
+    {
+      path: '/sign-up',
+      element: <SignUp />,
+    }
   ]);
 
   return <RouterProvider router={router} />;
