@@ -6,7 +6,7 @@ import { CardActionArea } from '@mui/material';
 
 export default function StoriesCard({ img, onClick }) {
   return (
-    <Card sx={{ width: 272, height:375, borderRadius:2 }} onClick={onClick}>
+    <Card sx={{ maxWidth: 250,minWidth:200,margin:"20px 10px" ,height:375, borderRadius:2 }} onClick={onClick}>
       <CardActionArea>
         <CardMedia
           component="img"

@@ -36,10 +36,26 @@ export default function Stories() {
             <li><NavLink className='storiesNavItems'>Featured</NavLink></li>
           </ul>
         </Grid>
-        <Grid item xs={8} sm={4} md={3} sx={{ display: "flex", justifyContent: "center" }}>
+        <Grid item xs={12} sx={{ display: "flex", justifyContent: {xs:"center", md:"flex-start"}, flexWrap:"wrap" }}>
           <StoriesCard img={"https://cdn.pixabay.com/photo/2013/04/13/18/42/tower-103417_640.jpg"} onClick={handleStoryClick} />
+          <StoriesCard img={"https://cdn.pixabay.com/photo/2013/04/13/18/42/tower-103417_640.jpg"} onClick={handleStoryClick} />
+          <StoriesCard img={"https://cdn.pixabay.com/photo/2013/04/13/18/42/tower-103417_640.jpg"} onClick={handleStoryClick} />
+          <StoriesCard img={"https://cdn.pixabay.com/photo/2013/04/13/18/42/tower-103417_640.jpg"} onClick={handleStoryClick} />
+          <StoriesCard img={"https://cdn.pixabay.com/photo/2013/04/13/18/42/tower-103417_640.jpg"} onClick={handleStoryClick} />
+          <StoriesCard img={"https://cdn.pixabay.com/photo/2013/04/13/18/42/tower-103417_640.jpg"} onClick={handleStoryClick} />
+          <StoriesCard img={"https://cdn.pixabay.com/photo/2013/04/13/18/42/tower-103417_640.jpg"} onClick={handleStoryClick} />
+          <StoriesCard img={"https://cdn.pixabay.com/photo/2013/04/13/18/42/tower-103417_640.jpg"} onClick={handleStoryClick} />
+          <StoriesCard img={"https://cdn.pixabay.com/photo/2013/04/13/18/42/tower-103417_640.jpg"} onClick={handleStoryClick} />
+          <StoriesCard img={"https://cdn.pixabay.com/photo/2013/04/13/18/42/tower-103417_640.jpg"} onClick={handleStoryClick} />
+          <StoriesCard img={"https://cdn.pixabay.com/photo/2013/04/13/18/42/tower-103417_640.jpg"} onClick={handleStoryClick} />
+          <StoriesCard img={"https://cdn.pixabay.com/photo/2013/04/13/18/42/tower-103417_640.jpg"} onClick={handleStoryClick} />
+          <StoriesCard img={"https://cdn.pixabay.com/photo/2013/04/13/18/42/tower-103417_640.jpg"} onClick={handleStoryClick} />
+          <StoriesCard img={"https://cdn.pixabay.com/photo/2013/04/13/18/42/tower-103417_640.jpg"} onClick={handleStoryClick} />
+          <StoriesCard img={"https://cdn.pixabay.com/photo/2013/04/13/18/42/tower-103417_640.jpg"} onClick={handleStoryClick} />
+          <StoriesCard img={"https://cdn.pixabay.com/photo/2013/04/13/18/42/tower-103417_640.jpg"} onClick={handleStoryClick} />
+          
         </Grid>
-        <Grid item xs={8} sm={4} md={3} sx={{ display: "flex", justifyContent: "center" }}>
+        {/* <Grid item xs={8} sm={4} md={3} sx={{ display: "flex", justifyContent: "center" }}>
           <StoriesCard img={"https://cdn.pixabay.com/photo/2013/06/23/15/54/architecture-140785_640.jpg"} onClick={handleStoryClick} />
         </Grid>
         <Grid item xs={8} sm={4} md={3} sx={{ display: "flex", justifyContent: "center" }}>
@@ -59,7 +75,7 @@ export default function Stories() {
         </Grid>
         <Grid item xs={8} sm={4} md={3} sx={{ display: "flex", justifyContent: "center" }}>
           <StoriesCard img={"https://cdn.pixabay.com/photo/2013/04/13/18/42/tower-103417_640.jpg"} onClick={handleStoryClick} />
-        </Grid>
+        </Grid> */}
         <Grid item xs={8} sm={4} md={3} sx={{ display: "flex", justifyContent: "center" }}>
           <Drawer open={Open} toggle={toggle} />
         </Grid>
