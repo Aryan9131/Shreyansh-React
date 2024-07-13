@@ -1,6 +1,5 @@
 const express=require('express');
 const router=express.Router();
-const passportJWT=require('./config/passport-jwt-startegy')
 
 router.use('/api',require('./api'))
 
