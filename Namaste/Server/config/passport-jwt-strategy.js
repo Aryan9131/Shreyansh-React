@@ -11,7 +11,8 @@ const ops={
 
 passport.use(new PassportJWT(ops, async function(jwt_payload, done){
        try {
-          const user=User.findOne({_id:jwt_payload._id});
+          const user=await User.findOne({_id:jwt_payload._id});
+          console.log(user)
           if(!user){
              return done(null , false);
           }else{

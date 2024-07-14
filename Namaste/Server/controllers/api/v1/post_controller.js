@@ -22,6 +22,7 @@ module.exports.createPost=async function(req, res){
 
 module.exports.deletePost=async function(req, res){
     try {
+        console.log(req.params);
         const post=Post.deleteOne({_id:req.params.id});
         const comment=Comment.deleteMany({post:req.params.id});
         return res.status(200).json({
