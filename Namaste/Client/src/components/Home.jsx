@@ -9,6 +9,7 @@ import PostCard from './PostCard';
 import FeaturedStories from './FeaturedStories';
 import { NavLink } from "react-router-dom";
 import DrawerTemplate from './DrawerTemplate';
+import { useSelector } from 'react-redux';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -19,6 +20,22 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 export default function Home({ handleCardClick, open, toggleDrawer }) {
+    const user = useSelector((state) => state.user.user);
+    // const [posts, setPosts] = useState([]);
+    //   useEffect(() => {
+    //     if (user) {
+    //         fetchUserPosts();
+    //     }
+    //   }, [user]);
+    //   const fetchUserPosts = async () => {
+    //     try {
+    //         const response = await fetch(`http://localhost:8000/api/v1/user/${user._id}/posts`);
+    //         const data = await response.json();
+    //         setPosts(data.posts);
+    //     } catch (error) {
+    //         console.error('Error fetching posts:', error);
+    //     }
+    // };
   return (
     <Box sx={{ flexGrow: 1, marginTop: "50px" }}>
       <Grid container spacing={2}>

@@ -14,7 +14,7 @@ function SignUp(){
             formData.forEach((value, key) => {
                 data[key] = value;
             });
-             fetch('http://localhost:8000/api/v1/user/create-user', {
+             fetch('https://psychic-computing-machine-9wg4jggv64gfx9gr-8000.app.github.dev/api/v1/user/create-user', {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
@@ -24,7 +24,7 @@ function SignUp(){
             .then(response => response.json())
             .then(data => {
               console.log(data);
-              navigate('/')
+              navigate('/sign-in');
             })
             .catch(error => console.error('Error:', error));
             
