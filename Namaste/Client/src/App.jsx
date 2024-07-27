@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Layout from './components/Layout';
 import Home from './components/Home';
@@ -9,8 +9,11 @@ import Profile from './components/Profile';
 import SignIn from './components/SignIn'
 import SignUp from './components/SignUp'
 import { useSelector } from 'react-redux';
+import Rehydrate from './components/RehydrateUser';
 
 const App = () => {
+  const user = useSelector((state) => state.user);
+
   const [drawerOpen, setDrawerOpen] = React.useState(false);
 
   const toggleDrawer = (open) => (event) => {
@@ -25,24 +28,24 @@ const App = () => {
     console.log("Card clicked"); // Debug log
     toggleDrawer(true)();
   };
-  
-  const user = useSelector((state) => state.user);
-  console.log(user)
+
   return (
+    <Rehydrate>
     <Router>
-        <Routes>
-            <Route path="/sign-up" element={<SignUp />} />
-            <Route path="/sign-in" element={<SignIn />} />
-            <Route path="/" element={user ? <Layout /> : <Navigate to="/sign-up" />}>
-                <Route path="/" element={user ? <Home handleCardClick={handleCardClick} open={drawerOpen} toggleDrawer={toggleDrawer} /> : <Navigate to="/sign-up" />} />
-                <Route path="/stories" element={user ? <Stories /> : <Navigate to="/sign-up" />} />
-                <Route path="/events" element={user ? <Events handleCardClick={handleCardClick} open={drawerOpen} toggleDrawer={toggleDrawer} /> : <Navigate to="/sign-up" />} />
-                <Route path="/messages" element={user ? <Messages /> : <Navigate to="/sign-up" />} />
-                <Route path="/profile" element={user ? <Profile /> : <Navigate to="/sign-up" />} />
-            </Route>
-        </Routes>
+      <Routes>
+        <Route path="/sign-up" element={<SignUp />} />
+        <Route path="/sign-in" element={<SignIn />} />
+        <Route path="/" element={user ? <Layout /> : <Navigate to="/sign-up" />}>
+          <Route path="/" element={user ? <Home handleCardClick={handleCardClick} open={drawerOpen} toggleDrawer={toggleDrawer} /> : <Navigate to="/sign-up" />} />
+          <Route path="/stories" element={user ? <Stories /> : <Navigate to="/sign-up" />} />
+          <Route path="/events" element={user ? <Events handleCardClick={handleCardClick} open={drawerOpen} toggleDrawer={toggleDrawer} /> : <Navigate to="/sign-up" />} />
+          <Route path="/messages" element={user ? <Messages /> : <Navigate to="/sign-up" />} />
+          <Route path="/profile" element={user ? <Profile /> : <Navigate to="/sign-up" />} />
+        </Route>
+      </Routes>
     </Router>
-);
+    </Rehydrate>
+  );
 };
 
 export default App;

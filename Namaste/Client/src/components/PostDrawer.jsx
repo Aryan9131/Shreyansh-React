@@ -14,6 +14,7 @@ import CameraAltIcon from '@mui/icons-material/CameraAlt';
 import useImgPreview from '../hooks/handleImgPreview'
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import TextField from '@mui/material/TextField';
+import { useSelector } from 'react-redux';
 
 export default function ResponsiveDialog() {
     const [open, setOpen] = React.useState(false);
@@ -24,6 +25,9 @@ export default function ResponsiveDialog() {
     const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
     const imgRef = React.useRef(null);
     const { handleMediaChange, mediaUrl, isVideo } = useImgPreview()
+    
+    let user = useSelector((state) => state.user);
+
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -42,14 +46,36 @@ export default function ResponsiveDialog() {
                     data.append('file',value);
                 }
         });
+
         data.append('upload_preset','Social-App');
         data.append('cloud_name',"anayak")
         fetch('https://api.cloudinary.com/v1_1/anayak/image/upload',{
             method:'POST',
             body:data
-        }).then(res=>res.json()).then((data)=>console.log(data)).catch((err)=>{
+        }).then(res=>res.json())
+          .then((data)=>{
+             const postData={
+                postType:postType,
+                data:caption,
+                img:data.url,
+                user:user.id
+            }
+            console.log(JSON.stringify(postData))
+             fetch('https://jubilant-xylophone-7wj4pjjq7p929vj-5173.app.github.dev/api/v1/post/create-post',{
+                method:'POST',
+                body:JSON.stringify(postData)
+             }).then(res=>res.json())
+               .then((data)=>{
+                  console.log(data);
+               })
+               .catch((err)=>{
+                 console.log("error while posting data from fetch :"+err);
+               })
+          })
+          .catch((err)=>{
             console.log("error while doing fetch request "+err);
         })
+
         handleClose();
     };
 

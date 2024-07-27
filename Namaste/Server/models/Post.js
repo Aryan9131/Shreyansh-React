@@ -1,5 +1,8 @@
 const mongoose=require('mongoose');
 const postSchema= new mongoose.Schema({
+    postType:{
+        type:String
+    },
     data:{
         type:String
     },

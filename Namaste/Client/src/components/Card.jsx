@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { styled } from '@mui/material/styles';
 import Card from '@mui/material/Card';
+import { Box } from '@mui/material';
 import CardHeader from '@mui/material/CardHeader';
 import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
@@ -27,9 +28,9 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
-export default function GeneralCard(props) {
+export default function GeneralCard({post, img, onClick}) {
   const [expanded, setExpanded] = React.useState(false);
-
+  console.log(post);
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
@@ -39,7 +40,8 @@ export default function GeneralCard(props) {
   const ariaLabel = { 'aria-label': 'description' };
 
   return (
-    <Card sx={{ maxWidth: 376, minWidth:260, marginBottom:"15px", boxShadow:'0', border:"0px", borderRadius:"15px",padding:"10px 20px", boxSizing:"border-box"}} onClick={props.onClick} >
+    <Card sx={{ maxWidth: 376, minWidth:260, marginBottom:"15px", boxShadow:'0', border:"0px", borderRadius:"15px",padding:"10px 20px", boxSizing:"border-box"}}  >
+      <Box onClick={onClick}>
       <CardHeader
         avatar={
             <Avatar alt="Remy Sharp" src="https://mui.com/static/images/avatar/2.jpg" variant="rounded" sx={{borderRadius:"15px"}}/>
@@ -55,16 +57,16 @@ export default function GeneralCard(props) {
       <CardMedia
         component="img"
         height="194"
-        image={props.img}
+        image={img}
         alt="Paella dish"
-        sx={{borderRadius:"10px", display:props.img ? "block" :"none"}}
+        sx={{borderRadius:"10px", display:img ? "block" :"none"}}
       />
       <CardContent>
         <Typography variant="body2" color="text.secondary">
-          This impressive paella is a perfect party dish and a fun meal to cook
-          together with your guests.
+          {post.data}
         </Typography>
       </CardContent>
+      </Box>
       <CardActions disableSpacing>
         <IconButton aria-label="add to favorites">
           <FavoriteIcon onClick={(e)=>{handleClick(e)}} />

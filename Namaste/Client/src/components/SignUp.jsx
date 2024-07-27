@@ -14,7 +14,7 @@ function SignUp(){
             formData.forEach((value, key) => {
                 data[key] = value;
             });
-             fetch('https://psychic-computing-machine-9wg4jggv64gfx9gr-8000.app.github.dev/api/v1/user/create-user', {
+             fetch('https://jubilant-xylophone-7wj4pjjq7p929vj-8000.app.github.dev/api/v1/user/create-user', {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',

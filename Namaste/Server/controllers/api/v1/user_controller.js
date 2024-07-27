@@ -1,5 +1,7 @@
 const User=require('../../../models/User');
+const Post=require('../../../models/Post')
 const jwt=require('jsonwebtoken');
+
 module.exports.createUser=async function(req, res){
     console.log(req.body);
     const newUser=new User(req.body);
@@ -31,4 +33,20 @@ module.exports.createSession=async function(req, res){
             message:"Internal Server Error"
         })
      }
+}
+module.exports.allPosts=async function(req, res){
+    try {
+        const userPosts=await Post.find({user:req.params.id});
+        const allPosts = await Post.find({user:{$ne:req.params.id}});
+
+        return res.status(200).json({
+            userPosts:userPosts,
+            allPosts:allPosts
+        })
+    } catch (error) {
+        console.log("error while find post of user :"+error);
+        return res.status(522).json({
+            error:error
+        })
+    }
 }
