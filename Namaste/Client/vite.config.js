@@ -6,7 +6,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'https://jubilant-xylophone-7wj4pjjq7p929vj-8000.app.github.dev',
+        target: 'https://potential-palm-tree-p95qp55vpp7h7vrv-8000.app.github.dev',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, ''),
       },

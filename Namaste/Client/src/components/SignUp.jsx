@@ -14,7 +14,7 @@ function SignUp(){
             formData.forEach((value, key) => {
                 data[key] = value;
             });
-             fetch('https://jubilant-xylophone-7wj4pjjq7p929vj-8000.app.github.dev/api/v1/user/create-user', {
+             fetch('https://potential-palm-tree-p95qp55vpp7h7vrv-8000.app.github.dev/api/v1/user/create-user', {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',

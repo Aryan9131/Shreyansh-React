@@ -16,7 +16,7 @@ import useImgPreview from '../hooks/handleImgPreview'
 import PostDrawer from './PostDrawer'
 import AddIcon from '@mui/icons-material/Add';
 
-export default function PostCard() {
+export default function PostCard({createPost}) {
     const [expanded, setExpanded] = React.useState(false);
     const imgRef=React.useRef(null);
     const handleExpandClick = () => {
@@ -52,7 +52,7 @@ export default function PostCard() {
                    <AddIcon  sx={{height:"15px", width:"15px"}}/>
                 </IconButton>
                 <IconButton aria-label="share">
-                   <PostDrawer/>
+                   <PostDrawer createPost={createPost}/>
                 </IconButton>
             </CardActions>
         </Card>

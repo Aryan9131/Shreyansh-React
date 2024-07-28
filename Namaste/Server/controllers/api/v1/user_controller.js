@@ -14,7 +14,6 @@ module.exports.createUser=async function(req, res){
 
 module.exports.createSession=async function(req, res){
      try {
-        console.log(req.body);
         const user= await User.findOne({email:req.body.email});
         if(!user || req.body.password!=user.password){
            return res.status(422).json({
@@ -24,7 +23,7 @@ module.exports.createSession=async function(req, res){
         return res.status(200).json({
            message:"SignIn successful !",
            data:{
-               token:jwt.sign(user.toJSON(), "Social", {expiresIn:"100000"})
+               token:jwt.sign(user.toJSON(), "Social", {expiresIn:"500000"})
            }
         })
      } catch (error) {

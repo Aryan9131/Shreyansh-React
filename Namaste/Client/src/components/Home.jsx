@@ -26,21 +26,45 @@ export default function Home({ handleCardClick, open, toggleDrawer }) {
   const [allPosts, setAllPosts] = useState([]);
   useEffect(() => {
     if (user) {
-      console.log('user is ' + user)
       fetchUserPosts();
     }
   }, [user]);
   const fetchUserPosts = async () => {
     try {
-      const response = await fetch(`https://jubilant-xylophone-7wj4pjjq7p929vj-8000.app.github.dev/api/v1/user/66841cdda168f8571ccdb89a/posts`);
+      const response = await fetch(`https://potential-palm-tree-p95qp55vpp7h7vrv-8000.app.github.dev/api/v1/user/${user._id}/posts`);
       const data = await response.json();
       setUserPosts(data.userPosts);
       setAllPosts(data.allPosts);
-      console.log(` all posts are : ${allPosts}`)
     } catch (error) {
       console.error('Error fetching posts:', error);
     }
   };
+    const handleCreatePost=(newPost)=>{
+      setUserPosts((prev) => [newPost, ...prev]);
+    }
+
+    const handleDeletePost = async (postId) => {
+      try {
+        const response = await fetch(`https://potential-palm-tree-p95qp55vpp7h7vrv-8000.app.github.dev/api/v1/post/delete-post/${postId}`, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+        
+        if (!response.ok) {
+          throw new Error('Failed to delete post');
+        }
+        
+        const data = await response.json();
+        if (data.status===200) {
+          setUserPosts((prevPosts) => prevPosts.filter(post => post._id !== postId));
+          console.log("post deleted successfully !")
+        }
+      } catch (error) {
+        console.error('Error deleting post:', error);
+      }
+    };
   return (
     <Box sx={{ flexGrow: 1, marginTop: "50px" }}>
       <Grid container spacing={2}>
@@ -72,10 +96,10 @@ export default function Home({ handleCardClick, open, toggleDrawer }) {
           {/* Repeat FeaturedStories with handleCardClick as necessary */}
         </Grid>
         <Grid item xs={12} sm={6} md={4} id="leftContent">
-          <PostCard />
+          <PostCard createPost={handleCreatePost} />
           {
             userPosts.map((post) => (
-              <Card post={post} img={"https://cdn.pixabay.com/photo/2017/09/25/13/12/puppy-2785074_640.jpg"} onClick={handleCardClick} />
+              <Card post={post} img={"https://cdn.pixabay.com/photo/2017/09/25/13/12/puppy-2785074_640.jpg"} deletePost={handleDeletePost} onClick={handleCardClick} />
             ))
           }
           {/* <Card img={"https://cdn.pixabay.com/photo/2023/07/15/08/43/labrador-8128379_640.jpg"} onClick={handleCardClick} />

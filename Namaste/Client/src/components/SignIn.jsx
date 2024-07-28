@@ -18,7 +18,6 @@ function SignIn(){
         });
         try {
             const response = await signInUser(data);
-            console.log(response);
             if (response.data.token) {
                 const token = response.data.token;
                 localStorage.setItem('token', token);

@@ -3,6 +3,9 @@ const postSchema= new mongoose.Schema({
     postType:{
         type:String
     },
+    img:{
+        type:String
+    },
     data:{
         type:String
     },
