@@ -29,7 +29,7 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
-export default function GeneralCard({ post, img, deletePost, onClick }) {
+export default function GeneralCard({ post, deletePost, onClick }) {
   const [expanded, setExpanded] = React.useState(false);
 
   const handleExpandClick = () => {
@@ -52,7 +52,7 @@ export default function GeneralCard({ post, img, deletePost, onClick }) {
         action={
           deletePost ? 
           <IconButton aria-label="settings">
-              <MoreIconToDelete postId={post._id} deletePost={deletePost} />
+              <MoreIconToDelete post={post} deletePost={deletePost} />
           </IconButton>
           : null   
         }
@@ -63,9 +63,9 @@ export default function GeneralCard({ post, img, deletePost, onClick }) {
         <CardMedia
           component="img"
           height="194"
-          image={post.img}
+          image={post.img.url}
           alt="Paella dish"
-          sx={{ borderRadius: "10px", display: img ? "block" : "none" }}
+          sx={{ borderRadius: "10px", display: post.img ? "block" : "none" }}
         />
         <CardContent>
           <Typography variant="body2" color="text.secondary">

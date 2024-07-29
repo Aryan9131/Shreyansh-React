@@ -1,4 +1,4 @@
-const BASE_URL = "https://potential-palm-tree-p95qp55vpp7h7vrv-8000.app.github.dev/api/v1";
+export const BASE_URL = "https://vigilant-barnacle-xqgjr94q5xf9vqw-8000.app.github.dev/api/v1";
 
 export const signUpUser = async (data) => {
     const response = await fetch(`${BASE_URL}/user/create-user`, {

@@ -14,94 +14,59 @@ import CameraAltIcon from '@mui/icons-material/CameraAlt';
 import useImgPreview from '../hooks/handleImgPreview'
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import TextField from '@mui/material/TextField';
+import {Typography} from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
+import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { BASE_URL } from '../api/userApi';
-import {Typography} from '@mui/material';
-
-export default function ResponsiveDialog({createPost}) {
+export default function UpdateDrawer({post}) {
     const [open, setOpen] = React.useState(false);
-    const [img, setImg] = React.useState("");
-    const [caption, setCaption] = React.useState("");
-    const [postType, setPostType] = React.useState("");
+    const [postType, setPostType] = React.useState(post.postType);
+    const [imgFile, setImgFile] = React.useState(null);
+    const [caption, setCaption] = React.useState(post.data);
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
     const imgRef = React.useRef(null);
-    const { handleMediaChange, mediaUrl, isVideo } = useImgPreview(null, null)
-    
+    const { handleMediaChange, mediaUrl, isVideo , clearMedia, setMedia} = useImgPreview(post.img.url, setImgFile)
+    const [closeIconVisible, setCloseIconVisible] = React.useState(true);
+
     let user = useSelector((state) => state.user);
     const handleClickOpen = () => {
+        setMedia(post.img.url)
         setOpen(true);
     };
-
+    useEffect(() => {
+        console.log("Updated imgFile:", imgFile);
+      }, [imgFile]);
     const handleClose = () => {
         setOpen(false);
     };
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        const formData = new FormData(e.target);
-        const data = new FormData();
-        formData.forEach((value, key) => {
-                if(key=='img'){
-                    setImg(value);
-                    data.append('file',value);
-                }
-        });
+    const handleSubmit=(e)=>{
+        e.preventDefault()
+        if(imgFile){
 
-        data.append('upload_preset','Social-App');
-        data.append('cloud_name',"anayak")
+        }else{
 
-        try {
-            const cloudinaryResponse = await fetch('https://api.cloudinary.com/v1_1/anayak/image/upload', {
-                method: 'POST',
-                body: data
-            });
-            if (!cloudinaryResponse.ok) {
-                throw new Error('Failed to upload image');
-            }
-
-            const cloudinaryData = await cloudinaryResponse.json();
-            const postData = {
-                postType: postType,
-                data: caption,
-                img:{
-                    url: cloudinaryData.url,
-                    id: cloudinaryData.public_id
-                },
-                user: user._id
-            };
-
-            const token = localStorage.getItem('token'); // Make sure 'token' is the string key
-
-            // Second fetch: Create post
-            if (cloudinaryResponse.ok) {
-                const createPostResponse = await fetch(`${BASE_URL}/post/create-post`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${token}`
-                    },
-                    body: JSON.stringify(postData)
-                });
-    
-                if (!createPostResponse.ok) {
-                    throw new Error('Failed to create post');
-                }
-        
-                const createPostData = await createPostResponse.json();
-                createPost(createPostData.post);
-            }
-            
-            handleClose();
-        } catch (error) {
-             console.log("error while posting post : " + error);
         }
-    };
-
+        // if imgFile is nul this means img is not changed so no need to upload
+        // img in cloudinary just set newImgObj's imgUrl to post.img.url and 
+        // imgId=post.img.id
+        // else delete the post.img.id (previous img of post fom cloudinary) and upload the image and set newImgObj's imgUrl to return cloudinary img url and id
+        const updatedPost={
+            postType:postType,
+            img:newImgUrl,
+            data:caption,
+        }
+        console.log(updatedPost)
+    }
+    const handleRemovePreview=()=>{
+        console.log("clicked handle");
+        setCloseIconVisible(false)
+        clearMedia();
+    }
     return (
         <React.Fragment>
-            <IconButton aria-label="share">
-                <Button variant="contained" onClick={handleClickOpen} sx={{ display: "flex", alignItems: "center" }}>share <KeyboardArrowRightIcon /></Button>
-            </IconButton>
+                <p onClick={handleClickOpen} >Edit</p>
             <Dialog
                 fullScreen={fullScreen}
                 open={open}
@@ -109,13 +74,13 @@ export default function ResponsiveDialog({createPost}) {
                 aria-labelledby="responsive-dialog-title"
             >
                 <DialogTitle id="responsive-dialog-title" sx={{textAlign:"center"}}>
-                    {"Create New Post"}
+                    {"Update Post"}
                 </DialogTitle>
                 <DialogContent>
-                    <form action="api/v1/user/post/create-post" method="post" id="post-form" onSubmit={handleSubmit}>
+                    <form action="api/v1/user/post/update-post" method="post" id="update-post-form" onSubmit={handleSubmit}>
                         <Box sx={{display:"flex", flexDirection:"column"}}>
                             <Box >
-                                <RadioGroup required setPostType={setPostType} />
+                                <RadioGroup required setPostType={setPostType} postType={postType} />
                             </Box>
                             <IconButton aria-label="add to favorites" sx={{ padding: "8px", backgroundColor: "rgba(210, 210, 210, 0.599)", borderRadius: "10px", margin: "15px 5px",width:"30px"}}>
                                 <input type="file" name="img" id="file-upload" placeholder="hello" ref={imgRef} hidden onChange={handleMediaChange} />
@@ -127,7 +92,8 @@ export default function ResponsiveDialog({createPost}) {
                                 label="Caption"
                                 multiline
                                 maxRows={4}
-                                onChange={(e)=>setCaption(e.target.value)}
+                                value={caption}   
+                                onChange={(e)=>setCaption(e.target.value)}                             
                             />
                         </Box>
                     </form>
@@ -135,15 +101,30 @@ export default function ResponsiveDialog({createPost}) {
                     <Box sx={{position:"relative"}}>
                         {isVideo ? <video src={mediaUrl} width="400"></video>
                             : <img src={mediaUrl} width="400" style={{ backgroundSize: "contain" }} />}
-                    
 
+{closeIconVisible && (
+              <CloseIcon
+                sx={{
+                  color: 'black',
+                  backgroundColor: 'rgba(150, 150, 200, 0.897)',
+                  borderRadius: '45%',
+                  fontSize: '30px',
+                  height: '30px',
+                  position: 'absolute',
+                  top: '1%',
+                  right: '2%',
+                  cursor: 'pointer',
+                }}
+                onClick={handleRemovePreview}
+              />
+            )}
                     </Box>
                 </DialogContent>
                 <DialogActions>
                     <Button autoFocus onClick={handleClose}>
                         close
                     </Button>
-                    <Button variant="outlined"  type="submit" form="post-form" autoFocus>
+                    <Button variant="outlined"  type="submit" form="update-post-form" autoFocus>
                         post
                     </Button>
                 </DialogActions>

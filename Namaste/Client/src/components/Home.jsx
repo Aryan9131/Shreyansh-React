@@ -11,7 +11,7 @@ import { NavLink } from "react-router-dom";
 import DrawerTemplate from './DrawerTemplate';
 import { useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
-
+import { BASE_URL } from '../api/userApi';
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
   ...theme.typography.body2,
@@ -31,7 +31,7 @@ export default function Home({ handleCardClick, open, toggleDrawer }) {
   }, [user]);
   const fetchUserPosts = async () => {
     try {
-      const response = await fetch(`https://potential-palm-tree-p95qp55vpp7h7vrv-8000.app.github.dev/api/v1/user/${user._id}/posts`);
+      const response = await fetch(`${BASE_URL}/user/${user._id}/posts`);
       const data = await response.json();
       setUserPosts(data.userPosts);
       setAllPosts(data.allPosts);
@@ -43,13 +43,14 @@ export default function Home({ handleCardClick, open, toggleDrawer }) {
       setUserPosts((prev) => [newPost, ...prev]);
     }
 
-    const handleDeletePost = async (postId) => {
+    const handleDeletePost = async (postId, imgId) => {
       try {
-        const response = await fetch(`https://potential-palm-tree-p95qp55vpp7h7vrv-8000.app.github.dev/api/v1/post/delete-post/${postId}`, {
+        const response = await fetch(`${BASE_URL}/post/delete-post/${postId}`, {
           method: 'DELETE',
           headers: {
             'Content-Type': 'application/json',
           },
+          body:JSON.stringify({imgId:imgId})
         });
         
         if (!response.ok) {
@@ -99,7 +100,7 @@ export default function Home({ handleCardClick, open, toggleDrawer }) {
           <PostCard createPost={handleCreatePost} />
           {
             userPosts.map((post) => (
-              <Card post={post} img={"https://cdn.pixabay.com/photo/2017/09/25/13/12/puppy-2785074_640.jpg"} deletePost={handleDeletePost} onClick={handleCardClick} />
+              <Card post={post}  deletePost={handleDeletePost} onClick={handleCardClick} />
             ))
           }
           {/* <Card img={"https://cdn.pixabay.com/photo/2023/07/15/08/43/labrador-8128379_640.jpg"} onClick={handleCardClick} />
@@ -110,7 +111,7 @@ export default function Home({ handleCardClick, open, toggleDrawer }) {
 
           {
             allPosts.map((post) => (
-              <Card post={post} img={"https://cdn.pixabay.com/photo/2017/09/25/13/12/puppy-2785074_640.jpg"} onClick={handleCardClick} />
+              <Card post={post}  onClick={handleCardClick} />
             ))
           }
           {/* <Card img={"https://cdn.pixabay.com/photo/2023/11/10/17/10/jack-russell-8379770_640.jpg"} onClick={handleCardClick} />

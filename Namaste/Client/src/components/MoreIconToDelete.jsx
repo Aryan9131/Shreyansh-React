@@ -4,25 +4,23 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { Box } from '@mui/material';
-import Typography from '@mui/material/Typography';
+import UpdateDrawer from './UpdateDrawer';
 
-const ITEM_HEIGHT = 10;
-
-export default function LongMenu({postId, deletePost}) {
+export default function LongMenu({post, deletePost}) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = async () => {
-    console.log(postId)
+    console.log(post)
     const response=await fetch('',)
     setAnchorEl(null);
   };
   
   const handleDelete=async ()=>{
     if(deletePost){
-      deletePost(postId);
+      deletePost(post._id, post.img.id);
     }
     handleClose()
   }
@@ -51,8 +49,8 @@ export default function LongMenu({postId, deletePost}) {
         <MenuItem onClick={handleDelete}>  
            Delete
         </MenuItem>
-        <MenuItem onClick={handleClose}>  
-           Edit
+        <MenuItem >  
+           <UpdateDrawer post={post}/>
         </MenuItem>
       </Menu>
     </Box>
