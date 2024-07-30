@@ -6,7 +6,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'https://vigilant-barnacle-xqgjr94q5xf9vqw-8000.app.github.dev',
+        target: 'https://crispy-space-spoon-rw5vp5596j9fxjxj-8000.app.github.dev',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, ''),
       },

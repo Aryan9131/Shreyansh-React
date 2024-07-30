@@ -5,5 +5,5 @@ const postController=require('../../../controllers/api/v1/post_controller');
 
 router.post('/create-post',passport.authenticate('jwt', {session:false}), postController.createPost);
 router.delete('/delete-post/:id', postController.deletePost);
-
+router.post('/update-post/:id',postController.updatePost)
 module.exports=router

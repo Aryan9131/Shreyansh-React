@@ -29,35 +29,78 @@ export default function UpdateDrawer({post}) {
     const imgRef = React.useRef(null);
     const { handleMediaChange, mediaUrl, isVideo , clearMedia, setMedia} = useImgPreview(post.img.url, setImgFile)
     const [closeIconVisible, setCloseIconVisible] = React.useState(true);
-
+    const [postChanged, setPostChanged]=React.useState(false);
     let user = useSelector((state) => state.user);
     const handleClickOpen = () => {
         setMedia(post.img.url)
         setOpen(true);
     };
-    useEffect(() => {
-        console.log("Updated imgFile:", imgFile);
-      }, [imgFile]);
     const handleClose = () => {
         setOpen(false);
     };
-    const handleSubmit=(e)=>{
-        e.preventDefault()
-        if(imgFile){
-
-        }else{
-
-        }
-        // if imgFile is nul this means img is not changed so no need to upload
+    const handleSubmit=async (e)=>{
+       try {
+        e.preventDefault();
+        let updatedPost={};
+        
+        // if imgFile is null this means img is not changed so no need to upload
         // img in cloudinary just set newImgObj's imgUrl to post.img.url and 
         // imgId=post.img.id
         // else delete the post.img.id (previous img of post fom cloudinary) and upload the image and set newImgObj's imgUrl to return cloudinary img url and id
-        const updatedPost={
-            postType:postType,
-            img:newImgUrl,
-            data:caption,
-        }
-        console.log(updatedPost)
+            let cloudinaryResponseStatus=false;
+            if(imgFile){
+                setPostChanged(true);
+                const data = new FormData();
+                data.append('file',imgFile);
+                data.append('upload_preset','Social-App');
+                data.append('cloud_name',"anayak");
+                const cloudinaryResponse = await fetch('https://api.cloudinary.com/v1_1/anayak/image/upload', {
+                    method: 'POST',
+                    body: data
+                });
+                cloudinaryResponseStatus=cloudinaryResponse.ok;
+                if (!cloudinaryResponse.ok) {
+                    throw new Error('Failed to upload image');
+                }
+    
+                const cloudinaryData = await cloudinaryResponse.json();
+                updatedPost={
+                    postType:postType,
+                    img:{
+                        url:cloudinaryData.url,
+                        id:cloudinaryData.public_id
+                    },
+                    data:caption
+                }
+            }else if(caption!==post.data || postType!==post.postType){
+                setPostChanged(true);
+                updatedPost={
+                    postType:postType,
+                    img:post.img,
+                    data:caption
+                }
+            }
+         if(postChanged && cloudinaryResponseStatus){
+            const updatePostResponse=await fetch(`${BASE_URL}/post/update-post/${post._id}`,{
+                method:'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body:JSON.stringify(updatedPost)
+            })
+
+            if (!updatePostResponse.ok) {
+                throw new Error('Failed to create post');
+            }
+    
+            const updatePostData = await updatePostResponse.json();
+            console.log("updated post"+ JSON.stringify(updatePostData));
+            handleClose();
+         }
+        
+       } catch (error) {
+         console.log("error while editing post : "+error)
+       }
     }
     const handleRemovePreview=()=>{
         console.log("clicked handle");
@@ -125,7 +168,7 @@ export default function UpdateDrawer({post}) {
                         close
                     </Button>
                     <Button variant="outlined"  type="submit" form="update-post-form" autoFocus>
-                        post
+                        update
                     </Button>
                 </DialogActions>
             </Dialog>

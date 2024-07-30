@@ -31,7 +31,13 @@ const ExpandMore = styled((props) => {
 
 export default function GeneralCard({ post, deletePost, onClick }) {
   const [expanded, setExpanded] = React.useState(false);
+  const createdAt = new Date(post.createdAt);
+  const today = new Date();
 
+  const isToday = createdAt.toDateString() === today.toDateString();
+  const displayTime = isToday
+    ? createdAt.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+    : createdAt.toLocaleDateString('en-US', { year: '2-digit', month: 'numeric', day: 'numeric' });
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
@@ -40,24 +46,24 @@ export default function GeneralCard({ post, deletePost, onClick }) {
   }
   const ariaLabel = { 'aria-label': 'description' };
 
-   
 
-   
+
+
   return (
-    <Card sx={{ maxWidth: 300, minWidth: {sx:260, md:300}, marginBottom: "15px", boxShadow: '0', border: "0px", borderRadius: "15px", padding: "10px 20px", boxSizing: "border-box" }}  >
+    <Card sx={{ maxWidth: 300, minWidth: { sx: 260, md: 300 }, marginBottom: "15px", boxShadow: '0', border: "0px", borderRadius: "15px", padding: "10px 20px", boxSizing: "border-box" }}  >
       <CardHeader
         avatar={
           <Avatar alt="Remy Sharp" src="https://mui.com/static/images/avatar/2.jpg" variant="rounded" sx={{ borderRadius: "15px" }} />
         }
         action={
-          deletePost ? 
-          <IconButton aria-label="settings">
+          deletePost ?
+            <IconButton aria-label="settings">
               <MoreIconToDelete post={post} deletePost={deletePost} />
-          </IconButton>
-          : null   
+            </IconButton>
+            : null
         }
         title="Aryan Nayak"
-        subheader="5 min ago"
+        subheader={displayTime}
       />
       <Box onClick={onClick}>
         <CardMedia

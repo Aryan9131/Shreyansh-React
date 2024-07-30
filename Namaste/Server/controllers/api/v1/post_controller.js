@@ -1,6 +1,7 @@
 const Post=require('../../../models/Post')
 const Comment=require('../../../models/Comment')
 const cloudinary=require('cloudinary').v2
+
 module.exports.allPosts=function(req, res){
   
 }
@@ -18,6 +19,29 @@ module.exports.createPost=async function(req, res){
             error:error
         })
     }
+}
+ 
+exports.updatePost=async function(req, res){
+     try {
+      let prePost=await Post.findOne({_id:req.params.id});
+      if(prePost){
+        const deletedImgresult = await cloudinary.uploader.destroy(prePost.img.id);
+      }
+      prePost.postType=req.body.postType;
+      prePost.img=req.body.img;
+      prePost.data=req.body.data;
+      await prePost.save();
+      return res.status(200).json({
+         message:"post Updated",
+         updatedPost:prePost
+      })
+     } catch (error) {
+       console.log("Error while updatng post : "+error)
+        return res.status(500).json({
+          message :"Not able to Update Post",
+          error :error
+        })
+     }
 }
 
 exports.deletePost = async (req, res) => {

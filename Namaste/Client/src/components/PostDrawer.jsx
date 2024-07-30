@@ -26,7 +26,7 @@ export default function ResponsiveDialog({createPost}) {
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
     const imgRef = React.useRef(null);
-    const { handleMediaChange, mediaUrl, isVideo } = useImgPreview(null, null)
+    const { handleMediaChange, mediaUrl, isVideo, clearMedia } = useImgPreview(null, null)
     
     let user = useSelector((state) => state.user);
     const handleClickOpen = () => {
@@ -90,7 +90,7 @@ export default function ResponsiveDialog({createPost}) {
                 const createPostData = await createPostResponse.json();
                 createPost(createPostData.post);
             }
-            
+            clearMedia();
             handleClose();
         } catch (error) {
              console.log("error while posting post : " + error);

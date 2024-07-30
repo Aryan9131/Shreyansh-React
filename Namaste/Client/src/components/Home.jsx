@@ -98,26 +98,19 @@ export default function Home({ handleCardClick, open, toggleDrawer }) {
         </Grid>
         <Grid item xs={12} sm={6} md={4} id="leftContent">
           <PostCard createPost={handleCreatePost} />
+          
           {
             userPosts.map((post) => (
               <Card post={post}  deletePost={handleDeletePost} onClick={handleCardClick} />
             ))
-          }
-          {/* <Card img={"https://cdn.pixabay.com/photo/2023/07/15/08/43/labrador-8128379_640.jpg"} onClick={handleCardClick} />
-          <Card img={"https://cdn.pixabay.com/photo/2023/08/18/15/02/dog-8198719_640.jpg"} onClick={handleCardClick} />
-          <Card img={"https://cdn.pixabay.com/photo/2022/02/09/20/52/labrador-retriever-7004193_640.jpg"} onClick={handleCardClick} /> */}
+          }   
         </Grid>
         <Grid item xs={12} sm={6} md={8} id="rightContent">
-
           {
             allPosts.map((post) => (
               <Card post={post}  onClick={handleCardClick} />
             ))
           }
-          {/* <Card img={"https://cdn.pixabay.com/photo/2023/11/10/17/10/jack-russell-8379770_640.jpg"} onClick={handleCardClick} />
-          <Card img={"https://cdn.pixabay.com/photo/2019/07/30/05/53/dog-4372036_640.jpg"} onClick={handleCardClick} />
-          <Card img={"https://cdn.pixabay.com/photo/2023/09/24/14/05/dog-8272860_640.jpg"} onClick={handleCardClick} />
-          <Card img={"https://cdn.pixabay.com/photo/2022/01/17/19/59/dog-6945696_640.jpg"} onClick={handleCardClick} /> */}
         </Grid>
         <Grid item xs={8} sm={4} md={3} sx={{ display: "flex", justifyContent: "center" }}>
           <DrawerTemplate open={open} toggleDrawer={toggleDrawer} />
