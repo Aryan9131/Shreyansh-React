@@ -20,7 +20,7 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
-export default function Home({ handleCardClick, open, toggleDrawer }) {
+export default function Home({ handleCardClick, open, toggleDrawer, clickedPost }) {
   let user = useSelector((state) => state.user);
   const [userPosts, setUserPosts] = useState([]);
   const [allPosts, setAllPosts] = useState([]);
@@ -101,19 +101,19 @@ export default function Home({ handleCardClick, open, toggleDrawer }) {
           
           {
             userPosts.map((post) => (
-              <Card post={post}  deletePost={handleDeletePost} onClick={handleCardClick} />
+              <Card post={post}  deletePost={handleDeletePost} onClick={()=>handleCardClick(post)} />
             ))
           }   
         </Grid>
         <Grid item xs={12} sm={6} md={8} id="rightContent">
           {
             allPosts.map((post) => (
-              <Card post={post}  onClick={handleCardClick} />
+              <Card post={post}  onClick={()=>handleCardClick(post)} />
             ))
           }
         </Grid>
         <Grid item xs={8} sm={4} md={3} sx={{ display: "flex", justifyContent: "center" }}>
-          <DrawerTemplate open={open} toggleDrawer={toggleDrawer} />
+          <DrawerTemplate open={open} toggleDrawer={toggleDrawer} clickedPost={clickedPost} />
         </Grid>
       </Grid>
 

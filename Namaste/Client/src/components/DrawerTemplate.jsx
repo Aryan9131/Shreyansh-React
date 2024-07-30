@@ -7,7 +7,8 @@ import Avatar from '@mui/material/Avatar';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
-export default function DrawerTemplate({open, toggleDrawer }) {
+export default function DrawerTemplate({open, toggleDrawer, clickedPost }) {
+  console.log("clickedPost : "+JSON.stringify(clickedPost))
   const list = () => (
     <Box
       sx={{ width: "100vw",height:"100vh", backgroundColor:"#1f1f21"}}
@@ -26,7 +27,7 @@ export default function DrawerTemplate({open, toggleDrawer }) {
           </Grid>
           <Grid item sm={12} sx={{display:"flex", flexDirection:'column', justifyContent:"space-evenly", alignItems:'center',boxSizing:"border-box"}}>
             <Box sx={{width:{xs:"100%", md:"70%" , lg:"60%"},boxSizing:"border-box", display:"flex", justifyContent:"center", margin:"20px 20px"}}>
-              <img src="https://cdn.pixabay.com/photo/2013/04/13/18/42/tower-103417_640.jpg" alt="Story" style={{width:"90%", height:"300px",borderRadius:"10px"}}/>
+              <img src={clickedPost.img ? clickedPost.img.url :''} alt="Story" style={{width:"90%", height:"300px",borderRadius:"10px"}}/>
             </Box>  
             <Box sx={{width:{xs:"100%", md:"70%" , lg:"60%"},display:"flex", flexDirection:"column", justifyContent:"flex-start", textAlign:"center",margin:"20px 20px"}}>
                 <h3>Post data here </h3>
@@ -37,7 +38,7 @@ export default function DrawerTemplate({open, toggleDrawer }) {
 
         <Grid item sm={11} md={4} sx={{backgroundColor:"red", borderTopLeftRadius:"10"}}>
           <Box sx={{padding:"20px"}}>
-            Hello
+            {clickedPost.data}
           </Box>
         </Grid>
       </Grid>

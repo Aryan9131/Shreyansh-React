@@ -18,16 +18,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MoreIconToDelete from './MoreIconToDelete'
 import Input from '@mui/material/Input';
 import SendIcon from '@mui/icons-material/Send';
-const ExpandMore = styled((props) => {
-  const { expand, ...other } = props;
-  return <IconButton {...other} />;
-})(({ theme, expand }) => ({
-  transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
-  marginLeft: 'auto',
-  transition: theme.transitions.create('transform', {
-    duration: theme.transitions.duration.shortest,
-  }),
-}));
+import FormDialog from './CommentDrawer'
 
 export default function GeneralCard({ post, deletePost, onClick }) {
   const [expanded, setExpanded] = React.useState(false);
@@ -44,7 +35,6 @@ export default function GeneralCard({ post, deletePost, onClick }) {
   function handleClick(e) {
     e.target.style.color = "red"
   }
-  const ariaLabel = { 'aria-label': 'description' };
 
 
 
@@ -86,28 +76,11 @@ export default function GeneralCard({ post, deletePost, onClick }) {
         <IconButton aria-label="share">
           <ShareIcon />
         </IconButton>
-        <ExpandMore
-          expand={expanded}
-          onClick={handleExpandClick}
-          aria-expanded={expanded}
-          aria-label="show more"
-        >
-          <ExpandMoreIcon />
-        </ExpandMore>
+
       </CardActions>
-      <Typography sx={{ display: "flex", alignItems: "center" }}>
-        <Input placeholder="Comment" inputProps={ariaLabel} sx={{ width: "90%" }} />
-        <SendIcon />
-      </Typography>
-      <Collapse in={expanded} timeout="auto" unmountOnExit>
-        <CardContent>
-          <Typography paragraph>Method:</Typography>
-          <Typography paragraph>
-            Heat 1/2 cup of the broth in a pot until simmering, add saffron and set
-            aside for 10 minutes.
-          </Typography>
-        </CardContent>
-      </Collapse>
+      <Box>
+         <FormDialog postComments={post.comments} postId={post._id}/>
+      </Box>
     </Card>
   );
 }

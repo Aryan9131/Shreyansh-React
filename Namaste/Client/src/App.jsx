@@ -15,7 +15,7 @@ const App = () => {
   const user = useSelector((state) => state.user);
 
   const [drawerOpen, setDrawerOpen] = React.useState(false);
-
+  const [clickedPost, setClickedPost] = React.useState({});
   const toggleDrawer = (open) => (event) => {
     if (event && event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
       return;
@@ -24,8 +24,9 @@ const App = () => {
     setDrawerOpen(open);
   };
 
-  const handleCardClick = () => {
+  const handleCardClick = (post) => {
     console.log("Card clicked"); // Debug log
+    setClickedPost(post);
     toggleDrawer(true)();
   };
 
@@ -36,7 +37,7 @@ const App = () => {
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/sign-in" element={<SignIn />} />
         <Route path="/" element={user ? <Layout /> : <Navigate to="/sign-up" />}>
-          <Route path="/" element={user ? <Home handleCardClick={handleCardClick} open={drawerOpen} toggleDrawer={toggleDrawer} /> : <Navigate to="/sign-up" />} />
+          <Route path="/" element={user ? <Home handleCardClick={handleCardClick} open={drawerOpen} toggleDrawer={toggleDrawer} clickedPost={clickedPost} /> : <Navigate to="/sign-up" />} />
           <Route path="/stories" element={user ? <Stories /> : <Navigate to="/sign-up" />} />
           <Route path="/events" element={user ? <Events handleCardClick={handleCardClick} open={drawerOpen} toggleDrawer={toggleDrawer} /> : <Navigate to="/sign-up" />} />
           <Route path="/messages" element={user ? <Messages /> : <Navigate to="/sign-up" />} />

@@ -35,7 +35,14 @@ module.exports.createSession=async function(req, res){
 }
 module.exports.allPosts=async function(req, res){
     try {
-        const userPosts=await Post.find({user:req.params.id});
+        const userPosts=await Post.find({user:req.params.id}).populate({
+            path:'comments',
+            populate:{
+              path:'user',
+              model:'User'
+            }
+        });
+        console.log(userPosts[0].comments);
         const allPosts = await Post.find({user:{$ne:req.params.id}});
 
         return res.status(200).json({
