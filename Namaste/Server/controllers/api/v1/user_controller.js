@@ -43,7 +43,13 @@ module.exports.allPosts=async function(req, res){
             }
         });
         console.log(userPosts[0].comments);
-        const allPosts = await Post.find({user:{$ne:req.params.id}});
+        const allPosts = await Post.find({user:{$ne:req.params.id}}).populate({
+            path:'comments',
+            populate:{
+              path:'user',
+              model:'User'
+            }
+        });;
 
         return res.status(200).json({
             userPosts:userPosts,

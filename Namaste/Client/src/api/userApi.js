@@ -1,4 +1,4 @@
-export const BASE_URL = "https://crispy-space-spoon-rw5vp5596j9fxjxj-8000.app.github.dev/api/v1";
+export const BASE_URL = "https://miniature-space-adventure-rw5vp5596642p5g4-8000.app.github.dev/api/v1";
 
 export const signUpUser = async (data) => {
     const response = await fetch(`${BASE_URL}/user/create-user`, {

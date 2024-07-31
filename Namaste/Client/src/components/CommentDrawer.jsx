@@ -17,10 +17,10 @@ import Divider from '@mui/material/Divider';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
-
-export default function FormDialog({postComments, postId}) {
-    if(postComments.length>0){
-        for(let comment of postComments){
+import MenuPopper from './MenuPopper';
+export default function FormDialog({ postComments, postId }) {
+    if (postComments.length > 0) {
+        for (let comment of postComments) {
             console.log(JSON.stringify(comment));
         }
     }
@@ -35,38 +35,38 @@ export default function FormDialog({postComments, postId}) {
         setOpen(false);
     };
 
-    const handleCommentSubmit=async (event) => {
-         try {
+    const handleCommentSubmit = async (event) => {
+        try {
             event.preventDefault();
             const formData = new FormData(event.currentTarget);
             const formJson = Object.fromEntries(formData.entries());
             const text = formJson.text;
-            
-            const createCommentResponse=await fetch(`${BASE_URL}/comment/create-comment`,{
-                method:"POST",
-                headers:{
+           
+            const createCommentResponse = await fetch(`${BASE_URL}/comment/create-comment`, {
+                method: "POST",
+                headers: {
                     'Content-Type': 'application/json'
                 },
-                body:JSON.stringify({
-                    data:text,
-                    post:postId,
-                    user:user._id
+                body: JSON.stringify({
+                    data: text,
+                    post: postId,
+                    user: user._id
                 })
             })
             if (!createCommentResponse.ok) {
                 throw new Error('Failed to create post');
             }
-            const createCommentResponseData=await createCommentResponse.json();
+            const createCommentResponseData = await createCommentResponse.json();
             console.log(JSON.stringify(createCommentResponseData))
             handleClose();
 
-         } catch (error) {
-            console.log("Error while creating Comment : "+error)
-         }
+        } catch (error) {
+            console.log("Error while creating Comment : " + error)
+        }
     }
 
     const ariaLabel = { 'aria-label': 'description' };
-
+    const [readOnlyValue, setIsReadOnlyValue]=React.useState(true)
 
     return (
         <React.Fragment>
@@ -83,53 +83,81 @@ export default function FormDialog({postComments, postId}) {
                 }}
             >
                 <DialogTitle>Post Comments</DialogTitle>
-                <DialogContent sx={{position:"relative"}} >
+                <DialogContent sx={{ position: "relative" }} >
                     <DialogContentText>
-                       <List sx={{ width: '100%', minWidth: 360,height:{xs:"100vh", sm:400, md:200}, bgcolor: 'background.paper' }}>
-                        {
-                           postComments.length>0
-                           ? 
-                           postComments.map((comment)=>{ 
-                            return (<>
-                              <ListItem alignItems="flex-start"> 
-                             <ListItemAvatar >
-                                <Avatar alt="Remy Sharp" sx={{ width: 34, height: 34 }} src="https://mui.com/static/images/avatar/3.jpg" />
-                            </ListItemAvatar>
-                            <ListItemText
-                                primary={comment.user.name}
-                                secondary={
-                                    <React.Fragment>
-                                    <Typography
-                                        sx={{ display: 'inline' }}
-                                        component="span"
-                                        variant="body2"
-                                        color="text.primary"
-                                    >
-                                    </Typography>
-                                    {comment.data}
-                                    </React.Fragment>
-                                 }
-                            />
-                            </ListItem>
-                            <Divider variant="inset" component="li" />
-                            </>)
-                           })
-                           :
-                          "Be the first to comment :)"
-                        }
-                      </List>
+                        <List sx={{ width: '100%', minWidth: 400, height: { xs: "100vh", sm: 400, md: 300 },boxSizing:"border-box",overflowY:"scroll" , bgcolor: 'background.paper' }}>
+                            {
+                                postComments.length > 0
+                                    ?
+                                    postComments.map((comment, key) => {
+                                        return (<>
+                                            <ListItem alignItems="flex-start" id={comment._id}>
+                                                <ListItemAvatar >
+                                                    <Avatar alt="Remy Sharp" sx={{ width: 34, height: 34 }} src="https://mui.com/static/images/avatar/3.jpg" />
+                                                </ListItemAvatar>
+                                                <ListItemText
+                                                    primary={comment.user ? comment.user.name : 'guest'}
+                                                    secondary={
+                                                        <React.Fragment>
+                                                            <Typography
+                                                                sx={{ display: 'inline' }}
+                                                                component="span"
+                                                                variant="body2"
+                                                                color="text.primary"
+                                                            >
+                                                            </Typography>
+                                                            <TextField
+                                                                id={comment._id+"_textField"}
+                                                                multiline
+                                                                maxRows={6}
+                                                                variant="standard"
+                                                                InputProps={{
+                                                                    readOnly: readOnlyValue,
+                                                                  }}
+                                                                 defaultValue={comment.data}
+                                                                 sx={{
+                                                                    width:"100%",
+                                                                    '& .MuiInput-underline:before': {
+                                                                      borderBottom: 'none',
+                                                                    },
+                                                                    '& .MuiInput-underline:hover:before': {
+                                                                      borderBottom: 'none',
+                                                                    },
+                                                                    '& .MuiInput-underline:after': {
+                                                                      borderBottom: 'none',
+                                                                    },
+                                                                    '& .MuiInput-underline :hover':{
+                                                                        borderBottom:'none'
+                                                                    }
+                                                                  }}
+                                                                />
+                                                                {!readOnlyValue? <Button>Submit</Button> : null}
+                                                        </React.Fragment>
+                                                    }
+                                                />
+
+                                               {/* to Edit the comments */}
+                                               {comment.user._id==user._id ?  <MenuPopper commentId={comment._id} setIsReadOnlyValue={setIsReadOnlyValue}/> : null}
+
+                                            </ListItem>
+                                            <Divider variant="inset" component="li" />
+                                        </>)
+                                    })
+                                    :
+                                    "Be the first to comment :)"
+                            }
+                        </List>
                     </DialogContentText>
                     <TextField
                         autoFocus
                         required
-                        margin="dense"
                         id="name"
                         name="text"
                         label="Comment"
                         type="text"
                         fullWidth
-                        variant="standard"
-                        sx={{position:"sticky",bottom:"-21px",marginBottom:"0px", backgroundColor:"whitesmoke"}}
+                        variant="outlined"
+                        sx={{ position: "sticky", bottom: "-21px", marginTop: "15px", backgroundColor: "whitesmoke" }}
                     />
                 </DialogContent>
                 <DialogActions>
