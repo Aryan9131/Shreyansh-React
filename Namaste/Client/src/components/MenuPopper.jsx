@@ -4,7 +4,7 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 
-export default function BasicMenu({commentId, setReadOnlyValue}) {
+export default function BasicMenu({commentId, handleReadOnlyStates}) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -15,7 +15,7 @@ export default function BasicMenu({commentId, setReadOnlyValue}) {
   };
 
   const handleEdit=()=>{
-    setReadOnlyValue(false)
+    handleReadOnlyStates(commentId, false)
     handleClose();
   }
   

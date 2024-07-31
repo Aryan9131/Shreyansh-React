@@ -18,6 +18,8 @@ import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
 import MenuPopper from './MenuPopper';
+import { useEffect } from 'react';
+
 export default function FormDialog({ postComments, postId }) {
     if (postComments.length > 0) {
         for (let comment of postComments) {
@@ -26,22 +28,43 @@ export default function FormDialog({ postComments, postId }) {
     }
     const [open, setOpen] = React.useState(false);
     let user = useSelector((state) => state.user);
-
+    const [readOnlyStates, setReadOnlyStates] = React.useState({});
+    const [updatedCommentData, setUpdatedCommentData] = React.useState('')
+    useEffect(() => {
+        let obj = {}
+        postComments.map((comment) => {
+            const commentId = comment._id
+            obj[commentId] = true;
+        })
+        setReadOnlyStates(obj)
+    }, [postComments])
     const handleClickOpen = () => {
         setOpen(true);
     };
 
-    const handleClose = () => {
+    const handleClose = (commentId) => {
+        if (commentId)
+            handleReadOnlyStates(commentId, true)
         setOpen(false);
     };
-
+    const handleReadOnlyStates = (commentId, value) => {
+        let obj = {};
+        obj[commentId] = value
+        setReadOnlyStates((prev) => ({ ...prev, ...obj }))
+        console.log("updated->" + JSON.stringify(readOnlyStates))
+    }
+    const handleEditCommentSubmit = (event, commentId) => {
+        event.preventDefault();
+        console.log(updatedCommentData);
+        handleClose(commentId);
+    };
     const handleCommentSubmit = async (event) => {
         try {
             event.preventDefault();
             const formData = new FormData(event.currentTarget);
             const formJson = Object.fromEntries(formData.entries());
             const text = formJson.text;
-           
+
             const createCommentResponse = await fetch(`${BASE_URL}/comment/create-comment`, {
                 method: "POST",
                 headers: {
@@ -66,7 +89,8 @@ export default function FormDialog({ postComments, postId }) {
     }
 
     const ariaLabel = { 'aria-label': 'description' };
-    const [readOnlyValue, setIsReadOnlyValue]=React.useState(true)
+
+
 
     return (
         <React.Fragment>
@@ -85,63 +109,71 @@ export default function FormDialog({ postComments, postId }) {
                 <DialogTitle>Post Comments</DialogTitle>
                 <DialogContent sx={{ position: "relative" }} >
                     <DialogContentText>
-                        <List sx={{ width: '100%', minWidth: 400, height: { xs: "100vh", sm: 400, md: 300 },boxSizing:"border-box",overflowY:"scroll" , bgcolor: 'background.paper' }}>
+                        <List sx={{ width: '100%', minWidth: 400, height: { xs: "100vh", sm: 400, md: 300 }, boxSizing: "border-box", overflowY: "scroll", bgcolor: 'background.paper' }}>
                             {
                                 postComments.length > 0
                                     ?
                                     postComments.map((comment, key) => {
-                                        return (<>
-                                            <ListItem alignItems="flex-start" id={comment._id}>
-                                                <ListItemAvatar >
-                                                    <Avatar alt="Remy Sharp" sx={{ width: 34, height: 34 }} src="https://mui.com/static/images/avatar/3.jpg" />
-                                                </ListItemAvatar>
-                                                <ListItemText
-                                                    primary={comment.user ? comment.user.name : 'guest'}
-                                                    secondary={
-                                                        <React.Fragment>
-                                                            <Typography
-                                                                sx={{ display: 'inline' }}
-                                                                component="span"
-                                                                variant="body2"
-                                                                color="text.primary"
-                                                            >
-                                                            </Typography>
-                                                            <TextField
-                                                                id={comment._id+"_textField"}
-                                                                multiline
-                                                                maxRows={6}
-                                                                variant="standard"
-                                                                InputProps={{
-                                                                    readOnly: readOnlyValue,
-                                                                  }}
-                                                                 defaultValue={comment.data}
-                                                                 sx={{
-                                                                    width:"100%",
-                                                                    '& .MuiInput-underline:before': {
-                                                                      borderBottom: 'none',
-                                                                    },
-                                                                    '& .MuiInput-underline:hover:before': {
-                                                                      borderBottom: 'none',
-                                                                    },
-                                                                    '& .MuiInput-underline:after': {
-                                                                      borderBottom: 'none',
-                                                                    },
-                                                                    '& .MuiInput-underline :hover':{
-                                                                        borderBottom:'none'
-                                                                    }
-                                                                  }}
-                                                                />
-                                                                {!readOnlyValue? <Button>Submit</Button> : null}
-                                                        </React.Fragment>
-                                                    }
-                                                />
+                                        const readOnly = readOnlyStates[comment._id]
+                                        console.log(JSON.stringify(readOnlyStates));
+                                        return (
+                                            <>
+                                                <ListItem alignItems="flex-start" id={comment._id}>
+                                                    <ListItemAvatar >
+                                                        <Avatar alt="Remy Sharp" sx={{ width: 34, height: 34 }} src="https://mui.com/static/images/avatar/3.jpg" />
+                                                    </ListItemAvatar>
+                                                    <ListItemText
+                                                        primary={comment.user ? comment.user.name : 'guest'}
+                                                        secondary={
+                                                            <React.Fragment>
+                                                                <Typography
+                                                                    sx={{ display: 'inline' }}
+                                                                    component="span"
+                                                                    variant="body2"
+                                                                    color="text.primary"
+                                                                >
+                                                                </Typography>
+                                                                <form onSubmit={(event) => handleEditCommentSubmit(event, comment._id)}>
+                                                                    <TextField
+                                                                        id={comment._id + "_textField"}
+                                                                        multiline
+                                                                        maxRows={6}
+                                                                        variant="standard"
+                                                                        InputProps={{
+                                                                            readOnly: readOnly,
+                                                                        }}
+                                                                        defaultValue={comment.data}
+                                                                        onChange={(e) => setUpdatedCommentData(e.target.value)}
+                                                                        sx={{
+                                                                            width: "100%",
+                                                                            '& .MuiInput-underline:before': {
+                                                                                borderBottom: 'none',
+                                                                            },
+                                                                            '& .MuiInput-underline:hover:before': {
+                                                                                borderBottom: 'none',
+                                                                            },
+                                                                            '& .MuiInput-underline:after': {
+                                                                                borderBottom: 'none',
+                                                                            },
+                                                                            '& .MuiInput-underline :hover': {
+                                                                                borderBottom: 'none'
+                                                                            }
+                                                                        }}
+                                                                    />
+                                                                    <Button size="small" type="submit" sx={{ width: "100%", display: readOnlyStates[comment._id] ? 'none' : 'flex', justifyContent: 'flex-end', textTransform: 'lowercase' }}>edit</Button>
+                                                                </form>
 
-                                               {/* to Edit the comments */}
-                                               {comment.user._id==user._id ?  <MenuPopper commentId={comment._id} setIsReadOnlyValue={setIsReadOnlyValue}/> : null}
+                                                            </React.Fragment>
+                                                        }
+                                                    />
 
-                                            </ListItem>
-                                            <Divider variant="inset" component="li" />
-                                        </>)
+                                                    {/* to Edit the comments */}
+                                                    {comment.user._id == user._id ? <MenuPopper commentId={comment._id} handleReadOnlyStates={handleReadOnlyStates} /> : null}
+
+                                                </ListItem>
+
+                                                <Divider variant="inset" component="li" />
+                                            </>)
                                     })
                                     :
                                     "Be the first to comment :)"
@@ -161,7 +193,7 @@ export default function FormDialog({ postComments, postId }) {
                     />
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleClose}>Cancel</Button>
+                    <Button onClick={() => handleClose()}>Cancel</Button>
                     <Button type="submit">comment</Button>
                 </DialogActions>
             </Dialog>
