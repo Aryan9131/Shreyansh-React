@@ -35,15 +35,15 @@ module.exports.createSession=async function(req, res){
 }
 module.exports.allPosts=async function(req, res){
     try {
-        const userPosts=await Post.find({user:req.params.id}).populate({
+        const userPosts=await Post.find({user:req.params.id}).populate('user').populate({
             path:'comments',
             populate:{
               path:'user',
               model:'User'
             }
         });
-        console.log(userPosts[0].comments);
-        const allPosts = await Post.find({user:{$ne:req.params.id}}).populate({
+        console.log(userPosts[0]);
+        const allPosts = await Post.find({user:{$ne:req.params.id}}).populate('user').populate({
             path:'comments',
             populate:{
               path:'user',

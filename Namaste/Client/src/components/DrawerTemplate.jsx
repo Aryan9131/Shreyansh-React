@@ -6,9 +6,19 @@ import Grid from '@mui/material/Grid';
 import Avatar from '@mui/material/Avatar';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import { Typography } from '@mui/material';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import Divider from '@mui/material/Divider';
+import ListItemText from '@mui/material/ListItemText';
+import ListItemAvatar from '@mui/material/ListItemAvatar';
+import TextField from '@mui/material/TextField';
+import { useSelector } from 'react-redux';
 
 export default function DrawerTemplate({open, toggleDrawer, clickedPost }) {
   console.log("clickedPost : "+JSON.stringify(clickedPost))
+  let user = useSelector((state) => state.user);
+
   const list = () => (
     <Box
       sx={{ width: "100vw",height:"100vh", backgroundColor:"#1f1f21"}}
@@ -21,7 +31,7 @@ export default function DrawerTemplate({open, toggleDrawer, clickedPost }) {
               Back
             </Button>
             <Box sx={{display:"flex", justifyContent:"space-between", alignItems:"center", paddingRight:"5px"}}>
-              <p style={{marginRight:"5px"}}>Aryan Nayak</p>
+              <p style={{marginRight:"9px"}}>{clickedPost.user ? clickedPost.user.name :"Guest"}</p>
               <Avatar alt="Remy Sharp" src="https://mui.com/static/images/avatar/2.jpg" variant="rounded" sx={{borderRadius:"15px"}} />
             </Box>
           </Grid>
@@ -31,14 +41,69 @@ export default function DrawerTemplate({open, toggleDrawer, clickedPost }) {
             </Box>  
             <Box sx={{width:{xs:"100%", md:"70%" , lg:"60%"},display:"flex", flexDirection:"column", justifyContent:"flex-start", textAlign:"center",margin:"20px 20px"}}>
                 <h3>Post data here </h3>
-               <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum, ipsum saepe ad veniam odit explicabo fugit quaerat, amet modi ratione voluptate, ex perferendis quidem nam optio consectetur praesentium! Aperiam, corporis.</p>
+                <Typography paragraph>{clickedPost.data}</Typography>
             </Box>
           </Grid>
         </Grid>
 
         <Grid item sm={11} md={4} sx={{backgroundColor:"red", borderTopLeftRadius:"10"}}>
           <Box sx={{padding:"20px"}}>
-            {clickedPost.data}
+            <List>
+               {
+                  clickedPost.comments 
+                  ? 
+                  clickedPost.comments.map((comment, key)=>{
+                      return (
+                        <>
+                            <ListItem alignItems="flex-start" id={comment._id}>
+                                <ListItemAvatar >
+                                    <Avatar alt="Remy Sharp" sx={{ width: 34, height: 34 }} src="https://mui.com/static/images/avatar/3.jpg" />
+                                </ListItemAvatar>
+                                <ListItemText
+                                    primary={comment.user ? comment.user.name : 'guest'}
+                                    secondary={
+                                        <React.Fragment>
+                                            <Typography
+                                                sx={{ display: 'inline' }}
+                                                component="span"
+                                                variant="body2"
+                                                color="text.primary"
+                                            >
+                                            </Typography>
+                                                <TextField
+                                                    id={comment._id + "_textField"}
+                                                    multiline
+                                                    maxRows={6}
+                                                    variant="standard"
+                                                    defaultValue={comment.data}
+                                                    sx={{
+                                                        width: "100%",
+                                                        '& .MuiInput-underline:before': {
+                                                            borderBottom: 'none',
+                                                        },
+                                                        '& .MuiInput-underline:hover:before': {
+                                                            borderBottom: 'none',
+                                                        },
+                                                        '& .MuiInput-underline:after': {
+                                                            borderBottom: 'none',
+                                                        },
+                                                        '& .MuiInput-underline :hover': {
+                                                            borderBottom: 'none'
+                                                        }
+                                                    }}
+                                                />
+                                        </React.Fragment>
+                                    }
+                                />
+                            </ListItem>
+
+                            <Divider variant="inset" component="li" />
+                        </>)
+                  })
+                  :
+                  null
+               }
+            </List>
           </Box>
         </Grid>
       </Grid>

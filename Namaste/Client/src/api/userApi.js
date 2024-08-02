@@ -1,4 +1,4 @@
-export const BASE_URL = "https://miniature-space-adventure-rw5vp5596642p5g4-8000.app.github.dev/api/v1";
+export const BASE_URL = "https://animated-waddle-rw5vp559r6gcxvvv-8000.app.github.dev/api/v1";
 
 export const signUpUser = async (data) => {
     const response = await fetch(`${BASE_URL}/user/create-user`, {
