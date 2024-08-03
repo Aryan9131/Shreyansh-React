@@ -78,7 +78,7 @@ export default function GeneralCard({ post, deletePost, onClick }) {
         </IconButton>
 
       </CardActions>
-      <Box>
+      <Box >
          <FormDialog postComments={post.comments} postId={post._id}/>
       </Box>
     </Card>

@@ -115,7 +115,6 @@ export default function FormDialog({ postComments, postId }) {
                                     ?
                                     postComments.map((comment, key) => {
                                         const readOnly = readOnlyStates[comment._id]
-                                        console.log(JSON.stringify(readOnlyStates));
                                         return (
                                             <>
                                                 <ListItem alignItems="flex-start" id={comment._id}>

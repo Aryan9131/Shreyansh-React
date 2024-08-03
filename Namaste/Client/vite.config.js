@@ -6,7 +6,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: `https://animated-waddle-rw5vp559r6gcxvvv-8000.app.github.dev`,
+        target: `https://zany-space-spork-j9pwqpp6qx53prp4-8000.app.github.dev`,
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, ''),
       },
