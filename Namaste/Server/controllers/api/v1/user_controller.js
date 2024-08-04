@@ -62,3 +62,22 @@ module.exports.allPosts=async function(req, res){
         })
     }
 }
+
+module.exports.addEventToUser=async function(req, res){
+    
+   try {
+    console.log(req.body)
+    const user=await User.findOne({_id: req.body.userId});
+    user.events.push(req.body.eventId);
+    await user.save();
+    return res.status(200).json({
+        message:"Event Added to user's interest List"
+    }) 
+   } catch (error) {
+      console.log("Error while adding event to interest list : "+error)
+      return res.status(500).json({
+        message :"Event can't be Added to interest list",
+        error :error
+      })
+   }
+}

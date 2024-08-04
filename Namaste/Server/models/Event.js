@@ -13,12 +13,20 @@ const eventSchema=new mongoose.Schema({
         type:mongoose.SchemaTypes.ObjectId,
         ref:"User"
     },
-    intrestedUsers:[
+    interestedUsers:[
         {
             type:mongoose.SchemaTypes.ObjectId,
             ref:"User"
         }
-    ]
+    ],
+    date: {
+        type: Date,
+        required: true
+    },
+    time: {
+        type: String,
+        required: true
+    }
 },{
     timestamps:true
 })

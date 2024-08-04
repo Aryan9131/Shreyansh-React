@@ -17,17 +17,16 @@ import { useSelector } from 'react-redux';
 import SendIcon from '@mui/icons-material/Send';
 
 export default function DrawerTemplate({open, toggleDrawer, clickedPost }) {
-  console.log("clickedPost : "+JSON.stringify(clickedPost))
   let user = useSelector((state) => state.user);
 
   const list = () => (
     <Box
-      sx={{ width: "90vw",height:"100vh", backgroundColor:"#1f1f21"}}
+      sx={{ width: "90vw",height:"100vh", backgroundColor:"whitesmoke"}}
       role="presentation"
     >
       <Grid container spacing={2} sx={{ flexDirection: { xs: "column", md: "row"}, boxSizing:"border-box", color:"whitesmoke"}}>
         <Grid item sm={11} md={8} sx={{display:"flex",justifyContent:"flex-start", flexDirection:"column", overflowY:"auto"}}>
-          <Grid item sm={12} sx={{display:"flex", justifyContent:"space-around",alignItems:"center",boxSizing:"border-box",maxHeight:"50px"}}>
+          <Grid item sm={12} sx={{display:"flex", justifyContent:"space-around",alignItems:"center",boxSizing:"border-box",maxHeight:"50px", backgroundColor:"whitesmoke"}}>
             <Button onClick={toggleDrawer(false)} sx={{ margin: 2 ,height:"40px"}}>
               Back
             </Button>
@@ -36,8 +35,8 @@ export default function DrawerTemplate({open, toggleDrawer, clickedPost }) {
               <Avatar alt="Remy Sharp" src="https://mui.com/static/images/avatar/2.jpg" variant="rounded" sx={{borderRadius:"15px"}} />
             </Box>   
           </Grid>
-          <Grid item sm={12} sx={{display:"flex", flexDirection:'column', alignItems:'center',boxSizing:"border-box", backgroundColor:"yellow"}}>
-            <Box sx={{width:{xs:"100%", md:"70%" , lg:"60%"},boxSizing:"border-box", display:"flex", justifyContent:"center", margin:"20px 20px", backgroundColor:"blue"}}>
+          <Grid item sm={12} sx={{display:"flex", flexDirection:'column', alignItems:'center',boxSizing:"border-box"}}>
+            <Box sx={{width:{xs:"100%", md:"70%" , lg:"60%"},boxSizing:"border-box", display:"flex", justifyContent:"center", margin:"20px 20px"}}>
               <img src={clickedPost.img ? clickedPost.img.url :''} alt="Story" style={{width:"90%", height:"320px",borderRadius:"10px"}}/>
             </Box>  
             <Box sx={{width:{xs:"100%", md:"70%" , lg:"60%"},display:"flex", flexDirection:"column", justifyContent:"flex-start", textAlign:"center",margin:"20px 20px"}}>
@@ -46,7 +45,7 @@ export default function DrawerTemplate({open, toggleDrawer, clickedPost }) {
           </Grid>
         </Grid>
 
-        <Grid item sm={11} md={4} sx={{display:"flex", flexDirection:"column",height:"100vh", backgroundColor:"whitesmoke", borderTopLeftRadius:"10", overflowY:"scroll"}}>
+        <Grid item sm={11} md={4} sx={{display:"flex", flexDirection:"column",height:"100vh", backgroundColor:"rgba(30, 31,33, 1)", borderTopLeftRadius:"10", overflowY:"scroll"}}>
           <Box sx={{padding:"20px",flex:1}}>
             <List>
                {
@@ -67,7 +66,7 @@ export default function DrawerTemplate({open, toggleDrawer, clickedPost }) {
                                                 sx={{ display: 'inline' }}
                                                 component="span"
                                                 variant="body2"
-                                                color="text.primary"
+                                                color="white"
                                             >
                                             </Typography>
                                                 <TextField
@@ -77,6 +76,7 @@ export default function DrawerTemplate({open, toggleDrawer, clickedPost }) {
                                                     variant="standard"
                                                     defaultValue={comment.data}
                                                     sx={{
+                                                        color:"white",
                                                         width: "100%",
                                                         '& .MuiInput-underline:before': {
                                                             borderBottom: 'none',
@@ -105,8 +105,8 @@ export default function DrawerTemplate({open, toggleDrawer, clickedPost }) {
                }
             </List>
           </Box>
-          <Box sx={{position:"sticky",bottom:"0px" ,backgroundColor:"whitesmoke"}} >
-              <form action="" method="post" style={{display:"flex", alignItems:"flex-end", flexWrap:"nowrap", justifyContent:"center" ,paddingBottom:"10px", backgroundColor:"white"}}>
+          <Box sx={{position:"sticky",bottom:"0px" ,backgroundColor:"rgba(30, 31,33, 1)"}} >
+              <form action="" method="post" style={{display:"flex", alignItems:"flex-end", flexWrap:"nowrap", justifyContent:"center" ,paddingBottom:"10px", backgroundColor:"rgba(30, 31,33, 1)"}}>
                   <TextField
                             autoFocus
                             required

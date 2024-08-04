@@ -5,4 +5,5 @@ const UserController=require('../../../controllers/api/v1/user_controller')
 router.post('/create-user',UserController.createUser)
 router.post('/create-session',UserController.createSession)
 router.get('/:id/posts', UserController.allPosts);
+router.post('/addEvent', UserController.addEventToUser);
 module.exports=router

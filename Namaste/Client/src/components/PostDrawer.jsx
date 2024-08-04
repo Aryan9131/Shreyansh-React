@@ -29,6 +29,7 @@ export default function ResponsiveDialog({ createPost }) {
     const [open, setOpen] = React.useState(false);
     const [img, setImg] = React.useState("");
     const [caption, setCaption] = React.useState("");
+    const [desc, setDesc] = React.useState("");
     const [postType, setPostType] = React.useState("");
     const [date, setDate] = React.useState(dayjs('2022-04-17'));
     const [time, setTime] = React.useState(dayjs('2022-04-17T15:30'));
@@ -82,6 +83,8 @@ export default function ResponsiveDialog({ createPost }) {
             if (postType == 'Event') {
                 postData.date= date.toISOString();
                 postData.time= time.toISOString();
+                postData.heading=caption;
+                postData.data=desc
             }
             const token = localStorage.getItem('token'); // Make sure 'token' is the string key
 
@@ -171,7 +174,7 @@ export default function ResponsiveDialog({ createPost }) {
                                         label="Description"
                                         multiline
                                         maxRows={4}
-                                        onChange={(e) => setCaption(e.target.value)}
+                                        onChange={(e) => setDesc(e.target.value)}
                                         sx={{ marginBottom: "10px" }}
                                     />
                                     :

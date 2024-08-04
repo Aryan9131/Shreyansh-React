@@ -10,17 +10,54 @@ import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import GroupAvatars from './AvatarGroup'
+import CheckIcon from '@mui/icons-material/Check';
+import { useSelector } from 'react-redux';
+import { BASE_URL } from '../api/userApi';
 
+export default function ImgMediaCard({handleCardClick, event, setUserEvents, userEvents}) {
+  const [interested, setInterested]=React.useState(false);
+  let user = useSelector((state) => state.user);
 
-export default function ImgMediaCard(props) {
+  const handleInterestedButtonClick=()=>{
+     setInterested((prev) => !prev);
+  }
+  React.useEffect(() => {
+    const updateUserEvents = async () => {
+      if (interested) {
+        setUserEvents((prev) => [event, ...prev]);
+        try {
+          const response = await fetch(`${BASE_URL}/user/addEvent`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              userId: user._id,
+              eventId: event._id
+            })
+          });
+          const data = await response.json();
+          console.log(data);
+        } catch (error) {
+          console.error('Error adding event:', error);
+        }
+      } else {
+        setUserEvents((prev) => prev.filter((prevEvent) => prevEvent._id !== event._id));
+      }
+      console.log("userEvents:", userEvents);
+    };
+
+    updateUserEvents();
+  }, [interested, event, setUserEvents, user._id, BASE_URL]);
   return (
-    <Card sx={{ maxWidth: 400, boxShadow:"none", borderRadius:"10px" ,margin:"20px 10px", boxSizing:"border-box", padding:"20px"}} onClick={props.onClick} >
+    <Card sx={{ maxWidth: 350, boxShadow:"none", borderRadius:"10px" ,margin:"20px 10px", boxSizing:"border-box", padding:"20px"}}  >
       <CardMedia
         component="img"
         alt="green iguana"
         height="180"
-        image="https://mui.com/static/images/cards/contemplative-reptile.jpg"
+        image={event ? event.img.url :""}
         sx={{borderRadius:"10px"}}
+        onClick={handleCardClick}
       />
 
       <CardHeader
@@ -35,19 +72,25 @@ export default function ImgMediaCard(props) {
           </IconButton>
         }
         title="Monday"
-        subheader="December 2019"
+        subheader={event.date}
       />
       <CardContent sx={{display:"flex", flexDirection:"column", textAlign:"center"}}>
         <Typography gutterBottom variant="h5" component="div">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta, placeat.
+          {event.heading}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-        Starts at 9:00am in Los Angeles
+        Starts at {event.time} in Los Angeles
         </Typography>
       </CardContent>
       <CardActions sx={{display:"flex", justifyContent:'space-between'}}>
-        <Button variant="contained" color="success" sx={{boxShadow:"none"}}>
-           intrested
+        <Button variant="contained"  sx={{boxShadow:"none", backgroundColor :interested ? "grey" : "green"}} onClick={handleInterestedButtonClick}>
+           {
+              interested
+               ? 
+                <span><CheckIcon/>Interested</span>
+               : 
+              "Interested" 
+           }
         </Button>
         <GroupAvatars/>
       </CardActions>
