@@ -34,14 +34,13 @@ export default function DrawerTemplate({open, toggleDrawer, clickedPost }) {
             <Box sx={{display:"flex", justifyContent:"space-between", alignItems:"center", paddingRight:"5px"}}>
               <p style={{marginRight:"9px"}}>{clickedPost.user ? clickedPost.user.name :"Guest"}</p>
               <Avatar alt="Remy Sharp" src="https://mui.com/static/images/avatar/2.jpg" variant="rounded" sx={{borderRadius:"15px"}} />
-            </Box>
+            </Box>   
           </Grid>
-          <Grid item sm={12} sx={{display:"flex", flexDirection:'column', justifyContent:"space-evenly", alignItems:'center',boxSizing:"border-box"}}>
-            <Box sx={{width:{xs:"100%", md:"70%" , lg:"60%"},boxSizing:"border-box", display:"flex", justifyContent:"center", margin:"20px 20px"}}>
-              <img src={clickedPost.img ? clickedPost.img.url :''} alt="Story" style={{width:"90%", height:"300px",borderRadius:"10px"}}/>
+          <Grid item sm={12} sx={{display:"flex", flexDirection:'column', alignItems:'center',boxSizing:"border-box", backgroundColor:"yellow"}}>
+            <Box sx={{width:{xs:"100%", md:"70%" , lg:"60%"},boxSizing:"border-box", display:"flex", justifyContent:"center", margin:"20px 20px", backgroundColor:"blue"}}>
+              <img src={clickedPost.img ? clickedPost.img.url :''} alt="Story" style={{width:"90%", height:"320px",borderRadius:"10px"}}/>
             </Box>  
             <Box sx={{width:{xs:"100%", md:"70%" , lg:"60%"},display:"flex", flexDirection:"column", justifyContent:"flex-start", textAlign:"center",margin:"20px 20px"}}>
-                <h3>Post data here </h3>
                 <Typography paragraph>{clickedPost.data}</Typography>
             </Box>
           </Grid>

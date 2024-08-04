@@ -39,7 +39,7 @@ const App = () => {
         <Route path="/" element={user ? <Layout /> : <Navigate to="/sign-up" />}>
           <Route path="/" element={user ? <Home handleCardClick={handleCardClick} open={drawerOpen} toggleDrawer={toggleDrawer} clickedPost={clickedPost} /> : <Navigate to="/sign-up" />} />
           <Route path="/stories" element={user ? <Stories /> : <Navigate to="/sign-up" />} />
-          <Route path="/events" element={user ? <Events handleCardClick={handleCardClick} open={drawerOpen} toggleDrawer={toggleDrawer} /> : <Navigate to="/sign-up" />} />
+          <Route path="/events" element={user ? <Events handleCardClick={handleCardClick} open={drawerOpen} toggleDrawer={toggleDrawer} clickedPost={clickedPost} /> : <Navigate to="/sign-up" />} />
           <Route path="/messages" element={user ? <Messages /> : <Navigate to="/sign-up" />} />
           <Route path="/profile" element={user ? <Profile /> : <Navigate to="/sign-up" />} />
         </Route>

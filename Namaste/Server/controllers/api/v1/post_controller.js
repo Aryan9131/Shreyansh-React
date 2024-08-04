@@ -1,4 +1,6 @@
 const Post=require('../../../models/Post')
+const Event=require('../../../models/Event')
+
 const Comment=require('../../../models/Comment')
 const cloudinary=require('cloudinary').v2
 
@@ -7,12 +9,21 @@ module.exports.allPosts=function(req, res){
 }
 module.exports.createPost=async function(req, res){
     try {
-        const newPost=new Post(req.body);
-        await newPost.save();
-        return res.status(200).json({
-            message:"Post Created !",
-            post:newPost
-        })
+         if(req.body.postType=='Post'){
+            const newPost=new Post(req.body);
+            await newPost.save();
+            return res.status(200).json({
+                message:"Post Created !",
+                post:newPost
+            })
+         }else{
+            const newEvent=new Event(req.body);
+            await newEvent.save();
+            return res.status(200).json({
+                message:"Event Created !",
+                post:newEvent
+            })
+         }
     } catch (error) {
         return res.status(404).json({
             message:"Could not Created Post !",
