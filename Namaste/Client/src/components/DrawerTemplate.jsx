@@ -39,7 +39,7 @@ export default function DrawerTemplate({open, toggleDrawer, clickedPost }) {
             <Box sx={{width:{xs:"100%", md:"70%" , lg:"60%"},boxSizing:"border-box", display:"flex", justifyContent:"center", margin:"20px 20px"}}>
               <img src={clickedPost.img ? clickedPost.img.url :''} alt="Story" style={{width:"90%", height:"320px",borderRadius:"10px"}}/>
             </Box>  
-            <Box sx={{width:{xs:"100%", md:"70%" , lg:"60%"},display:"flex", flexDirection:"column", justifyContent:"flex-start", textAlign:"center",margin:"20px 20px"}}>
+            <Box sx={{width:{xs:"100%", md:"70%" , lg:"60%"},display:"flex", flexDirection:"column", justifyContent:"flex-start", textAlign:"center",margin:"20px 20px", color :"black"}}>
                 <Typography paragraph>{clickedPost.data}</Typography>
             </Box>
           </Grid>

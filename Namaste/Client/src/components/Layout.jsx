@@ -14,10 +14,10 @@ function Layout() {
         <>
             <Box sx={{ flexGrow: 1, display: "flex", justifyContent: "center" }}>
                 <Grid container spacing={2} sx={{ flexDirection: { xs: "column", md: "row" } }}>
-                    <Grid item xs={2} >
+                    <Grid item xs={12} md={1.5} >
                         <NavBar />
                     </Grid>
-                    <Grid item xs={12} md={10} id="mainContent" sx={{ backgroundColor: "whitesmoke", width:"100%" }} >
+                    <Grid item xs={12} md={10.5} id="mainContent" sx={{ backgroundColor: "whitesmoke", width:"100%" }} >
                         <Search />
                         <Outlet   />
                     </Grid>

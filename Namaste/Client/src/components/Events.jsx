@@ -60,7 +60,7 @@ export default function Events({ handleCardClick, open, toggleDrawer, clickedPos
                                         <CardMedia
                                             component="img"
                                             height="140"
-                                            image={event.img.url}
+                                            image={event.img ? event.img.url : ""}
                                             alt="green iguana"
                                             sx={{borderRadius:"10px"}}
                                         />

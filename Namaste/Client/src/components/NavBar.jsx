@@ -9,9 +9,8 @@ import SocialMediaIcon from './Icon'
 import { NavLink } from "react-router-dom";
 
 function NavBar() {
-    const isMobile = window.innerWidth < 768;
     return (
-        <Box id="navbar" sx={{ height: { xs: "10vh", md: "100vh" }, width: { xs: "100vw", md: "65%" },flexDirection: { xs: "row", md: "column"} }}>
+        <Box id="navbar" sx={{ height: { xs: "10vh", md: "100vh" }, width: { xs: "100vw", md: "500px" },flexDirection: { xs: "row", md: "column"} }}>
             <div id="logo">
                 <SocialMediaIcon/>
             </div>
