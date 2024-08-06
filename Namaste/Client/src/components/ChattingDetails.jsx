@@ -3,6 +3,9 @@ import Grid from '@mui/material/Grid';
 import {Avatar} from "@mui/material";
 import CallIcon from '@mui/icons-material/Call';
 import VideocamIcon from '@mui/icons-material/Videocam';
+import cardData from '../api/chatData'
+import chatData from "../api/chatData";
+import ChatMsgComponent from "./ChatMsgComponent";
 const ChattingDetails = function ({clickedUser}) {
     return (
         <Grid container xs={12}>
@@ -19,7 +22,11 @@ const ChattingDetails = function ({clickedUser}) {
                 </Box>
             </Grid>
             <Grid item xs={12}>
-                
+                {
+                    chatData.map((msg)=>{
+                        return <ChatMsgComponent msg={msg}/>
+                    })
+                }
             </Grid>
         </Grid>
     )
