@@ -8,10 +8,10 @@ import chatData from "../api/chatData";
 import ChatMsgComponent from "./ChatMsgComponent";
 const ChattingDetails = function ({clickedUser}) {
     return (
-        <Grid container xs={12}>
-            <Grid item xs={12} sx={{backgroundColor:"purple",display:"flex",height:"50px", justifyContent:"space-between",alignItems:"center" }}>
+        <Grid container xs={12} sx={{overflowY:"auto", position:"relative"}}>
+            <Grid item xs={12} sx={{ marginBottom:"5px", position:"sticky",top:"0", backgroundColor:"rgba(104, 106,236, 1)",display:"flex",height:"55px", justifyContent:"space-between",alignItems:"center" }}>
                 <Box sx={{width:"60%", display: "flex", justifyContent: "flex-start", alignItems: "center", }}>
-                    <Avatar alt="Remy Sharp" src="https://mui.com/static/images/avatar/2.jpg" variant="rounded" sx={{ borderRadius: "15px", height: "45px", width: "55px" }} />
+                    <Avatar alt="Remy Sharp" src="https://mui.com/static/images/avatar/2.jpg" variant="rounded" sx={{ borderRadius: "15px", height: "40px", width: "50px" }} />
                     <Box sx={{ marginLeft: "30px" }}>
                         <p> {clickedUser} </p>
                     </Box>
@@ -21,7 +21,7 @@ const ChattingDetails = function ({clickedUser}) {
                     <VideocamIcon  className="navIcon" sx={{marginRight:"10px", color:"white"}}/>
                 </Box>
             </Grid>
-            <Grid item xs={12}>
+            <Grid item xs={12} sx={{marginTop:"20px"}}>
                 {
                     chatData.map((msg)=>{
                         return <ChatMsgComponent msg={msg}/>

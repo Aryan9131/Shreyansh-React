@@ -1,24 +1,44 @@
 import { Box } from "@mui/material"
-
+import {Typography} from "@mui/material"
+const TxtComponent=function({msg}){
+    return(
+        <Box sx={{margin:"10px 1px",backgroundColor:"whitesmoke", display:"flex", flexDirection:"column", justifyContent:"center", alignItems:msg.isSent ? "flex-end" : "flex-start"}}>
+            <Box >
+            <Typography sx={{backgroundColor:"#a2a6f5", padding:"10px 15px" ,borderRadius:"15px"}}>
+                 {msg.data}
+            </Typography>
+            </Box>
+        </Box>
+    )
+}
+const ImgComponent=function({msg}){
+    return(
+        <Box sx={{ zIndex:10 ,margin:"10px 1px", display:"flex", flexDirection:"column", justifyContent:"center", alignItems:msg.isSent ? "flex-end" : "flex-start"}}>
+            <Box sx={{border:"0.01px solid lightBlue", borderRadius:"15px"}} >
+            <Box >
+                <img src={msg.url} alt="img" style={{width :"200px", height:"150px", borderRadius:"15px"}}/>
+            </Box>
+            <Typography sx={{padding:"5px 15px"}}>
+                 {msg.data}
+            </Typography>
+            </Box>
+        </Box>
+    )
+}
 const ChatMsgComponent=function({msg}){
 
      switch (msg.type) {
         case 'img':
-            return( <h1>this is img</h1> )
-            break;
+            return( <ImgComponent msg={msg}/> )
         case 'text':
-            return( <h1>this is text</h1> )
-            break;
+            return(<TxtComponent msg={msg}/> )
         case 'pdf':
             return( <h1>this is pdf</h1> )
-            break;
         case 'mp3':
             return( <h1>this is mp3</h1> )
-            break;
                            
         default:
             return( <h1>NOTHING</h1> )
-            break;
      }
 }
 

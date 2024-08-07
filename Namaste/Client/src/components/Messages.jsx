@@ -18,12 +18,9 @@ const Item = styled(Paper)(({ theme }) => ({
 export default function BasicGrid() {
     const [clickedUser, setClickedUser]=React.useState(undefined)
     return (
-            <Grid container spacing={2} sx={{width:"100%", flexGrow: 1, height: "90vh"}}>
+            <Grid container spacing={2} sx={{width:"100%", flexGrow: 1, overflow:"hidden"}}>
                 <Grid item xs={12} md={4} >
                     <Grid xs={12} >
-                        <Grid xs={12} sx={{ margin: "20px 2px" }}>
-                            <h1>Inbox :</h1>
-                        </Grid>
                         <Grid item xs={12} sx={{ display: "flex", flexDirection: "column", justifyContent: "flex-start", margin: "10px 0px" }}>
                             <ul id="storiesNav">
                                 <li><NavLink className='storiesNavItems'>Direct Messages</NavLink></li>
@@ -31,8 +28,8 @@ export default function BasicGrid() {
                                 <li><NavLink className='storiesNavItems'>Archived</NavLink></li>
                             </ul>
                         </Grid>
-                        <Grid xs={12} sx={{ height: "80vh", overflowY: 'auto' }} id="messagesContainer">
-                            <Box sx={{borderRadius:"8px", margin: "5px 2px", padding: "14px 1px", display: "flex", justifyContent: "space-between", alignItems: "center", backgroundColor:clickedUser==="Aryan Nayak" ? "rgba(30, 31,33, 1)" : "whitesmoke" }}  onClick={()=>setClickedUser('Aryan Nayak')}>
+                        <Grid xs={12} sx={{ height: "70vh", overflowY: 'auto' }} id="messagesContainer">
+                            <Box sx={{borderRadius:"8px", margin: "5px 2px", padding: "14px 1px", display: "flex", justifyContent: "space-between", alignItems: "center", backgroundColor:clickedUser==="Aryan Nayak" ? "#a2a6f5" : "whitesmoke" }}  onClick={()=>setClickedUser('Aryan Nayak')}>
                                 <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                                     <Avatar alt="Remy Sharp" src="https://mui.com/static/images/avatar/2.jpg" variant="rounded" sx={{ borderRadius: "15px", height: "45px", width: "55px" }} />
                                     <Box sx={{ marginLeft: "30px" }}>
@@ -45,7 +42,7 @@ export default function BasicGrid() {
                                 </Box>
                             </Box>
 
-                            <Box sx={{borderRadius:"8px", margin: "5px 2px", padding: "14px 1px", display: "flex", justifyContent: "space-between", alignItems: "center",backgroundColor:clickedUser==="Riya Nayak" ? "rgba(30, 31,33, 1)" : "whitesmoke" }} onClick={()=>setClickedUser('Riya Nayak')}>
+                            <Box sx={{borderRadius:"8px", margin: "5px 2px", padding: "14px 1px", display: "flex", justifyContent: "space-between", alignItems: "center",backgroundColor:clickedUser==="Riya Nayak" ? "#a2a6f5" : "whitesmoke" }} onClick={()=>setClickedUser('Riya Nayak')}>
                                 <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                                     <Avatar alt="Remy Sharp" src="https://mui.com/static/images/avatar/2.jpg" variant="rounded" sx={{ borderRadius: "15px", height: "45px", width: "55px" }} />
                                     <Box sx={{ marginLeft: "30px" }}>
@@ -58,7 +55,7 @@ export default function BasicGrid() {
                                 </Box>
                             </Box>
 
-                            <Box sx={{borderRadius:"8px", margin: "5px 2px", padding: "14px 1px", display: "flex", justifyContent: "space-between", alignItems: "center",backgroundColor:clickedUser==="Sweety Nayak" ? "rgba(30, 31,33, 1)" : "whitesmoke" }} onClick={()=>setClickedUser('Sweety Nayak')}>
+                            <Box sx={{borderRadius:"8px", margin: "5px 2px", padding: "14px 1px", display: "flex", justifyContent: "space-between", alignItems: "center",backgroundColor:clickedUser==="Sweety Nayak" ? "#a2a6f5" : "whitesmoke" }} onClick={()=>setClickedUser('Sweety Nayak')}>
                                 <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                                     <Avatar alt="Remy Sharp" src="https://mui.com/static/images/avatar/2.jpg" variant="rounded" sx={{ borderRadius: "15px", height: "45px", width: "55px" }} />
                                     <Box sx={{ marginLeft: "30px" }}>
@@ -72,7 +69,7 @@ export default function BasicGrid() {
                                 </Box>
                             </Box>
 
-                            <Box sx={{borderRadius:"8px", margin: "5px 2px", padding: "14px 1px", display: "flex", justifyContent: "space-between", alignItems: "center",backgroundColor:clickedUser==="Yashu Nayak" ? "rgba(30, 31,33, 1)" : "whitesmoke" }} onClick={()=>setClickedUser('Yashu Nayak')}>
+                            <Box sx={{borderRadius:"8px", margin: "5px 2px", padding: "14px 1px", display: "flex", justifyContent: "space-between", alignItems: "center",backgroundColor:clickedUser==="Yashu Nayak" ? "#a2a6f5" : "whitesmoke" }} onClick={()=>setClickedUser('Yashu Nayak')}>
                                 <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                                     <Avatar alt="Remy Sharp" src="https://mui.com/static/images/avatar/2.jpg" variant="rounded" sx={{ borderRadius: "15px", height: "45px", width: "55px" }} />
                                     <Box sx={{ marginLeft: "30px" }}>
@@ -85,7 +82,7 @@ export default function BasicGrid() {
                                 </Box>
                             </Box>
 
-                            <Box sx={{borderRadius:"8px", margin: "5px 2px", padding: "14px 1px", display: "flex", justifyContent: "space-between", alignItems: "center", backgroundColor:clickedUser==="Darsh Nayak" ? "rgba(30, 31,33, 1)" : "whitesmoke" }} onClick={()=>setClickedUser('Darsh Nayak')}>
+                            <Box sx={{borderRadius:"8px", margin: "5px 2px", padding: "14px 1px", display: "flex", justifyContent: "space-between", alignItems: "center", backgroundColor:clickedUser==="Darsh Nayak" ? "#a2a6f5" : "whitesmoke" }} onClick={()=>setClickedUser('Darsh Nayak')}>
                                 <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                                     <Avatar alt="Remy Sharp" src="https://mui.com/static/images/avatar/2.jpg" variant="rounded" sx={{ borderRadius: "15px", height: "45px", width: "55px" }} />
                                     <Box sx={{ marginLeft: "30px" }}>
@@ -98,7 +95,7 @@ export default function BasicGrid() {
                                 </Box>
                             </Box>
 
-                            <Box sx={{borderRadius:"8px", margin: "5px 2px", padding: "14px 1px", display: "flex", justifyContent: "space-between", alignItems: "center", backgroundColor:clickedUser==="Putti Nayak" ? "rgba(30, 31,33, 1)" : "whitesmoke" }} onClick={()=>setClickedUser('Putti Nayak')}>
+                            <Box sx={{borderRadius:"8px", margin: "5px 2px", padding: "14px 1px", display: "flex", justifyContent: "space-between", alignItems: "center", backgroundColor:clickedUser==="Putti Nayak" ? "#a2a6f5" : "whitesmoke" }} onClick={()=>setClickedUser('Putti Nayak')}>
                                 <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                                     <Avatar alt="Remy Sharp" src="https://mui.com/static/images/avatar/2.jpg" variant="rounded" sx={{ borderRadius: "15px", height: "45px", width: "55px" }} />
                                     <Box sx={{ marginLeft: "30px" }}>
@@ -110,7 +107,7 @@ export default function BasicGrid() {
                                     <p>yesterday</p>
                                 </Box>
                             </Box>
-                            <Box sx={{borderRadius:"8px", margin: "5px 2px", padding: "14px 1px", display: "flex", justifyContent: "space-between", alignItems: "center",backgroundColor:clickedUser==="Shree Nayak" ? "rgba(30, 31,33, 1)" : "whitesmoke" }} onClick={()=>setClickedUser('Shree Nayak')}>
+                            <Box sx={{borderRadius:"8px", margin: "5px 2px", padding: "14px 1px", display: "flex", justifyContent: "space-between", alignItems: "center",backgroundColor:clickedUser==="Shree Nayak" ? "#a2a6f5" : "whitesmoke" }} onClick={()=>setClickedUser('Shree Nayak')}>
                                 <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                                     <Avatar alt="Remy Sharp" src="https://mui.com/static/images/avatar/2.jpg" variant="rounded" sx={{ borderRadius: "15px", height: "45px", width: "55px" }} />
                                     <Box sx={{ marginLeft: "30px" }}>
@@ -123,7 +120,7 @@ export default function BasicGrid() {
                                 </Box>
                             </Box>
 
-                            <Box sx={{borderRadius:"8px", margin: "5px 2px", padding: "14px 1px", display: "flex", justifyContent: "space-between", alignItems: "center",backgroundColor:clickedUser==="Vibhu Nayak" ? "rgba(30, 31,33, 1)" : "whitesmoke" }} onClick={()=>setClickedUser('Vibhu Nayak')}>
+                            <Box sx={{borderRadius:"8px", margin: "5px 2px", padding: "14px 1px", display: "flex", justifyContent: "space-between", alignItems: "center",backgroundColor:clickedUser==="Vibhu Nayak" ? "#a2a6f5" : "whitesmoke" }} onClick={()=>setClickedUser('Vibhu Nayak')}>
                                 <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                                     <Avatar alt="Remy Sharp" src="https://mui.com/static/images/avatar/2.jpg" variant="rounded" sx={{ borderRadius: "15px", height: "45px", width: "55px" }} />
                                     <Box sx={{ marginLeft: "30px" }}>
@@ -136,7 +133,7 @@ export default function BasicGrid() {
                                 </Box>
                             </Box>
 
-                            <Box sx={{borderRadius:"8px", margin: "5px 2px", padding: "14px 1px", display: "flex", justifyContent: "space-between", alignItems: "center",backgroundColor:clickedUser==="Ghappi Nayak" ? "rgba(30, 31,33, 1)" : "whitesmoke" }} onClick={()=>setClickedUser('Ghappi Nayak')}>
+                            <Box sx={{borderRadius:"8px", margin: "5px 2px", padding: "14px 1px", display: "flex", justifyContent: "space-between", alignItems: "center",backgroundColor:clickedUser==="Ghappi Nayak" ? "#a2a6f5" : "whitesmoke" }} onClick={()=>setClickedUser('Ghappi Nayak')}>
                                 <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                                     <Avatar alt="Remy Sharp" src="https://mui.com/static/images/avatar/2.jpg" variant="rounded" sx={{ borderRadius: "15px", height: "45px", width: "55px" }} />
                                     <Box sx={{ marginLeft: "30px" }}>
@@ -151,8 +148,8 @@ export default function BasicGrid() {
                         </Grid>
                     </Grid>
                 </Grid>
-                <Grid item xs={12} md={8}>
-                    <Box sx={{ height: "100vh", overflowY: 'auto', display: "flex", flexDirection: "column", justifyContent: "center", alignItems:"center" }}>
+                <Grid item xs={12} md={8} sx={{height:"90vh"}}>
+                    <Box sx={{ height: "100%", overflow:"hidden", display: "flex", flexDirection: "column", justifyContent: "center", alignItems:"center" }}>
                          {
                             clickedUser
                             ? 

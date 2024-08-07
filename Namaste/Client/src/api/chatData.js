@@ -1,9 +1,14 @@
 const chatData=[
     {
+        type:"text",
+        data:"text hi",
+        isSent:false
+    },
+    {
         type:"img",
         url:"http://res.cloudinary.com/anayak/image/upload/v1722322321/t4mlirctbrfnh1r8vtrg.jpg",
         data:"hi",
-        isSent:true
+        isSent:false
     },
     {
         type:"text",
@@ -30,7 +35,7 @@ const chatData=[
         type:"img",
         url:"http://res.cloudinary.com/anayak/image/upload/v1722322321/t4mlirctbrfnh1r8vtrg.jpg",
         data:"hi",
-        isSent:true
+        isSent:false
     },
     {
         type:"text",

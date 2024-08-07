@@ -6,7 +6,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: `https://reimagined-pancake-7q5vwq7vpc99v-8000.app.github.dev`,
+        target: `https://special-succotash-7wj4pjjq5jxcx4pp-8000.app.github.dev`,
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, ''),
       },
