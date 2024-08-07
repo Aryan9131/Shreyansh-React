@@ -18,9 +18,8 @@ const Item = styled(Paper)(({ theme }) => ({
 export default function BasicGrid() {
     const [clickedUser, setClickedUser]=React.useState(undefined)
     return (
-            <Grid container spacing={2} sx={{width:"100%", flexGrow: 1, overflow:"hidden"}}>
-                <Grid item xs={12} md={4} >
-                    <Grid xs={12} >
+            <Grid container spacing={2} sx={{width:"100%",height:"100vh", overflow:"hidden"}}>
+                <Grid item xs={12} md={4} sx={{height:"100%"}} >
                         <Grid item xs={12} sx={{ display: "flex", flexDirection: "column", justifyContent: "flex-start", margin: "10px 0px" }}>
                             <ul id="storiesNav">
                                 <li><NavLink className='storiesNavItems'>Direct Messages</NavLink></li>
@@ -28,7 +27,7 @@ export default function BasicGrid() {
                                 <li><NavLink className='storiesNavItems'>Archived</NavLink></li>
                             </ul>
                         </Grid>
-                        <Grid xs={12} sx={{ height: "70vh", overflowY: 'auto' }} id="messagesContainer">
+                        <Grid item xs={12} sx={{height:"100%",overflowY: 'scroll' }} id="messagesContainer">
                             <Box sx={{borderRadius:"8px", margin: "5px 2px", padding: "14px 1px", display: "flex", justifyContent: "space-between", alignItems: "center", backgroundColor:clickedUser==="Aryan Nayak" ? "#a2a6f5" : "whitesmoke" }}  onClick={()=>setClickedUser('Aryan Nayak')}>
                                 <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                                     <Avatar alt="Remy Sharp" src="https://mui.com/static/images/avatar/2.jpg" variant="rounded" sx={{ borderRadius: "15px", height: "45px", width: "55px" }} />
@@ -146,9 +145,8 @@ export default function BasicGrid() {
                                 </Box>
                             </Box>
                         </Grid>
-                    </Grid>
                 </Grid>
-                <Grid item xs={12} md={8} sx={{height:"90vh"}}>
+                <Grid item xs={12} md={8} sx={{height:"100%"}}>
                     <Box sx={{ height: "100%", overflow:"hidden", display: "flex", flexDirection: "column", justifyContent: "center", alignItems:"center" }}>
                          {
                             clickedUser

@@ -1,4 +1,4 @@
-import { Outlet } from 'react-router-dom'
+import { Outlet, useLocation  } from 'react-router-dom'
 import * as React from 'react';
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
@@ -9,7 +9,10 @@ import NavBar from '../components/NavBar'
 import Drawer from './Drawer';
 
 function Layout() {
-    
+
+    const location = useLocation();
+    const currentPath = location.pathname;
+
     return (
         <>
             <Box sx={{ flexGrow: 1, display: "flex", justifyContent: "center" }}>
@@ -18,7 +21,7 @@ function Layout() {
                         <NavBar />
                     </Grid>
                     <Grid item xs={12} md={10.5} id="mainContent" sx={{ backgroundColor: "whitesmoke", width:"100%" }} >
-                        <Search />
+                       {currentPath!='/messages' ? <Search /> :null} 
                         <Outlet   />
                     </Grid>
 
