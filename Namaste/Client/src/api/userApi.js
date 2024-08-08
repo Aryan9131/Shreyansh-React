@@ -1,4 +1,4 @@
-export const BASE_URL = "https://special-succotash-7wj4pjjq5jxcx4pp-8000.app.github.dev/api/v1";
+export const BASE_URL = "https://curly-carnival-vwj7qjj4rxj2q9-8000.app.github.dev/api/v1";
 
 export const signUpUser = async (data) => {
     const response = await fetch(`${BASE_URL}/user/create-user`, {

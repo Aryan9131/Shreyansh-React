@@ -32,6 +32,11 @@ body{
     padding: 8px 15px;
     border-radius: 10px;
 }
+.chatNavIcon{
+    background-color: rgba(255, 255, 255, 0.397);
+    padding: 8px 15px;
+    border-radius: 10px;
+}
 #search{
     display: flex;
     flex-direction: row;
@@ -145,4 +150,7 @@ body{
         margin-top: 10vh;
     }
     
+}
+#chattingDetailsId::-webkit-scrollbar{
+    display:none
 }

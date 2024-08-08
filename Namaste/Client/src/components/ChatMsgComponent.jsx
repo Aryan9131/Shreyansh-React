@@ -2,9 +2,9 @@ import { Box } from "@mui/material"
 import {Typography} from "@mui/material"
 const TxtComponent=function({msg}){
     return(
-        <Box sx={{margin:"10px 1px",backgroundColor:"whitesmoke", display:"flex", flexDirection:"column", justifyContent:"center", alignItems:msg.isSent ? "flex-end" : "flex-start"}}>
+        <Box sx={{margin:"10px 1px",backgroundColor:"rgba(239, 242,249, 1)", display:"flex", flexDirection:"column", justifyContent:"center", alignItems:msg.isSent ? "flex-end" : "flex-start"}}>
             <Box >
-            <Typography sx={{backgroundColor:"#a2a6f5", padding:"10px 15px" ,borderRadius:"15px"}}>
+            <Typography sx={{backgroundColor:msg.isSent ? "rgba(104, 106,236, 1)":"white", padding:"6px 15px" ,borderRadius:"10px", color:msg.isSent ? "white" :"grey"}}>
                  {msg.data}
             </Typography>
             </Box>
