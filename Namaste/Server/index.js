@@ -1,4 +1,7 @@
 const express=require('express');
+const { createServer } = require('node:http');
+const { Server } = require('socket.io');
+
 const db=require('./config/mongoose');
 const cors=require('cors');
 const passport=require('passport');
@@ -7,6 +10,10 @@ const cloudinary = require('cloudinary').v2;
 const dotenv =require('dotenv')
 const app=express();
 const port=8000;
+const server=createServer(app);
+
+const io = new Server(server);
+
 
 dotenv.config();
 app.use(express.urlencoded({ extended: true }));
@@ -22,11 +29,15 @@ cloudinary.config({
 
 app.use('/',require('./routes'))
 
-app.listen(port, (err)=>{
+io.on('connection', (socket) => {
+    console.log('socket -> '+socket.handshake)
+    console.log('a user connected'+socket.id);
+  });
+
+server.listen(port, (err) => {
     if(err){
         console.log(`error which listening server : ${err}`)
     }else{
         console.log(`server is listening at port : ${port}`)
     }
-
-})
+});

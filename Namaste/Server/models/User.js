@@ -39,7 +39,9 @@ const userSchema=new mongoose.Schema({
             type:mongoose.SchemaTypes.ObjectId,
         }
     ],
-   
+    status:{
+        type:Boolean
+    }
 })
 
 const User=mongoose.model('User', userSchema);
