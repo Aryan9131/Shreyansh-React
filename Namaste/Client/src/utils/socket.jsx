@@ -1,21 +1,11 @@
 import io from 'socket.io-client'
-import { createContext, useContext, useMemo } from 'react'
-import {BASE_URL} from '../api/chatData'
 
-const SocketContext=createContext();
- 
-const getSocket=()=>useContext(SocketContext);
+let socket;
+const connectSocket=(user_id)=>{
+    socket= io("https://fictional-chainsaw-46p9wpp4gj9f65-8000.app.github.dev",{
+        query:`user_id = ${user_id}`
+    });
+    console.log("Socket connected frontend !")
+} 
 
-const SocketProvider=({children})=>{
-    const socket = useMemo(()=>{
-        io(BASE_URL)
-    })
-
-   return(
-       <SocketContext.Provider value={socket}>
-           {children}
-       </SocketContext.Provider>
-   )
-}
-
-export {SocketProvider, getSocket}
+export {socket, connectSocket}

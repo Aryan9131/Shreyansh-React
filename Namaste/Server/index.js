@@ -12,7 +12,15 @@ const app=express();
 const port=8000;
 const server=createServer(app);
 
-const io = new Server(server);
+const io = new Server(server, {
+    cors: {
+        origin: [
+            "https://fictional-chainsaw-46p9wpp4gj9f65-8000.app.github.dev",
+            "https://fictional-chainsaw-46p9wpp4gj9f65-5173.app.github.dev"
+        ],
+        methods: ['GET', 'POST']
+    }
+});
 
 
 dotenv.config();
@@ -29,10 +37,14 @@ cloudinary.config({
 
 app.use('/',require('./routes'))
 
-io.on('connection', (socket) => {
-    console.log('socket -> '+socket.handshake)
+io.on('connection', async (socket) => {
+    const user_id=socket.handshake.query["user_id"];
+    const socket_id=socket.id
     console.log('a user connected'+socket.id);
-  });
+    if(Boolean(user_id)){
+        await User.findByIdAndUpdate(user_id, {socket_id})
+    }
+});
 
 server.listen(port, (err) => {
     if(err){

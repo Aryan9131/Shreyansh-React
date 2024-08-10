@@ -6,6 +6,8 @@ import Grid from '@mui/material/Grid';
 import { NavLink } from 'react-router-dom';
 import Avatar from '@mui/material/Avatar';
 import ChattingDetails from './ChattingDetails'
+import { useSelector } from 'react-redux';
+import { socket, connectSocket } from '../utils/socket';
 
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -17,6 +19,13 @@ const Item = styled(Paper)(({ theme }) => ({
 
 export default function BasicGrid() {
     const [clickedUser, setClickedUser] = React.useState(undefined)
+    let user = useSelector((state) => state.user);
+    let user_id=user._id;
+    React.useEffect(()=>{
+        if(!socket){
+            connectSocket(user_id)
+        }
+    },[])
     return (
         <Grid container spacing={2} sx={{ width: "100%", height: "100vh", overflow: "hidden" }}>
             <Grid item xs={12} md={3.5} sx={{ height: "100%" }} >

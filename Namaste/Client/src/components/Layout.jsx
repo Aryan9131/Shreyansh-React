@@ -7,7 +7,6 @@ import Grid from '@mui/material/Grid';
 import Search from '../components/Search';
 import NavBar from '../components/NavBar'
 import Drawer from './Drawer';
-
 function Layout() {
 
     const location = useLocation();

@@ -41,6 +41,9 @@ const userSchema=new mongoose.Schema({
     ],
     status:{
         type:Boolean
+    },
+    socket_id:{
+        type:String
     }
 })
 
