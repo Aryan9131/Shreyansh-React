@@ -22,10 +22,19 @@ export default function BasicGrid() {
     let user = useSelector((state) => state.user);
     let user_id=user._id;
     React.useEffect(()=>{
-        if(!socket){
+        if(user){
+            window.onload=function(){
+                if(!window.location.hash){
+                    window.location=window.location + "#loaded";
+                    window.location.reload()
+                }
+            }
+             if(!socket){
             connectSocket(user_id)
         }
-    },[])
+        }
+       
+    },[user, socket])
     return (
         <Grid container spacing={2} sx={{ width: "100%", height: "100vh", overflow: "hidden" }}>
             <Grid item xs={12} md={3.5} sx={{ height: "100%" }} >

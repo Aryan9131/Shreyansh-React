@@ -11,10 +11,11 @@ const ops={
 
 passport.use(new PassportJWT(ops, async function(jwt_payload, done){
        try {
-         console.log(ops.jwtFromRequest)
+          console.log(ops.jwtFromRequest)
           const user=await User.findOne({_id:jwt_payload._id});
           console.log(user)
           if(!user){
+             console.log("User not found in jwt Authentication !")
              return done(null , false);
           }else{
             return done(null , user);
