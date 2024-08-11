@@ -15,8 +15,8 @@ const server=createServer(app);
 const io = new Server(server, {
     cors: {
         origin: [
-            "https://cuddly-space-xylophone-p95qp55vjpw264v7-8000.app.github.dev",
-            "https://cuddly-space-xylophone-p95qp55vjpw264v7-5173.app.github.dev"
+            "https://fluffy-halibut-9wg4jggv77gcq66-8000.app.github.dev",
+            "https://fluffy-halibut-9wg4jggv77gcq66-5173.app.github.dev"
         ],
         methods: ['GET', 'POST']
     }

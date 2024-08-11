@@ -6,7 +6,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: `https://cuddly-space-xylophone-p95qp55vjpw264v7-8000.app.github.dev`,
+        target: `https://fluffy-halibut-9wg4jggv77gcq66-8000.app.github.dev`,
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, ''),
       },

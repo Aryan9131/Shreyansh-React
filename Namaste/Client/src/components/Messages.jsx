@@ -8,7 +8,9 @@ import Avatar from '@mui/material/Avatar';
 import ChattingDetails from './ChattingDetails'
 import { useSelector } from 'react-redux';
 import { socket, connectSocket } from '../utils/socket';
-
+import { Divider } from '@mui/material';
+import DonutLargeOutlinedIcon from '@mui/icons-material/DonutLargeOutlined';
+import FriendsDialog from './FriendsDialog'
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
     ...theme.typography.body2,
@@ -38,13 +40,21 @@ export default function BasicGrid() {
     return (
         <Grid container spacing={2} sx={{ width: "100%", height: "100vh", overflow: "hidden" }}>
             <Grid item xs={12} md={3.5} sx={{ height: "100%" }} >
-                <Grid item xs={12} sx={{ display: "flex", flexDirection: "column", justifyContent: "flex-start", marginTop: "10px" }}>
-                    <ul id="storiesNav">
+                 <Grid item xs={12} sx={{ display: "flex",justifyContent:"space-between", marginTop: "10px", marginBottom:"15px" }}>
+                       <h2>Chats</h2>
+                       <Box sx={{flex:1, display:"flex", justifyContent:"flex-end", color:"rgba(79, 79, 79, 1)"}}>
+                           <FriendsDialog/>
+                           <DonutLargeOutlinedIcon sx={{margin:"0px 10px"}}/>
+                       </Box>
+                 </Grid>
+                <Grid item xs={12} sx={{ borderRadius:"10px", backgroundColor:"black",padding:"12px 5px", display: "flex", flexDirection: "column", justifyContent: "center", alignItems:"center", marginTop: "10px", marginBottom:"10px" }}>
+                    <ul style={{display:"flex", justifyContent:"space-between", listStyle:"none"}}>
                         <li><NavLink className='storiesNavItems'>Direct</NavLink></li>
                         <li><NavLink className='storiesNavItems'>Group </NavLink></li>
                         <li><NavLink className='storiesNavItems'>Archived</NavLink></li>
                     </ul>
                 </Grid>
+                <Divider/>
                 <Grid item xs={12} sx={{ height: "100%", overflowY: 'scroll' }} id="messagesContainer">
                     <Box sx={{ borderRadius: "8px", margin: "5px 2px", padding: "14px 1px", display: "flex", justifyContent: "space-between", alignItems: "center", backgroundColor: clickedUser === "Riya Nayak" ? "#a2a6f5" : "whitesmoke" }} onClick={() => setClickedUser('Riya Nayak')}>
                         <Avatar alt="Remy Sharp" src="https://mui.com/static/images/avatar/2.jpg" sx={{ height: "40px", width: "40px" }} />
