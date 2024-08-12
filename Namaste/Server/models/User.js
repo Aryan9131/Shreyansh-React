@@ -44,6 +44,11 @@ const userSchema=new mongoose.Schema({
     },
     socket_id:{
         type:String
+    },
+    friendStatus:{
+        type:"String",
+        enum:['pending', 'true', 'false'],
+        default:"false"
     }
 })
 

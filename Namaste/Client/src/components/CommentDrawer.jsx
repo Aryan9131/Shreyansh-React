@@ -21,11 +21,6 @@ import MenuPopper from './MenuPopper';
 import { useEffect } from 'react';
 
 export default function FormDialog({ postComments, postId }) {
-    if (postComments.length > 0) {
-        for (let comment of postComments) {
-            console.log(JSON.stringify(comment));
-        }
-    }
     const [open, setOpen] = React.useState(false);
     let user = useSelector((state) => state.user);
     const [readOnlyStates, setReadOnlyStates] = React.useState({});
@@ -51,11 +46,9 @@ export default function FormDialog({ postComments, postId }) {
         let obj = {};
         obj[commentId] = value
         setReadOnlyStates((prev) => ({ ...prev, ...obj }))
-        console.log("updated->" + JSON.stringify(readOnlyStates))
     }
     const handleEditCommentSubmit = (event, commentId) => {
         event.preventDefault();
-        console.log(updatedCommentData);
         handleClose(commentId);
     };
     const handleCommentSubmit = async (event) => {
@@ -80,7 +73,6 @@ export default function FormDialog({ postComments, postId }) {
                 throw new Error('Failed to create post');
             }
             const createCommentResponseData = await createCommentResponse.json();
-            console.log(JSON.stringify(createCommentResponseData))
             handleClose();
 
         } catch (error) {

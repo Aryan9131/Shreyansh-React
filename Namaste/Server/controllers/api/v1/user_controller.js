@@ -106,10 +106,10 @@ module.exports.getAllFriends=async function(req, res){
     try {
         const user_id=req.user._id
         console.log("userId in getAllFriends : "+user_id);
-        const friends=await User.find({_id:user_id}).populate('friends');
+        const user=await User.find({_id:user_id}).populate('friends');
         return res.status(200).json({
             message:"found All friends",
-            data : friends,
+            data : user.friends,
             status:"success"
         })
     } catch (error) {

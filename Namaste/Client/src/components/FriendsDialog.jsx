@@ -9,10 +9,14 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 import GroupAddOutlinedIcon from '@mui/icons-material/GroupAddOutlined';
 import { Tabs, Tab, Box } from '@mui/material';
+import TabContext from '@mui/lab/TabContext';
+import TabList from '@mui/lab/TabList';
+import TabPanel from '@mui/lab/TabPanel';
+import ListItems from './ListItems'
 
-export default function FriendsDialog() {
+export default function FriendsDialog({ allFriends, allUsers, allRequests }) {
   const [open, setOpen] = React.useState(false);
-  const [tabValue, setTabValue] = React.useState("");
+  const [tabValue, setTabValue] = React.useState("friends");
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
 
@@ -24,9 +28,15 @@ export default function FriendsDialog() {
     setOpen(false);
   };
 
+  const handleTabChange=(event, newValue)=>{
+     setTabValue(newValue)
+  }
+
+
+
   return (
     <React.Fragment>
-         <GroupAddOutlinedIcon onClick={handleClickOpen}/>
+      <GroupAddOutlinedIcon onClick={handleClickOpen} />
       <Dialog
         fullScreen={fullScreen}
         open={open}
@@ -36,16 +46,26 @@ export default function FriendsDialog() {
         {/* Tabs component in Material-UI automatically passes two arguments to the onChange event handler:
         event: The event object that triggered the change.
         newValue: The index or value of the newly selected tab. */}
-            <Box sx={{ borderBottom: 1, borderColor: 'divider',backgroundColor:"red"}}>
-                <Tabs value={tabValue} onChange={()=>setTabValue(newValue)} aria-label="navigation tabs">
-                    <Tab label="Requests" value='1' />
-                    <Tab label="Friends" value='2'/>
-                    <Tab label="Explore" value='3'/>
-                </Tabs>
+        <Box sx={{ width: '100%', typography: 'body1' }}>
+          <TabContext value={tabValue}>
+            <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+              <TabList onChange={handleTabChange} aria-label="lab API tabs example">
+                <Tab label="Freinds" value="friends" />
+                <Tab label="Requests" value="requests" />
+                <Tab label="Explore" value="explore" />
+              </TabList>
             </Box>
-        <DialogContent>
-            
-        </DialogContent>
+              <TabPanel value="friends">
+                <ListItems listValues={allFriends} type={tabValue}/>
+              </TabPanel>
+              <TabPanel value="requests">
+                <ListItems listValues={allRequests} type={tabValue}/>
+              </TabPanel>
+              <TabPanel value="explore">
+                <ListItems listValues={allUsers} type={tabValue}/>
+              </TabPanel>
+          </TabContext>
+        </Box>
       </Dialog>
     </React.Fragment>
   );

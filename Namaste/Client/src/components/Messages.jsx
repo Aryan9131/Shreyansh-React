@@ -15,179 +15,99 @@ import { BASE_URL } from '../api/userApi';
 
 export default function BasicGrid() {
     const [clickedUser, setClickedUser] = React.useState(undefined)
-    const [allUsers, setAllUsers]=React.useState([]);
-    const [allFriends, setAllFriends]=React.useState([]);
-    const [allRequests, setAllRequests]=React.useState([]);
+    const [allUsers, setAllUsers] = React.useState([]);
+    const [allFriends, setAllFriends] = React.useState([]);
+    const [allRequests, setAllRequests] = React.useState([]);
     let user = useSelector((state) => state.user);
-    let user_id=user._id;
-    React.useEffect(()=>{
-        if(user){
-            window.onload=function(){
-                if(!window.location.hash){
-                    window.location=window.location + "#loaded";
+    let user_id = user._id;
+    React.useEffect(() => {
+        if (user) {
+            window.onload = function () {
+                if (!window.location.hash) {
+                    window.location = window.location + "#loaded";
                     window.location.reload()
                 }
             }
-             if(!socket){
-              connectSocket(user_id)
+            if (!socket) {
+                connectSocket(user_id)
             }
-        } 
-        const getUserDetails=async ()=>{
+        }
+        const getUserDetails = async () => {
             const token = localStorage.getItem('token'); // Make sure 'token' is the string key
 
-            const getAllUsersResponse=await fetch(`${BASE_URL}/user/get-users`)
-            const getAllUSersData=await getAllUsersResponse.json();
-            setAllUsers(getAllUSersData);
+            const getAllUsersResponse = await fetch(`${BASE_URL}/user/get-users`)
+            const getAllUSersData = await getAllUsersResponse.json();
+            setAllUsers(getAllUSersData.data);
 
-            const getAllUserFriendsResponse=await fetch(`${BASE_URL}/user/get-friends`,{
-                method:"Get",
+            const getAllUserFriendsResponse = await fetch(`${BASE_URL}/user/get-friends`, {
+                method: "Get",
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token}`
                 }
             })
-            const getAllUserFriendsData=await getAllUserFriendsResponse.json();
-            setAllFriends(getAllUserFriendsData);
+            const getAllUserFriendsData = await getAllUserFriendsResponse.json();
+            setAllFriends(getAllUserFriendsData.data);
 
-            const getAllFriendRequestsResponse=await fetch(`${BASE_URL}/user/get-friend-request`,{
-                method:"Get",
+            const getAllFriendRequestsResponse = await fetch(`${BASE_URL}/user/get-friend-request`, {
+                method: "Get",
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token}`
                 }
             })
-            const getAllFriendRequestsData=await getAllFriendRequestsResponse.json();
-            setAllRequests(getAllFriendRequestsData);
-        }  
+            const getAllFriendRequestsData = await getAllFriendRequestsResponse.json();
+            setAllRequests(getAllFriendRequestsData.data);
+        }
         getUserDetails();
-    },[user, socket])
+        console.log("allUsers :--> "+JSON.stringify(allUsers));
+        console.log("allFrineds :-->"+JSON.stringify(allFriends));
+        console.log("allRequests :-->"+JSON.stringify(allRequests));
+
+    }, [user, socket])
     return (
         <Grid container spacing={2} sx={{ width: "100%", height: "100vh", overflow: "hidden" }}>
             <Grid item xs={12} md={3.5} sx={{ height: "100%" }} >
-                 <Grid item xs={12} sx={{ display: "flex",justifyContent:"space-between", marginTop: "10px", marginBottom:"15px" }}>
-                       <h2>Chats</h2>
-                       <Box sx={{flex:1, display:"flex", justifyContent:"flex-end", color:"rgba(79, 79, 79, 1)"}}>
-                           <FriendsDialog/>
-                           <DonutLargeOutlinedIcon sx={{margin:"0px 10px"}}/>
-                       </Box>
-                 </Grid>
-                <Grid item xs={12} sx={{ borderRadius:"10px", backgroundColor:"black",padding:"12px 5px", display: "flex", flexDirection: "column", justifyContent: "center", alignItems:"center", marginTop: "10px", marginBottom:"10px" }}>
-                    <ul style={{display:"flex", justifyContent:"space-between", listStyle:"none"}}>
+                <Grid item xs={12} sx={{ display: "flex", justifyContent: "space-between", marginTop: "10px", marginBottom: "15px" }}>
+                    <h2>Chats</h2>
+                    <Box sx={{ flex: 1, display: "flex", justifyContent: "flex-end", color: "rgba(79, 79, 79, 1)" }}>
+                        <FriendsDialog allFriends={allFriends} allUsers={allUsers} allRequests={allRequests}/>
+                        <DonutLargeOutlinedIcon sx={{ margin: "0px 10px" }} />
+                    </Box>
+                </Grid>
+                <Grid item xs={12} sx={{ borderRadius: "10px", backgroundColor: "black", padding: "12px 5px", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", marginTop: "10px", marginBottom: "10px" }}>
+                    <ul style={{ display: "flex", justifyContent: "space-between", listStyle: "none" }}>
                         <li><NavLink className='storiesNavItems'>Direct</NavLink></li>
                         <li><NavLink className='storiesNavItems'>Group </NavLink></li>
                         <li><NavLink className='storiesNavItems'>Archived</NavLink></li>
                     </ul>
                 </Grid>
-                <Divider/>
+                <Divider />
                 <Grid item xs={12} sx={{ height: "100%", overflowY: 'scroll' }} id="messagesContainer">
-                    <Box sx={{ borderRadius: "8px", margin: "5px 2px", padding: "14px 1px", display: "flex", justifyContent: "space-between", alignItems: "center", backgroundColor: clickedUser === "Riya Nayak" ? "#a2a6f5" : "whitesmoke" }} onClick={() => setClickedUser('Riya Nayak')}>
-                        <Avatar alt="Remy Sharp" src="https://mui.com/static/images/avatar/2.jpg" sx={{ height: "40px", width: "40px" }} />
-                        <Box sx={{ flex: "1", display: "flex", flexDirection: "column" }}>
-                            <Box sx={{ marginLeft: "30px", display: "flex", justifyContent: "space-between" }}>
-                                <p> Riya Nayak </p>
-                                <sub style={{color:"grey"}}>yesterday</sub>
-                            </Box>
-                            <Box sx={{ marginLeft: "30px", marginRight: "10px" }}>
-                                <p>thanks for sharing ?</p>
-                            </Box>
-                        </Box>
-
-                    </Box>
-
-                    <Box sx={{ borderRadius: "8px", margin: "5px 2px", padding: "14px 1px", display: "flex", justifyContent: "space-between", alignItems: "center", backgroundColor: clickedUser === "Sweety Nayak" ? "#a2a6f5" : "whitesmoke" }} onClick={() => setClickedUser('Sweety Nayak')}>
-                        <Avatar alt="Remy Sharp" src="https://mui.com/static/images/avatar/2.jpg"  sx={{ height: "40px", width: "40px" }}  />
-                        <Box sx={{ flex: "1", display: "flex", flexDirection: "column" }}>
-                            <Box sx={{ marginLeft: "30px", display: "flex", justifyContent: "space-between" }}>
-                                <p> Sweety Nayak </p>
-                                <sub style={{color:"grey"}}>yesterday</sub>
-                            </Box>
-                            <Box sx={{ marginLeft: "30px", marginRight: "10px" }}>
-                                <p>thanks for sharing ?</p>
-                            </Box>
-                        </Box>
-                    </Box>
-
-                    <Box sx={{ borderRadius: "8px", margin: "5px 2px", padding: "14px 1px", display: "flex", justifyContent: "space-between", alignItems: "center", backgroundColor: clickedUser === "Sudeep Nayak" ? "#a2a6f5" : "whitesmoke" }} onClick={() => setClickedUser('Sudeep Nayak')}>
-                        <Avatar alt="Remy Sharp" src="https://mui.com/static/images/avatar/2.jpg"  sx={{ height: "40px", width: "40px" }}  />
-                        <Box sx={{ flex: "1", display: "flex", flexDirection: "column" }}>
-                            <Box sx={{ marginLeft: "30px", display: "flex", justifyContent: "space-between" }}>
-                                <p> Sudeep Nayak </p>
-                                <sub style={{color:"grey"}}>yesterday</sub>
-                            </Box>
-                            <Box sx={{ marginLeft: "30px", marginRight: "10px" }}>
-                                <p>thanks for sharing ?</p>
-                            </Box>
-                        </Box>
-                    </Box>
-
-                    <Box sx={{ borderRadius: "8px", margin: "5px 2px", padding: "14px 1px", display: "flex", justifyContent: "space-between", alignItems: "center", backgroundColor: clickedUser === "Aryan Nayak" ? "#a2a6f5" : "whitesmoke" }} onClick={() => setClickedUser('Aryan Nayak')}>
-                        <Avatar alt="Remy Sharp" src="https://mui.com/static/images/avatar/2.jpg"  sx={{ height: "40px", width: "40px" }}  />
-                        <Box sx={{ flex: "1", display: "flex", flexDirection: "column" }}>
-                            <Box sx={{ marginLeft: "30px", display: "flex", justifyContent: "space-between" }}>
-                                <p> Aryan Nayak </p>
-                                <sub style={{color:"grey"}}>yesterday</sub>
-                            </Box>
-                            <Box sx={{ marginLeft: "30px", marginRight: "10px" }}>
-                                <p>thanks for sharing ?</p>
-                            </Box>
-                        </Box>
-                    </Box>
-                    <Box sx={{ borderRadius: "8px", margin: "5px 2px", padding: "14px 1px", display: "flex", justifyContent: "space-between", alignItems: "center", backgroundColor: clickedUser === "Darsh Nayak" ? "#a2a6f5" : "whitesmoke" }} onClick={() => setClickedUser('Darsh Nayak')}>
-                        <Avatar alt="Remy Sharp" src="https://mui.com/static/images/avatar/2.jpg"  sx={{ height: "40px", width: "40px" }}  />
-                        <Box sx={{ flex: "1", display: "flex", flexDirection: "column" }}>
-                            <Box sx={{ marginLeft: "30px", display: "flex", justifyContent: "space-between" }}>
-                                <p> Darsh Nayak </p>
-                                <sub style={{color:"grey"}}>yesterday</sub>
-                            </Box>
-                            <Box sx={{ marginLeft: "30px", marginRight: "10px" }}>
-                                <p>thanks for sharing ?</p>
-                            </Box>
-                        </Box>
-                    </Box>
-
-
-                    <Box sx={{ borderRadius: "8px", margin: "5px 2px", padding: "14px 1px", display: "flex", justifyContent: "space-between", alignItems: "center", backgroundColor: clickedUser === "Vibhu Nayak" ? "#a2a6f5" : "whitesmoke" }} onClick={() => setClickedUser('Vibhu Nayak')}>
-                        <Avatar alt="Remy Sharp" src="https://mui.com/static/images/avatar/2.jpg"  sx={{ height: "40px", width: "40px" }}  />
-                        <Box sx={{ flex: "1", display: "flex", flexDirection: "column" }}>
-                            <Box sx={{ marginLeft: "30px", display: "flex", justifyContent: "space-between" }}>
-                                <p> Vibhu Nayak </p>
-                                <sub style={{color:"grey"}}>yesterday</sub>
-                            </Box>
-                            <Box sx={{ marginLeft: "30px", marginRight: "10px" }}>
-                                <p>thanks for sharing ?</p>
-                            </Box>
-                        </Box>
-                    </Box>
-
-                    <Box sx={{ borderRadius: "8px", margin: "5px 2px", padding: "14px 1px", display: "flex", justifyContent: "space-between", alignItems: "center", backgroundColor: clickedUser === "Shree Nayak" ? "#a2a6f5" : "whitesmoke" }} onClick={() => setClickedUser('Shree Nayak')}>
-                        <Avatar alt="Remy Sharp" src="https://mui.com/static/images/avatar/2.jpg"  sx={{ height: "40px", width: "40px" }}  />
-                        <Box sx={{ flex: "1", display: "flex", flexDirection: "column" }}>
-                            <Box sx={{ marginLeft: "30px", display: "flex", justifyContent: "space-between" }}>
-                                <p> Shree Nayak </p>
-                                <sub style={{color:"grey"}}>yesterday</sub>
-                            </Box>
-                            <Box sx={{ marginLeft: "30px", marginRight: "10px" }}>
-                                <p>thanks for sharing ?</p>
-                            </Box>
-                        </Box>
-                    </Box>
-
-                    <Box sx={{ borderRadius: "8px", margin: "5px 2px", padding: "14px 1px", display: "flex", justifyContent: "space-between", alignItems: "center", backgroundColor: clickedUser === "Ghappi Nayak" ? "#a2a6f5" : "whitesmoke" }} onClick={() => setClickedUser('Ghappi Nayak')}>
-                        <Avatar alt="Remy Sharp" src="https://mui.com/static/images/avatar/2.jpg"  sx={{ height: "40px", width: "40px" }}  />
-                        <Box sx={{ flex: "1", display: "flex", flexDirection: "column" }}>
-                            <Box sx={{ marginLeft: "30px", display: "flex", justifyContent: "space-between" }}>
-                                <p> Ghappi Nayak </p>
-                                <sub style={{color:"grey"}}>yesterday</sub>
-                            </Box>
-                            <Box sx={{ marginLeft: "30px", marginRight: "10px" }}>
-                                <p>thanks for sharing ?</p>
-                            </Box>
-                        </Box>
-                    </Box>
+                    {
+                        allFriends 
+                        ?
+                            allFriends.map((friend) => {
+                                <Box sx={{ borderRadius: "8px", margin: "5px 2px", padding: "14px 1px", display: "flex", justifyContent: "space-between", alignItems: "center", backgroundColor: clickedUser === "Ghappi Nayak" ? "#a2a6f5" : "whitesmoke" }} onClick={() => setClickedUser('Ghappi Nayak')}>
+                                    <Avatar alt="Remy Sharp" src="https://mui.com/static/images/avatar/2.jpg" sx={{ height: "40px", width: "40px" }} />
+                                    <Box sx={{ flex: "1", display: "flex", flexDirection: "column" }}>
+                                        <Box sx={{ marginLeft: "30px", display: "flex", justifyContent: "space-between" }}>
+                                            <p> {friend.name}</p>
+                                            <sub style={{ color: "grey" }}>yesterday</sub>
+                                        </Box>
+                                        <Box sx={{ marginLeft: "30px", marginRight: "10px" }}>
+                                            <p>thanks for sharing ?</p>
+                                        </Box>
+                                    </Box>
+                                </Box>
+                            })
+                        :
+                        null
+                    }
 
                 </Grid>
             </Grid>
-            <Grid item xs={12} md={8.5} sx={{ height: "100%",backgroundColor:"rgba(239, 242,249, 1)" }}>
+            <Grid item xs={12} md={8.5} sx={{ height: "100%", backgroundColor: "rgba(239, 242,249, 1)" }}>
                 <Box sx={{ height: "100%", overflow: "hidden", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
                     {
                         clickedUser
