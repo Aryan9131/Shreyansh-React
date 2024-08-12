@@ -15,8 +15,8 @@ const server=createServer(app);
 const io = new Server(server, {
     cors: {
         origin: [
-            "https://fluffy-halibut-9wg4jggv77gcq66-8000.app.github.dev",
-            "https://fluffy-halibut-9wg4jggv77gcq66-5173.app.github.dev"
+            "https://effective-fortnight-9wg4jggv5rqh7rw-8000.app.github.dev",
+            "https://effective-fortnight-9wg4jggv5rqh7rw-5173.app.github.dev"
         ],
         methods: ['GET', 'POST']
     }

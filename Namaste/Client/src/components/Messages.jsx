@@ -11,16 +11,13 @@ import { socket, connectSocket } from '../utils/socket';
 import { Divider } from '@mui/material';
 import DonutLargeOutlinedIcon from '@mui/icons-material/DonutLargeOutlined';
 import FriendsDialog from './FriendsDialog'
-const Item = styled(Paper)(({ theme }) => ({
-    backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-    ...theme.typography.body2,
-    padding: theme.spacing(1),
-    textAlign: 'center',
-    color: theme.palette.text.secondary,
-}));
+import { BASE_URL } from '../api/userApi';
 
 export default function BasicGrid() {
     const [clickedUser, setClickedUser] = React.useState(undefined)
+    const [allUsers, setAllUsers]=React.useState([]);
+    const [allFriends, setAllFriends]=React.useState([]);
+    const [allRequests, setAllRequests]=React.useState([]);
     let user = useSelector((state) => state.user);
     let user_id=user._id;
     React.useEffect(()=>{
@@ -32,10 +29,37 @@ export default function BasicGrid() {
                 }
             }
              if(!socket){
-            connectSocket(user_id)
-        }
-        }
-       
+              connectSocket(user_id)
+            }
+        } 
+        const getUserDetails=async ()=>{
+            const token = localStorage.getItem('token'); // Make sure 'token' is the string key
+
+            const getAllUsersResponse=await fetch(`${BASE_URL}/user/get-users`)
+            const getAllUSersData=await getAllUsersResponse.json();
+            setAllUsers(getAllUSersData);
+
+            const getAllUserFriendsResponse=await fetch(`${BASE_URL}/user/get-friends`,{
+                method:"Get",
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+            const getAllUserFriendsData=await getAllUserFriendsResponse.json();
+            setAllFriends(getAllUserFriendsData);
+
+            const getAllFriendRequestsResponse=await fetch(`${BASE_URL}/user/get-friend-request`,{
+                method:"Get",
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+            const getAllFriendRequestsData=await getAllFriendRequestsResponse.json();
+            setAllRequests(getAllFriendRequestsData);
+        }  
+        getUserDetails();
     },[user, socket])
     return (
         <Grid container spacing={2} sx={{ width: "100%", height: "100vh", overflow: "hidden" }}>

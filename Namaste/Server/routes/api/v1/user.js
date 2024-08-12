@@ -9,5 +9,5 @@ router.get('/:id/posts', UserController.allPosts);
 router.post('/addEvent', UserController.addEventToUser);
 router.get('/get-friends',passport.authenticate('jwt', {session:false}), UserController.getAllFriends)
 router.get('/get-friend-request',passport.authenticate('jwt', {session:false}), UserController.getAllFriendRequests)
-
+router.get('/get-users',UserController.getAllUSers)
 module.exports=router

@@ -121,3 +121,21 @@ module.exports.getAllFriends=async function(req, res){
         })
     }    
 }
+
+module.exports.getAllUSers=async function(req, res){
+    try {
+        const users=await User.find()
+        return res.status(200).json({
+            message:"found All Users ",
+            data : users,
+            status:"success"
+        })
+    } catch (error) {
+        console.log("Error while finding All Users : " + error);
+        return res.status(522).json({
+            message:"Error while finding All Users",
+            error : error,
+            status:"error"
+        })
+    }    
+}

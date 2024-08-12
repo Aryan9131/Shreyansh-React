@@ -36,11 +36,11 @@ export default function FriendsDialog() {
         {/* Tabs component in Material-UI automatically passes two arguments to the onChange event handler:
         event: The event object that triggered the change.
         newValue: The index or value of the newly selected tab. */}
-            <Box>
+            <Box sx={{ borderBottom: 1, borderColor: 'divider',backgroundColor:"red"}}>
                 <Tabs value={tabValue} onChange={()=>setTabValue(newValue)} aria-label="navigation tabs">
-                    <Tab label="Requests" />
-                    <Tab label="Friends" />
-                    <Tab label="Explore" />
+                    <Tab label="Requests" value='1' />
+                    <Tab label="Friends" value='2'/>
+                    <Tab label="Explore" value='3'/>
                 </Tabs>
             </Box>
         <DialogContent>

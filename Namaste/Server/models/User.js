@@ -25,7 +25,7 @@ const userSchema=new mongoose.Schema({
     friends:[
         {
             type:mongoose.SchemaTypes.ObjectId,
-            ref :'Friend'
+            ref :'User'
         }
       ],
     events:[

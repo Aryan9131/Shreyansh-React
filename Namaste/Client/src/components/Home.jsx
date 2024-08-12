@@ -12,13 +12,7 @@ import DrawerTemplate from './DrawerTemplate';
 import { useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
 import { BASE_URL } from '../api/userApi';
-const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-  ...theme.typography.body2,
-  padding: theme.spacing(1),
-  textAlign: 'center',
-  color: theme.palette.text.secondary,
-}));
+
 
 export default function Home({ handleCardClick, open, toggleDrawer, clickedPost }) {
   let user = useSelector((state) => state.user);
