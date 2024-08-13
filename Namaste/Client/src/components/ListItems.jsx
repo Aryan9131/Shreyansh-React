@@ -10,58 +10,121 @@ import Avatar from '@mui/material/Avatar';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import Tooltip from '@mui/material/Tooltip';
 import { BASE_URL } from '../api/userApi';
-const ListItems = ({ listValues , type}) => {
-    console.log("listValues :--> "+JSON.stringify(listValues));
+const FriendList = ({ friends }) => {
+    return (
+        <>
+            {friends.map((item) => (
+                <ListItem
+                    key={item._id} // Ensure each item has a unique key
+                    secondaryAction={
+                        <Tooltip title="Chat" placement="right-start">
+                            <IconButton edge="end" aria-label="chat" onClick={() => handleAddFriend(item._id)}>
+                                chat
+                            </IconButton>
+                        </Tooltip>
+                    }
+                >
+                    <ListItemAvatar>
+                        <Avatar alt="Remy Sharp" src="https://mui.com/static/images/avatar/2.jpg" sx={{ height: "40px", width: "40px" }} />
+                    </ListItemAvatar>
+                    <ListItemText
+                        primary={item.userId.name}
+                    />
+                </ListItem>
+            ))}
+        </>
+    );
+};
+
+const ExploreList = ({ explores, handleAddFriend }) => {
+    return (
+        <>
+            {explores.map((item) => (
+                <ListItem
+                    key={item._id} // Ensure each item has a unique key
+                    secondaryAction={
+                        <Tooltip title="Add Friend" placement="right-start">
+                            <IconButton edge="end" aria-label="add" onClick={() => handleAddFriend(item._id)}>
+                                <PersonAddIcon />
+                            </IconButton>
+                        </Tooltip>
+                    }
+                >
+                    <ListItemAvatar>
+                        <Avatar alt="Remy Sharp" src="https://mui.com/static/images/avatar/2.jpg" sx={{ height: "40px", width: "40px" }} />
+                    </ListItemAvatar>
+                    <ListItemText
+                        primary={item.name}
+                    />
+                </ListItem>
+            ))}
+        </>
+    );
+};
+
+const RequestsList = ({ requests }) => {
+    return (
+        <>
+            {requests.map((item) => (
+                <ListItem
+                    key={item._id} // Ensure each item has a unique key
+                    secondaryAction={
+                        <Tooltip title="Accept" placement="right-start">
+                            <IconButton edge="end" aria-label="accept">
+                                accept
+                            </IconButton>
+                        </Tooltip>
+                    }
+                >
+                    <ListItemAvatar>
+                        <Avatar alt="Remy Sharp" src="https://mui.com/static/images/avatar/2.jpg" sx={{ height: "40px", width: "40px" }} />
+                    </ListItemAvatar>
+                    <ListItemText
+                        primary={item.from.name}
+                    />
+                </ListItem>
+            ))}
+        </>
+    );
+};
+
+const ListItems = ({ listValues, type, setAllFriends }) => {
+    console.log("listValues :--> " + JSON.stringify(listValues));
     const token = localStorage.getItem('token'); // Make sure 'token' is the string key
 
-    const handleAddFriend=async (friend_id)=>{
-        const AddFriendResponse=await fetch(`&{BASE_URL}/user/add-friend`,{
-            method:'Post',
-            headers:{
-                'Content-type':'application/json',
-                'Autherization':`Bearer ${token}`
-            }
+    const handleAddFriend = async (friend_id) => {
+        const AddFriendResponse = await fetch(`${BASE_URL}/user/add-friend`, {
+            method: 'Post',
+            headers: {
+                'Content-type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({ userId: friend_id })
         })
-        const AddFriendResponseData=await AddFriendResponse.json()
-        console.log(JSON.stringify(AddFriendResponseData));
+        const AddFriendResponseData = await AddFriendResponse.json()
+        setAllFriends((prev) => [AddFriendResponseData.data, ...prev])
+        console.log(JSON.stringify(AddFriendResponseData.data));
+
     }
     return (
         <List>
             {
                 (listValues && listValues.length > 0)
-                ?
-                listValues.map((item) => {
-                    return (
-                        <ListItem
-                            secondaryAction={
-                                (item!='requests' && item.friendStatus=='false') ?
-                                    <Tooltip title="Add Friend" placement="right-start">
-                                        <IconButton edge="end" aria-label="delete" onClick={()=>handleAddFriend(item._id)}>
-                                            <PersonAddIcon />
-                                        </IconButton>
-                                    </Tooltip>
-                                :
-                                (item!='requests' && item.friendStatus=='pending') ?
-                                <Tooltip title="Add Friend" placement="right-start">
-                                    <IconButton edge="end" aria-label="delete" onClick={()=>handleAddFriend(item._id)}>
-                                        <DeleteIcon />
-                                    </IconButton>
-                                </Tooltip>
-                                :
-                                null
-                            }
-                        >
-                            <ListItemAvatar>
-                                   <Avatar alt="Remy Sharp" src="https://mui.com/static/images/avatar/2.jpg" sx={{ height: "40px", width: "40px" }} />
-                            </ListItemAvatar>
-                            <ListItemText
-                                primary={type=='requests' ? item.from : item.name}
-                            />
-                        </ListItem>
-                    )
-                })
-                :
-                null
+                    ?
+                    (() => {
+                        switch (type) {
+                            case 'friends':
+                                return <FriendList friends={listValues} />;
+                            case 'requests':
+                                return <RequestsList requests={listValues} />;
+                            case 'explore':
+                                return <ExploreList explores={listValues} handleAddFriend={handleAddFriend} />;
+                            default:
+                                return <div>Nothing To Show !</div>;
+                        }
+                    })()
+                    :
+                    null
             }
         </List>
     )

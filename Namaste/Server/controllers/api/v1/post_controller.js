@@ -25,6 +25,7 @@ module.exports.createPost=async function(req, res){
             })
          }
     } catch (error) {
+      console.log('Error while creating Post : '+error)
         return res.status(404).json({
             message:"Could not Created Post !",
             error:error

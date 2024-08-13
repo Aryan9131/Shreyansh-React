@@ -14,7 +14,7 @@ import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
 import ListItems from './ListItems'
 
-export default function FriendsDialog({ allFriends, allUsers, allRequests }) {
+export default function FriendsDialog({ allFriends, allUsers, allRequests, setAllFriends }) {
   const [open, setOpen] = React.useState(false);
   const [tabValue, setTabValue] = React.useState("friends");
   const theme = useTheme();
@@ -28,8 +28,8 @@ export default function FriendsDialog({ allFriends, allUsers, allRequests }) {
     setOpen(false);
   };
 
-  const handleTabChange=(event, newValue)=>{
-     setTabValue(newValue)
+  const handleTabChange = (event, newValue) => {
+    setTabValue(newValue)
   }
 
 
@@ -46,26 +46,28 @@ export default function FriendsDialog({ allFriends, allUsers, allRequests }) {
         {/* Tabs component in Material-UI automatically passes two arguments to the onChange event handler:
         event: The event object that triggered the change.
         newValue: The index or value of the newly selected tab. */}
-        <Box sx={{ width: '100%', typography: 'body1' }}>
-          <TabContext value={tabValue}>
-            <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-              <TabList onChange={handleTabChange} aria-label="lab API tabs example">
-                <Tab label="Freinds" value="friends" />
-                <Tab label="Requests" value="requests" />
-                <Tab label="Explore" value="explore" />
-              </TabList>
-            </Box>
+        <DialogContent  sx={{ minHeight: "100px" }}>
+          <Box sx={{ width: '100%', typography: 'body1' }}>
+            <TabContext value={tabValue}>
+              <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+                <TabList onChange={handleTabChange} aria-label="lab API tabs example">
+                  <Tab label="Freinds" value="friends" />
+                  <Tab label="Requests" value="requests" />
+                  <Tab label="Explore" value="explore" />
+                </TabList>
+              </Box>
               <TabPanel value="friends">
-                <ListItems listValues={allFriends} type={tabValue}/>
+                <ListItems listValues={allFriends} type={tabValue} setAllFriends={setAllFriends} />
               </TabPanel>
               <TabPanel value="requests">
-                <ListItems listValues={allRequests} type={tabValue}/>
+                <ListItems listValues={allRequests} type={tabValue} setAllFriends={setAllFriends} />
               </TabPanel>
               <TabPanel value="explore">
-                <ListItems listValues={allUsers} type={tabValue}/>
+                <ListItems listValues={allUsers} type={tabValue} setAllFriends={setAllFriends} />
               </TabPanel>
-          </TabContext>
-        </Box>
+            </TabContext>
+          </Box>
+        </DialogContent>
       </Dialog>
     </React.Fragment>
   );

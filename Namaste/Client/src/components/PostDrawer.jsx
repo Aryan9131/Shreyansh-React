@@ -30,7 +30,7 @@ export default function ResponsiveDialog({ createPost }) {
     const [img, setImg] = React.useState("");
     const [caption, setCaption] = React.useState("");
     const [desc, setDesc] = React.useState("");
-    const [postType, setPostType] = React.useState("");
+    const [postType, setPostType] = React.useState("Post");
     const [date, setDate] = React.useState(dayjs('2022-04-17'));
     const [time, setTime] = React.useState(dayjs('2022-04-17T15:30'));
     const theme = useTheme();

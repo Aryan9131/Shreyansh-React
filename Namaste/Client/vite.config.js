@@ -6,7 +6,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: `https://legendary-giggle-g6vw7vv9rv42w6vp-8000.app.github.dev`,
+        target: `https://supreme-space-fortnight-vwj7qjj4rw73xxv6-8000.app.github.dev`,
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, ''),
       },

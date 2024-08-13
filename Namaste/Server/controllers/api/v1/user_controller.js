@@ -106,7 +106,9 @@ module.exports.getAllFriends=async function(req, res){
     try {
         const user_id=req.user._id
         console.log("userId in getAllFriends : "+user_id);
-        const user=await User.find({_id:user_id}).populate('friends');
+        const user=await User.findOne({_id:user_id}).populate('friends.userId');
+        console.log("User is : "+user);
+        console.log("User friends is :--> "+user.friends);
         return res.status(200).json({
             message:"found All friends",
             data : user.friends,
@@ -138,4 +140,35 @@ module.exports.getAllUSers=async function(req, res){
             status:"error"
         })
     }    
+}
+
+module.exports.addFriend=async function(req, res){
+      try {
+        const user_id=req.user._id;
+        const user=await User.findOne({_id:user_id});
+        console.log('Reques come for adding a frind : '+req.body)
+        console.log(user);
+        user.friends.push({
+          userId:req.body.userId,
+          status:"pending"
+        })
+        await user.save();
+        const requestedFriend=await User.findOne({_id:req.body.userId})
+        return res.status(200).json({
+            message:"User added as a friend ! ",
+            data : {
+                userId:requestedFriend,
+                status:"pending"
+            },
+            status:"success"
+        })
+      } catch (error) {
+        console.log("Error while User as frind : " + error);
+        return res.status(522).json({
+            message:"Error while finding user as Friend",
+            error : error,
+            status:"error"
+        })
+      }
+     
 }

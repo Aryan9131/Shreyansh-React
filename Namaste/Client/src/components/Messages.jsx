@@ -47,6 +47,7 @@ export default function BasicGrid() {
                 }
             })
             const getAllUserFriendsData = await getAllUserFriendsResponse.json();
+            console.log("All frineds :--> "+JSON.stringify(getAllUserFriendsData.data))
             setAllFriends(getAllUserFriendsData.data);
 
             const getAllFriendRequestsResponse = await fetch(`${BASE_URL}/user/get-friend-request`, {
@@ -60,9 +61,6 @@ export default function BasicGrid() {
             setAllRequests(getAllFriendRequestsData.data);
         }
         getUserDetails();
-        console.log("allUsers :--> "+JSON.stringify(allUsers));
-        console.log("allFrineds :-->"+JSON.stringify(allFriends));
-        console.log("allRequests :-->"+JSON.stringify(allRequests));
 
     }, [user, socket])
     return (
@@ -71,7 +69,7 @@ export default function BasicGrid() {
                 <Grid item xs={12} sx={{ display: "flex", justifyContent: "space-between", marginTop: "10px", marginBottom: "15px" }}>
                     <h2>Chats</h2>
                     <Box sx={{ flex: 1, display: "flex", justifyContent: "flex-end", color: "rgba(79, 79, 79, 1)" }}>
-                        <FriendsDialog allFriends={allFriends} allUsers={allUsers} allRequests={allRequests}/>
+                        <FriendsDialog allFriends={allFriends} allUsers={allUsers} allRequests={allRequests} setAllFriends={setAllFriends}/>
                         <DonutLargeOutlinedIcon sx={{ margin: "0px 10px" }} />
                     </Box>
                 </Grid>

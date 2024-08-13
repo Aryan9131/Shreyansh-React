@@ -1,56 +1,45 @@
-const mongoose=require('mongoose');
+const mongoose = require('mongoose');
 
-const userSchema=new mongoose.Schema({
-    name:{
-        type:String
+// Define a subdocument schema for friends
+const friendSchema = new mongoose.Schema({
+    userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
     },
-    username:{
-        type:String
-    },
-    email:{
-        type:String
-    },
-    password:{
-        type:String
-    },
-    mobile:{
-        type:Number
-    },
-    posts:[
+    status: {
+        type: String,
+        enum: ["pending", "accepted", "rejected"],
+        default: "pending"
+    }
+});
+
+// Define the main user schema
+const userSchema = new mongoose.Schema({
+    name: String,
+    username: String,
+    email: String,
+    password: String,
+    mobile: Number,
+    posts: [
         {
-            type:mongoose.SchemaTypes.ObjectId,
-            ref :'Post'
-        }
-      ],
-    friends:[
-        {
-            type:mongoose.SchemaTypes.ObjectId,
-            ref :'User'
-        }
-      ],
-    events:[
-        {
-            type:mongoose.SchemaTypes.ObjectId,
-            ref :'Event'
-        }
-      ],
-    avatar:[
-        {
-            type:mongoose.SchemaTypes.ObjectId,
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Post'
         }
     ],
-    status:{
-        type:Boolean
+    friends: [friendSchema],  // Use the subdocument schema here
+    events: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Event'
+        }
+    ],
+    avatar: {
+        type: mongoose.Schema.Types.ObjectId,
     },
-    socket_id:{
-        type:String
-    },
-    friendStatus:{
-        type:"String",
-        enum:['pending', 'true', 'false'],
-        default:"false"
-    }
-})
+    status: Boolean,
+    socket_id: String
+});
 
-const User=mongoose.model('User', userSchema);
-module.exports=User;
+const User = mongoose.model('User', userSchema);
+module.exports = User;

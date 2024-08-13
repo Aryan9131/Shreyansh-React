@@ -12,7 +12,7 @@ export default function RowRadioButtonsGroup({setPostType, postType}) {
         row
         aria-labelledby="demo-row-radio-buttons-group-label"
         name="type"
-        defaultValue={"Post"}
+        defaultValue="Post"
         value={postType}
         onChange={(e) => setPostType(e.target.value)}
       >
