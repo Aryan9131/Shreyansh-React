@@ -47,7 +47,7 @@ export default function BasicGrid() {
                 }
             })
             const getAllUserFriendsData = await getAllUserFriendsResponse.json();
-            console.log("All frineds :--> "+JSON.stringify(getAllUserFriendsData.data))
+            console.log("All frineds :--> " + JSON.stringify(getAllUserFriendsData.data))
             setAllFriends(getAllUserFriendsData.data);
 
             const getAllFriendRequestsResponse = await fetch(`${BASE_URL}/user/get-friend-request`, {
@@ -69,7 +69,7 @@ export default function BasicGrid() {
                 <Grid item xs={12} sx={{ display: "flex", justifyContent: "space-between", marginTop: "10px", marginBottom: "15px" }}>
                     <h2>Chats</h2>
                     <Box sx={{ flex: 1, display: "flex", justifyContent: "flex-end", color: "rgba(79, 79, 79, 1)" }}>
-                        <FriendsDialog allFriends={allFriends} allUsers={allUsers} allRequests={allRequests} setAllFriends={setAllFriends}/>
+                        <FriendsDialog allFriends={allFriends} allUsers={allUsers} allRequests={allRequests} setAllFriends={setAllFriends} />
                         <DonutLargeOutlinedIcon sx={{ margin: "0px 10px" }} />
                     </Box>
                 </Grid>
@@ -83,24 +83,27 @@ export default function BasicGrid() {
                 <Divider />
                 <Grid item xs={12} sx={{ height: "100%", overflowY: 'scroll' }} id="messagesContainer">
                     {
-                        allFriends 
-                        ?
+                        allFriends.length > 0
+                            ?
                             allFriends.map((friend) => {
-                                <Box sx={{ borderRadius: "8px", margin: "5px 2px", padding: "14px 1px", display: "flex", justifyContent: "space-between", alignItems: "center", backgroundColor: clickedUser === "Ghappi Nayak" ? "#a2a6f5" : "whitesmoke" }} onClick={() => setClickedUser('Ghappi Nayak')}>
-                                    <Avatar alt="Remy Sharp" src="https://mui.com/static/images/avatar/2.jpg" sx={{ height: "40px", width: "40px" }} />
-                                    <Box sx={{ flex: "1", display: "flex", flexDirection: "column" }}>
-                                        <Box sx={{ marginLeft: "30px", display: "flex", justifyContent: "space-between" }}>
-                                            <p> {friend.name}</p>
-                                            <sub style={{ color: "grey" }}>yesterday</sub>
-                                        </Box>
-                                        <Box sx={{ marginLeft: "30px", marginRight: "10px" }}>
-                                            <p>thanks for sharing ?</p>
+                                return (
+                                    friend.status == 'true' &&
+                                    <Box sx={{ borderRadius: "8px", margin: "5px 2px", padding: "14px 1px", display: "flex", justifyContent: "space-between", alignItems: "center", backgroundColor: clickedUser === "Ghappi Nayak" ? "#a2a6f5" : "whitesmoke" }} onClick={() => setClickedUser('Ghappi Nayak')}>
+                                        <Avatar alt="Remy Sharp" src="https://mui.com/static/images/avatar/2.jpg" sx={{ height: "40px", width: "40px" }} />
+                                        <Box sx={{ flex: "1", display: "flex", flexDirection: "column" }}>
+                                            <Box sx={{ marginLeft: "30px", display: "flex", justifyContent: "space-between" }}>
+                                                <p> {friend.userId.name}</p>
+                                                <sub style={{ color: "grey" }}>yesterday</sub>
+                                            </Box>
+                                            <Box sx={{ marginLeft: "30px", marginRight: "10px" }}>
+                                                <p>thanks for sharing ?</p>
+                                            </Box>
                                         </Box>
                                     </Box>
-                                </Box>
+                                )
                             })
-                        :
-                        null
+                            :
+                            null
                     }
 
                 </Grid>

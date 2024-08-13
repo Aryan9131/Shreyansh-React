@@ -86,7 +86,7 @@ module.exports.getAllFriendRequests=async function(req, res){
     try {
         console.log("userId in getAllFriendRequests  : "+req.user._id);
 
-        const requests=await FriendRequest.find({recipient : req.user._id}).populate('sender');
+        const requests=await FriendRequest.find({recipient : req.user._id}).populate('sender').populate('recipient');
         return res.status(200).json({
             message:"found All friend requests",
             data : requests,
@@ -146,14 +146,17 @@ module.exports.addFriend=async function(req, res){
       try {
         const user_id=req.user._id;
         const user=await User.findOne({_id:user_id});
-        console.log('Reques come for adding a frind : '+req.body)
-        console.log(user);
         user.friends.push({
           userId:req.body.userId,
           status:"pending"
         })
+        const newFriendRequest=new FriendRequest({
+            sender:user_id,
+            recipient:req.body.userId
+        })
         await user.save();
-        const requestedFriend=await User.findOne({_id:req.body.userId})
+        await newFriendRequest.save();
+        const requestedFriend=await User.findOne({_id:req.body.userId});
         return res.status(200).json({
             message:"User added as a friend ! ",
             data : {
@@ -171,4 +174,35 @@ module.exports.addFriend=async function(req, res){
         })
       }
      
+}
+
+module.exports.acceptFriend=async function(req, res){
+     try {
+          const friendRequestId=req.body._id;
+          const acceptedFriendRequest=await FriendRequest.deleteOne({_id:friendRequestId});
+          const receivedUser=await User.findOne({_id:req.user._id});
+          receivedUser.friends.push({
+             userId:acceptedFriendRequest.sender,
+             status:"true"
+          })
+          await receivedUser.save();
+
+          const senderUser=await User.findOne({_id:acceptedFriendRequest.sender});
+          console.log("Friends of sender --> "+senderUser.friends)
+          senderUser.friends.map((obj, key)=>{
+              console.log("user friend "+key+" -> "+obj)
+          })
+          return res.status(200).json({
+            message:"friend Request accepted ! ",
+            status:"success"
+        })
+
+     } catch (error) {
+        console.log("Error while Accepting as friend Request : " + error);
+        return res.status(522).json({
+            message:"Error while  Accepting as friend Request ",
+            error : error,
+            status:"error"
+        })
+     }
 }

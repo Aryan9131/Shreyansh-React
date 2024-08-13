@@ -1,7 +1,7 @@
 const express=require('express');
 const { createServer } = require('node:http');
 const { Server } = require('socket.io');
-
+const User=require('./models/User')
 const db=require('./config/mongoose');
 const cors=require('cors');
 const passport=require('passport');
@@ -14,13 +14,13 @@ const server=createServer(app);
 
 const io = new Server(server, {
     cors: {
-        origin: [
-            "https://supreme-space-fortnight-vwj7qjj4rw73xxv6-8000.app.github.dev",
-            "https://supreme-space-fortnight-vwj7qjj4rw73xxv6-5173.app.github.dev/"
-        ],
-        methods: ['GET', 'POST']
+        origin: "https://super-duper-palm-tree-xxgqvgg6rgj3pjq4-5173.app.github.dev", // Frontend URL
+        methods: ['GET', 'POST'],
+        allowedHeaders: ["Authorization", "Content-Type"],
+        credentials: true
     }
 });
+
 
 
 dotenv.config();

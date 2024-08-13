@@ -10,6 +10,8 @@ import Avatar from '@mui/material/Avatar';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import Tooltip from '@mui/material/Tooltip';
 import { BASE_URL } from '../api/userApi';
+import { Button } from '@mui/material';
+
 const FriendList = ({ friends }) => {
     return (
         <>
@@ -62,7 +64,8 @@ const ExploreList = ({ explores, handleAddFriend }) => {
     );
 };
 
-const RequestsList = ({ requests }) => {
+const RequestsList = ({ requests, handleAcceptRequest }) => {
+    console.log("RequestList --> "+JSON.stringify(requests))
     return (
         <>
             {requests.map((item) => (
@@ -71,7 +74,7 @@ const RequestsList = ({ requests }) => {
                     secondaryAction={
                         <Tooltip title="Accept" placement="right-start">
                             <IconButton edge="end" aria-label="accept">
-                                accept
+                                <Button onClick={()=>handleAcceptRequest(item._id)}>Accept</Button>
                             </IconButton>
                         </Tooltip>
                     }
@@ -80,7 +83,7 @@ const RequestsList = ({ requests }) => {
                         <Avatar alt="Remy Sharp" src="https://mui.com/static/images/avatar/2.jpg" sx={{ height: "40px", width: "40px" }} />
                     </ListItemAvatar>
                     <ListItemText
-                        primary={item.from.name}
+                        primary={item.sender.name}
                     />
                 </ListItem>
             ))}
@@ -106,6 +109,19 @@ const ListItems = ({ listValues, type, setAllFriends }) => {
         console.log(JSON.stringify(AddFriendResponseData.data));
 
     }
+
+    const handleAcceptRequest = async (request_id)=>{
+        const AcceptFriendResponse = await fetch(`${BASE_URL}/user/accept-friend-request`, {
+            method: 'Post',
+            headers: {
+                'Content-type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({ _id: request_id })
+        })
+        const acceptFriendResponseData = await AcceptFriendResponse.json()
+        console.log("Recieved Data after accept --> "+JSON.stringify(acceptFriendResponseData))
+    }
     return (
         <List>
             {
@@ -116,7 +132,7 @@ const ListItems = ({ listValues, type, setAllFriends }) => {
                             case 'friends':
                                 return <FriendList friends={listValues} />;
                             case 'requests':
-                                return <RequestsList requests={listValues} />;
+                                return <RequestsList requests={listValues}  handleAcceptRequest={handleAcceptRequest}/>;
                             case 'explore':
                                 return <ExploreList explores={listValues} handleAddFriend={handleAddFriend} />;
                             default:

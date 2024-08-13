@@ -11,5 +11,5 @@ router.get('/get-friends',passport.authenticate('jwt', {session:false}), UserCon
 router.get('/get-friend-request',passport.authenticate('jwt', {session:false}), UserController.getAllFriendRequests)
 router.get('/get-users',UserController.getAllUSers)
 router.post('/add-friend',passport.authenticate('jwt', {session:false}), UserController.addFriend)
-
+router.post('/accept-friend-request',passport.authenticate('jwt', {session:false}), UserController.acceptFriend);
 module.exports=router
