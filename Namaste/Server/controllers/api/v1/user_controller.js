@@ -25,7 +25,7 @@ module.exports.createSession = async function (req, res) {
         return res.status(200).json({
             message: "SignIn successful !",
             data: {
-                token: jwt.sign(user.toJSON(), "Social", { expiresIn: "500000" })
+                token: jwt.sign(user.toJSON(), "Social", { expiresIn: "1d" })
             }
         })
     } catch (error) {
@@ -179,19 +179,28 @@ module.exports.addFriend=async function(req, res){
 module.exports.acceptFriend=async function(req, res){
      try {
           const friendRequestId=req.body._id;
-          const acceptedFriendRequest=await FriendRequest.deleteOne({_id:friendRequestId});
+          const acceptedFriendRequest=await FriendRequest.findByIdAndDelete({_id:friendRequestId});
           const receivedUser=await User.findOne({_id:req.user._id});
           receivedUser.friends.push({
              userId:acceptedFriendRequest.sender,
-             status:"true"
+             status:"accepted"
           })
           await receivedUser.save();
 
           const senderUser=await User.findOne({_id:acceptedFriendRequest.sender});
-          console.log("Friends of sender --> "+senderUser.friends)
           senderUser.friends.map((obj, key)=>{
-              console.log("user friend "+key+" -> "+obj)
+                console.log("tarun's friend are --> "+obj.userId)
+                console.log("aryan's id is --> "+req.user._id)
+                console.log("compare id's --> "+(req.user._id.toString().equals(obj.userId.toString())));
+                console.log("type of Aryan's id --> "+ typeof req.user._id);
+                console.log("type of Tarun's friend id --> "+ typeof obj.userId);
+              if(obj.userId===req.user.id){
+                  console.log("inside updation !");
+                  obj.status='accepted'
+              }
+              return obj
           })
+          senderUser.save();
           return res.status(200).json({
             message:"friend Request accepted ! ",
             status:"success"

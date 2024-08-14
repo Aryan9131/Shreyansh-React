@@ -1,5 +1,5 @@
-export const BASE_URL = "https://super-duper-palm-tree-xxgqvgg6rgj3pjq4-8000.app.github.dev/api/v1";
-export const BACKEND_URL="https://super-duper-palm-tree-xxgqvgg6rgj3pjq4-8000.app.github.dev"
+export const BASE_URL = "https://solid-fortnight-j9pwqpp6744c45j-8000.app.github.dev/api/v1";
+export const BACKEND_URL="https://solid-fortnight-j9pwqpp6744c45j-8000.app.github.dev"
 
 export const signUpUser = async (data) => {
     const response = await fetch(`${BASE_URL}/user/create-user`, {
