@@ -4,7 +4,7 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 
-export default function BasicMenu({commentId, handleReadOnlyStates}) {
+export default function BasicMenu({commentId, postId, handleReadOnlyStates, handleCommentDelete, setPostComments, setUpdatedCommentData, commentData}) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -15,6 +15,7 @@ export default function BasicMenu({commentId, handleReadOnlyStates}) {
   };
 
   const handleEdit=()=>{
+    setUpdatedCommentData(commentData)
     handleReadOnlyStates(commentId, false)
     handleClose();
   }
@@ -40,7 +41,10 @@ export default function BasicMenu({commentId, handleReadOnlyStates}) {
         }}
       >
         <MenuItem onClick={handleEdit}>Edit</MenuItem>
-        <MenuItem onClick={handleClose}>Delete</MenuItem>
+        <MenuItem onClick={()=>{
+             handleCommentDelete(postId, commentId,setPostComments);
+             handleClose();
+        }}>Delete</MenuItem>
       </Menu>
     </div>
   );

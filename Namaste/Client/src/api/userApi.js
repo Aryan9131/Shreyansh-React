@@ -1,8 +1,7 @@
-export const BASE_URL = "https://solid-fortnight-j9pwqpp6744c45j-8000.app.github.dev/api/v1";
-export const BACKEND_URL="https://solid-fortnight-j9pwqpp6744c45j-8000.app.github.dev"
 
 export const signUpUser = async (data) => {
-    const response = await fetch(`${BASE_URL}/user/create-user`, {
+  
+    const response = await fetch(`${import.meta.env.VITE_BASE_URL}/user/create-user`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -13,7 +12,9 @@ export const signUpUser = async (data) => {
 }
 
 export const signInUser = async (data) => {
-    const response = await fetch(`${BASE_URL}/user/create-session`, {
+    console.log("import.meta.env.VITE_BASE_URL --> "+import.meta.env.VITE_BASE_URL);
+    console.log("data --> "+JSON.stringify(data))
+    const response = await fetch(`${import.meta.env.VITE_BASE_URL}/user/create-session`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

@@ -11,6 +11,10 @@ const friendSchema = new mongoose.Schema({
         type: String,
         enum: ["pending", "accepted", "rejected"],
         default: "pending"
+    },
+    archive:{
+        type:Boolean,
+        default:false
     }
 });
 
@@ -21,6 +25,7 @@ const userSchema = new mongoose.Schema({
     email: String,
     password: String,
     mobile: Number,
+    about:String,
     posts: [
         {
             type: mongoose.Schema.Types.ObjectId,
@@ -34,8 +39,15 @@ const userSchema = new mongoose.Schema({
             ref: 'Event'
         }
     ],
+    stories: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Story'
+        }
+    ],
+    
     avatar: {
-        type: mongoose.Schema.Types.ObjectId,
+        type:Object
     },
     status: Boolean,
     socket_id: String

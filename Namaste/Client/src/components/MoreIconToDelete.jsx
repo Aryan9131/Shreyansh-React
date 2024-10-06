@@ -6,7 +6,7 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { Box } from '@mui/material';
 import UpdateDrawer from './UpdateDrawer';
 
-export default function LongMenu({post, deletePost}) {
+export default function LongMenu({post, deletePost, allPosts ,setPosts}) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -20,7 +20,8 @@ export default function LongMenu({post, deletePost}) {
   
   const handleDelete=async ()=>{
     if(deletePost){
-      deletePost(post._id, post.img.id);
+      const img_id=post.img ? post.img.id : undefined
+      deletePost(post._id, img_id);
     }
     handleClose()
   }
@@ -49,8 +50,8 @@ export default function LongMenu({post, deletePost}) {
         <MenuItem onClick={handleDelete}>  
            Delete
         </MenuItem>
-        <MenuItem >  
-           <UpdateDrawer post={post}/>
+        <MenuItem>  
+           <UpdateDrawer post={post} allPosts={allPosts} setPosts={setPosts}/>
         </MenuItem>
       </Menu>
     </Box>

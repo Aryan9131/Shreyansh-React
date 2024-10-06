@@ -17,21 +17,35 @@ const oneToOneSchema= new mongoose.Schema({
                 type:mongoose.SchemaTypes.ObjectId,
                 ref:'User'
             },
-            types:{
+            type:{
                 type:String,
-                enum:['Text', 'Media' , 'Document' , 'Link']
+                enum:['text', 'image/jpg', 'image/png' , 'image/jpeg' , 'application/pdf', 'video/x-matroska', 'video/mp4']
             },
             created_at:{
                 type:Date,
                 default:Date.now()
             },
-            text:{
+            data:{
                 type:String
+            },
+            repliedMsgData:{
+                type:Object,
+                default:undefined
             },
             file:{
-                type:String
+                type:Object
             },
+            sentBy:{
+                type:"string"
+            }
        }
-   ]
+   ],
+  isGroup: { type: Boolean, default: false }, // Identify group chats
+  groupName: { type: String, default: "" }, // For group chats
+  groupAdmin: { type: mongoose.Schema.Types.ObjectId, ref: 'User' } ,// Admin of the group
+  groupAbout :{type :String, default: ""}
 })
 
+const OneToOneMessages=mongoose.model('OneToOneMessages',oneToOneSchema);
+
+module.exports=OneToOneMessages

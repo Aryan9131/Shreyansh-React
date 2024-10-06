@@ -7,19 +7,19 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
-import GroupAddOutlinedIcon from '@mui/icons-material/GroupAddOutlined';
+import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt';
 import { Tabs, Tab, Box } from '@mui/material';
 import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
 import ListItems from './ListItems'
 
-export default function FriendsDialog({ allFriends, allUsers, allRequests, setAllFriends }) {
+export default function FriendsDialog({ allFriends, allGroups, setAllFriends }) {
   const [open, setOpen] = React.useState(false);
   const [tabValue, setTabValue] = React.useState("friends");
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
-
+  console.log("friends in friendDialog --> "+JSON.stringify(allFriends))
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -32,11 +32,11 @@ export default function FriendsDialog({ allFriends, allUsers, allRequests, setAl
     setTabValue(newValue)
   }
 
-
-
+  console.log("allGroups --> "+allGroups) 
+  
   return (
     <React.Fragment>
-      <GroupAddOutlinedIcon onClick={handleClickOpen} />
+      <PersonAddAltIcon onClick={handleClickOpen} />
       <Dialog
         fullScreen={fullScreen}
         open={open}
@@ -57,13 +57,13 @@ export default function FriendsDialog({ allFriends, allUsers, allRequests, setAl
                 </TabList>
               </Box>
               <TabPanel value="friends">
-                <ListItems listValues={allFriends} type={tabValue} setAllFriends={setAllFriends} />
+                <ListItems handleClose={handleClose} listValues={allFriends} allGroups={allGroups} type={tabValue} setAllFriends={setAllFriends} />
               </TabPanel>
               <TabPanel value="requests">
-                <ListItems listValues={allRequests} type={tabValue} setAllFriends={setAllFriends} />
+                <ListItems type={tabValue} setAllFriends={setAllFriends} />
               </TabPanel>
               <TabPanel value="explore">
-                <ListItems listValues={allUsers} type={tabValue} setAllFriends={setAllFriends} />
+                <ListItems type={tabValue} listValues={allFriends} setAllFriends={setAllFriends} />
               </TabPanel>
             </TabContext>
           </Box>

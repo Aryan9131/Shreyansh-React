@@ -1,7 +1,10 @@
 const mongoose=require('mongoose');
+const dotenv = require('dotenv');
+
+dotenv.config();
 
 async function main(){
-   await mongoose.connect('mongodb+srv://aryannayak9131:cH9kVFZuSKnLJwfD@cluster0.tvyb7p2.mongodb.net/Social?retryWrites=true&w=majority&appName=Cluster0')
+   await mongoose.connect(process.env.DB_URL)
 }
 
 main().then(()=>{

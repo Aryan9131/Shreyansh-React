@@ -1,7 +1,6 @@
 import React from 'react'
 import Box from '@mui/material/Box';
 import { NavLink , useNavigate  } from "react-router-dom";
-import { BASE_URL } from '../api/userApi';
 function SignUp(){
 
     let navigate = useNavigate();
@@ -14,7 +13,7 @@ function SignUp(){
             formData.forEach((value, key) => {
                 data[key] = value;
             });
-             fetch(`${BASE_URL}/user/create-user`, {
+             fetch(`${import.meta.env.VITE_BASE_URL}/user/create-user`, {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',

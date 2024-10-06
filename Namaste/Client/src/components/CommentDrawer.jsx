@@ -8,8 +8,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Input from '@mui/material/Input';
 import SendIcon from '@mui/icons-material/Send';
-import { Typography } from '@mui/material';
-import { BASE_URL } from '../api/userApi';
+import { Typography, Box, IconButton } from '@mui/material';
 import { useSelector } from 'react-redux';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -19,12 +18,17 @@ import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
 import MenuPopper from './MenuPopper';
 import { useEffect } from 'react';
+import CommentIcon from '@mui/icons-material/Comment';
 
-export default function FormDialog({ postComments, postId }) {
+export default function FormDialog(props) {
+    console.log("props --> "+JSON.stringify(props))
+    const { postComments, setPostComments, postId }=props;
+    const {commentData, setCommentData, updatedCommentData, setUpdatedCommentData, handleCommentSubmit, handleEditCommentSubmit, handleCommentDelete}=props
+
     const [open, setOpen] = React.useState(false);
-    let user = useSelector((state) => state.user);
+    let user = useSelector((state) => state.user).user;
+    const token = localStorage.getItem('token'); // Make sure 'token' is the string key
     const [readOnlyStates, setReadOnlyStates] = React.useState({});
-    const [updatedCommentData, setUpdatedCommentData] = React.useState('')
     useEffect(() => {
         let obj = {}
         postComments.map((comment) => {
@@ -41,66 +45,34 @@ export default function FormDialog({ postComments, postId }) {
         if (commentId)
             handleReadOnlyStates(commentId, true)
         setOpen(false);
+        setCommentData("");
     };
     const handleReadOnlyStates = (commentId, value) => {
         let obj = {};
         obj[commentId] = value
         setReadOnlyStates((prev) => ({ ...prev, ...obj }))
     }
-    const handleEditCommentSubmit = (event, commentId) => {
-        event.preventDefault();
-        handleClose(commentId);
-    };
-    const handleCommentSubmit = async (event) => {
-        try {
-            event.preventDefault();
-            const formData = new FormData(event.currentTarget);
-            const formJson = Object.fromEntries(formData.entries());
-            const text = formJson.text;
-
-            const createCommentResponse = await fetch(`${BASE_URL}/comment/create-comment`, {
-                method: "POST",
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    data: text,
-                    post: postId,
-                    user: user._id
-                })
-            })
-            if (!createCommentResponse.ok) {
-                throw new Error('Failed to create post');
-            }
-            const createCommentResponseData = await createCommentResponse.json();
-            handleClose();
-
-        } catch (error) {
-            console.log("Error while creating Comment : " + error)
-        }
-    }
-
-    const ariaLabel = { 'aria-label': 'description' };
-
-
+   
 
     return (
         <React.Fragment>
-            <Typography sx={{ display: "flex", alignItems: "center" }} onClick={handleClickOpen}>
-                <Input placeholder="Comment" inputProps={ariaLabel} sx={{ width: "90%" }} />
-                <SendIcon />
-            </Typography>
+            <IconButton aria-label="desc" sx={{ display: "flex", alignItems: "center" }} onClick={handleClickOpen}>
+                <CommentIcon placeholder="Comment" sx={{ width: "90%" }} />
+            </IconButton>
             <Dialog
                 open={open}
+                aria-label='commnent drawer'
                 onClose={handleClose}
                 PaperProps={{
                     component: 'form',
-                    onSubmit: handleCommentSubmit
-                }}
+                    onSubmit: (e) => {
+                      e.preventDefault();
+                      handleCommentSubmit(postId, setPostComments);
+                    },
+                  }}
             >
                 <DialogTitle>Post Comments</DialogTitle>
                 <DialogContent sx={{ position: "relative" }} >
-                    <DialogContentText>
                         <List sx={{ width: '100%', minWidth: 400, height: { xs: "100vh", sm: 400, md: 300 }, boxSizing: "border-box", overflowY: "scroll", bgcolor: 'background.paper' }}>
                             {
                                 postComments.length > 0
@@ -117,14 +89,8 @@ export default function FormDialog({ postComments, postId }) {
                                                         primary={comment.user ? comment.user.name : 'guest'}
                                                         secondary={
                                                             <React.Fragment>
-                                                                <Typography
-                                                                    sx={{ display: 'inline' }}
-                                                                    component="span"
-                                                                    variant="body2"
-                                                                    color="text.primary"
-                                                                >
-                                                                </Typography>
-                                                                <form onSubmit={(event) => handleEditCommentSubmit(event, comment._id)}>
+
+                                                                <Box id='editComment' >
                                                                     <TextField
                                                                         id={comment._id + "_textField"}
                                                                         multiline
@@ -133,7 +99,7 @@ export default function FormDialog({ postComments, postId }) {
                                                                         InputProps={{
                                                                             readOnly: readOnly,
                                                                         }}
-                                                                        defaultValue={comment.data}
+                                                                        value={readOnly ? comment.data : updatedCommentData}
                                                                         onChange={(e) => setUpdatedCommentData(e.target.value)}
                                                                         sx={{
                                                                             width: "100%",
@@ -151,15 +117,52 @@ export default function FormDialog({ postComments, postId }) {
                                                                             }
                                                                         }}
                                                                     />
-                                                                    <Button size="small" type="submit" sx={{ width: "100%", display: readOnlyStates[comment._id] ? 'none' : 'flex', justifyContent: 'flex-end', textTransform: 'lowercase' }}>edit</Button>
-                                                                </form>
+                                                                    <Box sx={{
+                                                                        display: readOnlyStates[comment._id] ? 'none' : 'flex',
+                                                                        justifyContent: 'space-between', textTransform: 'lowercase',
+                                                                        borderTop:"1px solid black"
+                                                                       }}>
+                                                                    <Button size="small"
+                                                                       aria-label="cancel"
+                                                                        onClick={(event) => {
+                                                                            handleReadOnlyStates(comment._id, true)
+                                                                            setUpdatedCommentData("");
+                                                                          }}
+                                                                    >
+                                                                        cancel
+                                                                    </Button>
+                                                                    <Button size="small" 
+                                                                       aria-label="edit"
+                                                                        onClick={(event) => {
+                                                                            event.preventDefault();
+                                                                            handleEditCommentSubmit(comment._id, setPostComments)
+                                                                        }} >
+                                                                        edit
+                                                                    </Button>
+                                                                    </Box>
+                                                                </Box>
 
                                                             </React.Fragment>
                                                         }
                                                     />
 
                                                     {/* to Edit the comments */}
-                                                    {comment.user._id == user._id ? <MenuPopper commentId={comment._id} handleReadOnlyStates={handleReadOnlyStates} /> : null}
+                                                    {
+                                                      (comment.user._id.toString() == user._id.toString())
+                                                         &&
+                                                        readOnlyStates[comment._id] 
+                                                        ? 
+                                                        <MenuPopper commentId={comment._id} 
+                                                                        handleReadOnlyStates={handleReadOnlyStates}
+                                                                        setPostComments={setPostComments} 
+                                                                        handleCommentDelete={handleCommentDelete}
+                                                                        setUpdatedCommentData={setUpdatedCommentData}
+                                                                        commentData={comment.data} 
+                                                                        postId={postId}
+                                                         />
+                                                        : 
+                                                        null
+                                                    }
 
                                                 </ListItem>
 
@@ -170,22 +173,24 @@ export default function FormDialog({ postComments, postId }) {
                                     "Be the first to comment :)"
                             }
                         </List>
-                    </DialogContentText>
                     <TextField
                         autoFocus
                         required
+                        aria-label='text comment'
                         id="name"
                         name="text"
                         label="Comment"
                         type="text"
                         fullWidth
                         variant="outlined"
+                        value={commentData}
+                        onChange={(e) => setCommentData(e.target.value)}
                         sx={{ position: "sticky", bottom: "-21px", marginTop: "15px", backgroundColor: "whitesmoke" }}
                     />
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={() => handleClose()}>Cancel</Button>
-                    <Button type="submit">comment</Button>
+                    <Button aria-label="cancel comment" onClick={() => handleClose()}>Cancel</Button>
+                    <Button aria-label="post comment" type="submit">comment</Button>
                 </DialogActions>
             </Dialog>
         </React.Fragment>

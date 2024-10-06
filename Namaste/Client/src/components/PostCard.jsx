@@ -30,7 +30,7 @@ export default function PostCard({createPost}) {
     const {handleMediaChange, mediaUrl, isVideo} =useImgPreview() 
 
     return (
-        <Card sx={{ width: 376,minWidth:260 , marginBottom: "15px", boxShadow: '0', border: "0px", borderRadius: "15px", padding: "10px 20px", boxSizing: "border-box" }} >
+        <Card sx={{ width: 350, minWidth:260 , marginBottom: "15px", boxShadow: '0', border: "0px", borderRadius: "15px", padding: "10px 20px", boxSizing: "border-box" }} >
             <CardHeader
                 avatar={
                     <Avatar alt="Remy Sharp" src="https://mui.com/static/images/avatar/1.jpg" />
@@ -41,9 +41,9 @@ export default function PostCard({createPost}) {
             />
 
             <CardActions disableSpacing sx={{marginTop:"30px"}}>
-                <IconButton aria-label="add to favorites"  sx={{padding:"8px", backgroundColor:"rgba(210, 210, 210, 0.599)", borderRadius:"10px"}}>
-                    <input type="file" name="img" id="file-upload" placeholder ="hello" ref={imgRef} hidden onChange={handleMediaChange} />
-                    <CameraAltIcon sx={{height:"15px", width:"15px"}} onClick={()=>imgRef.current.click()} />
+                <IconButton aria-label="add to favorites" onClick={()=>imgRef.current.click()}   sx={{padding:"8px", backgroundColor:"rgba(210, 210, 210, 0.599)", borderRadius:"10px"}}>
+                    <input type="file" name="img" id="file-upload" placeholder ="hello" ref={imgRef} hidden  onChange={handleMediaChange}/>
+                    <CameraAltIcon sx={{height:"15px", width:"15px"}}  />
                 </IconButton>
                 <IconButton aria-label="share"  sx={{padding:"8px", backgroundColor:"rgba(210, 210, 210, 0.599)", margin:"0px 5px", borderRadius:"10px"}}>
                     <VideocamIcon  sx={{height:"15px", width:"15px"}}  />
@@ -51,9 +51,7 @@ export default function PostCard({createPost}) {
                 <IconButton aria-label="share"  sx={{padding:"8px", backgroundColor:"rgba(210, 210, 210, 0.599)", borderRadius:"10px"}}>
                    <AddIcon  sx={{height:"15px", width:"15px"}}/>
                 </IconButton>
-                <IconButton aria-label="share">
-                   <PostDrawer createPost={createPost}/>
-                </IconButton>
+                <PostDrawer createPost={createPost}/>
             </CardActions>
         </Card>
     );

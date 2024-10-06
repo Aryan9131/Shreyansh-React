@@ -1,7 +1,8 @@
 const User = require('../../../models/User');
 const Post = require('../../../models/Post');
+const Event = require('../../../models/Event')
 const FriendRequest = require('../../../models/FriendRequest')
-
+const OneToOneMessages =require('../../../models/OneToOneMessage')
 const jwt = require('jsonwebtoken');
 
 module.exports.createUser = async function (req, res) {
@@ -36,25 +37,9 @@ module.exports.createSession = async function (req, res) {
     }
 }
 
-module.exports.addEventToUser = async function (req, res) {
-    try {
-        const user = await User.findOne({ _id: req.body.userId });
-        user.events.push(req.body.eventId);
-        await user.save();
-        return res.status(200).json({
-            message: "Event Added to user's interest List"
-        })
-    } catch (error) {
-        console.log("Error while adding event to interest list : " + error)
-        return res.status(500).json({
-            message: "Event can't be Added to interest list",
-            error: error
-        })
-    }
-}
+
 module.exports.allPosts = async function (req, res) {
     try {
-         console.log("user : "+req.user)
         const userPosts = await Post.find({ user: req.params.id }).populate('user').populate({
             path: 'comments',
             populate: {
@@ -68,7 +53,7 @@ module.exports.allPosts = async function (req, res) {
                 path: 'user',
                 model: 'User'
             }
-        });;
+        });
 
         return res.status(200).json({
             userPosts: userPosts,
@@ -84,8 +69,6 @@ module.exports.allPosts = async function (req, res) {
 
 module.exports.getAllFriendRequests=async function(req, res){
     try {
-        console.log("userId in getAllFriendRequests  : "+req.user._id);
-
         const requests=await FriendRequest.find({recipient : req.user._id}).populate('sender').populate('recipient');
         return res.status(200).json({
             message:"found All friend requests",
@@ -105,10 +88,7 @@ module.exports.getAllFriendRequests=async function(req, res){
 module.exports.getAllFriends=async function(req, res){
     try {
         const user_id=req.user._id
-        console.log("userId in getAllFriends : "+user_id);
         const user=await User.findOne({_id:user_id}).populate('friends.userId');
-        console.log("User is : "+user);
-        console.log("User friends is :--> "+user.friends);
         return res.status(200).json({
             message:"found All friends",
             data : user.friends,
@@ -123,10 +103,35 @@ module.exports.getAllFriends=async function(req, res){
         })
     }    
 }
+module.exports.getAllGroups=async function(req, res){
+    try {
+        const user_id=req.user._id
+        const oneToOneMessage= await OneToOneMessages.find({
+            participants: { $all: [user_id] },
+            isGroup: true
+        }).populate(
+            "participants",
+            "name _id email status"
+        );
+        return res.status(200).json({
+            message:"found All Groups",
+            data : oneToOneMessage,
+            status:"success"
+        })
+    } catch (error) {
+        console.log("Error while finding Groups : " + error);
+        return res.status(522).json({
+            message:"Error while finding Groups",
+            error : error,
+            status:"error"
+        })
+    }    
+}
 
 module.exports.getAllUSers=async function(req, res){
     try {
-        const users=await User.find()
+        console.log('********* get all users except : '+req.params)
+        const users = await User.find({ _id: { $ne: req.params.id } });
         return res.status(200).json({
             message:"found All Users ",
             data : users,
@@ -189,12 +194,7 @@ module.exports.acceptFriend=async function(req, res){
 
           const senderUser=await User.findOne({_id:acceptedFriendRequest.sender});
           senderUser.friends.map((obj, key)=>{
-                console.log("tarun's friend are --> "+obj.userId)
-                console.log("aryan's id is --> "+req.user._id)
-                console.log("compare id's --> "+(req.user._id.toString().equals(obj.userId.toString())));
-                console.log("type of Aryan's id --> "+ typeof req.user._id);
-                console.log("type of Tarun's friend id --> "+ typeof obj.userId);
-              if(obj.userId===req.user.id){
+              if(obj.userId.toString() === req.user._id.toString()){
                   console.log("inside updation !");
                   obj.status='accepted'
               }
@@ -203,6 +203,7 @@ module.exports.acceptFriend=async function(req, res){
           senderUser.save();
           return res.status(200).json({
             message:"friend Request accepted ! ",
+            senderSocketId:senderUser.socket_id,
             status:"success"
         })
 
@@ -215,3 +216,68 @@ module.exports.acceptFriend=async function(req, res){
         })
      }
 }
+
+module.exports.getProfile =async function(req, res){
+    try {
+        console.log("getProfile get params -> "+req.params.id);
+        const thisUser=await User.findById(req.params.id).populate({
+            path : 'friends',
+            match: { status: 'accepted' },
+            populate:{
+                path:'userId',
+                Model :"User",
+                select :"name _id avatar"
+            }
+        });
+        const userPosts = await Post.find({user:req.params.id}).populate('user','name _id avatar').populate({
+            path:"comments",
+            populate:{
+                path:"user",
+                Model:"User",
+                select :"name _id avatar"
+            }
+        })
+        const userEvents = await Event.find({user:req.params.id}).populate('user','name _id avatar').populate('interestedUsers','name _id avatar')
+        const userFriends =thisUser.friends;
+        return res.status(200).json({
+            message:"profile get successfully  ! ",
+            posts:userPosts,
+            events:userEvents,
+            user:{
+                _id:thisUser._id,
+                name:thisUser.name,
+                avatar:thisUser.avatar,
+            },
+            friends:userFriends,
+            status:"ok"
+        })
+
+    } catch (error) {
+        console.log("Error while  finding user Profile : " + error);
+        return res.status(522).json({
+            message:"Error while  finding user Profile ! ",
+            error : error,
+            status:"error"
+        })
+    }
+}
+
+module.exports.updateProfile =async function(req, res){
+    try {
+        console.log(" data for update profile --> "+JSON.stringify(req.body));
+        const updatedUser=await User.findByIdAndUpdate(req.user._id,req.body);
+        return res.status(200).json({
+            user:updatedUser,
+            message:"Profile updated successfully !",
+            status:"success"
+        })
+    } catch (error) {
+        console.log("Error while  Updating user Profile : " + error);
+        return res.status(522).json({
+            message:"Error while  Updating user Profile ! ",
+            error : error,
+            status:"error"
+        })
+    }
+}
+

@@ -1,7 +1,8 @@
 import {useState} from 'react'
 
 
-const useImgPreview=function(imgUrl, setImgFile){
+const useImgPreview=function(imgUrl, setImgFile, setCloseIconVisible){
+    console.log("imgUrl i get in preview -->"+imgUrl)
     const [mediaUrl, setMediaUrl] = useState(imgUrl ? imgUrl : null);
     const [isVideo, setIsVideo] = useState(false);
     const handleMediaChange=(e)=>{
@@ -16,9 +17,13 @@ const useImgPreview=function(imgUrl, setImgFile){
             setIsVideo(false);
         }
         if(file){
+            if(setCloseIconVisible)
+               setCloseIconVisible(true)
+
             const reader=new FileReader();
             reader.onloadend=()=>{
                 setMediaUrl(reader.result);
+                console.log("reader.result --> "+reader.result)
             }
             reader.readAsDataURL(file)
         }else{
@@ -28,6 +33,8 @@ const useImgPreview=function(imgUrl, setImgFile){
     const clearMedia = () => {
         setMediaUrl(null);
         setIsVideo(false);
+        if(setCloseIconVisible)
+          setCloseIconVisible(false)
       };
     const setMedia=(url)=>{
         setMediaUrl(url)

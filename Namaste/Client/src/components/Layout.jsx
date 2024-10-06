@@ -6,7 +6,7 @@ import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import Search from '../components/Search';
 import NavBar from '../components/NavBar'
-import Drawer from './Drawer';
+import Notification from './Notification'
 function Layout() {
 
     const location = useLocation();
@@ -16,14 +16,14 @@ function Layout() {
         <>
             <Box sx={{ flexGrow: 1, display: "flex", justifyContent: "center" }}>
                 <Grid container spacing={2} sx={{ flexDirection: { xs: "column", md: "row" } }}>
+                        <Notification />
                     <Grid item xs={12} md={1.5} >
                         <NavBar />
                     </Grid>
-                    <Grid item xs={12} md={10.5} id="mainContent" sx={{ backgroundColor: "whitesmoke", width:"100%" }} >
-                       {currentPath!='/messages' ? <Search /> :null} 
+                    <Grid item xs={12} md={10.5} id="mainContent" sx={{ backgroundColor: "whitesmoke", width:"100vw" }} >
+                       {currentPath!='/messages' && currentPath!='/profile' ? <Search /> :null} 
                         <Outlet   />
                     </Grid>
-
                 </Grid>
             </Box>
         </>

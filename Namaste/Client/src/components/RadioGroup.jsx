@@ -14,7 +14,10 @@ export default function RowRadioButtonsGroup({setPostType, postType}) {
         name="type"
         defaultValue="Post"
         value={postType}
-        onChange={(e) => setPostType(e.target.value)}
+        onChange={(e) => {
+          setPostType(e.target.value);
+          console.log("Post value changed in groupButton to -->"+e.target.value);
+        }}
       >
         <FormControlLabel value="Post" control={<Radio />} label="Post" />
         <FormControlLabel value="Event" control={<Radio />} label="Event" />

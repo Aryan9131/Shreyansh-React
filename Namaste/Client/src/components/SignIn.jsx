@@ -4,6 +4,9 @@ import { useNavigate, NavLink } from "react-router-dom";
 import { useDispatch } from 'react-redux';
 import { setUser } from '../features/userSlice';
 import { signInUser } from '../api/userApi';
+import { addNotification } from '../features/socketSlice';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function SignIn(){
     let navigate = useNavigate();
@@ -18,19 +21,24 @@ function SignIn(){
         });
         try {
             const response = await signInUser(data);
-            if (response.data.token) {
+            if (response.data && response.data.token) {
                 const token = response.data.token;
                 localStorage.setItem('token', token);
                 const user = JSON.parse(atob(token.split('.')[1]));
+                dispatch(addNotification({message : 'Login SuccessFul'}))
                 dispatch(setUser(user));
                 navigate('/');
             }
         } catch (error) {
+            toast('Invalid Username/Password !')
             console.error('Error:', error);
         }
     };
     return(
         <Box sx={{backgroundColor:"whitespace",height:"80vh", display:"flex",justifyContent:"center", alignItems:"center"}}>
+             <Box >
+                 <ToastContainer />
+             </Box>  
             <Box sx={{backgroundColor:"white",padding:"10px",height:{xs:"80%",sm:"70%" , md:"70%"}, width:{xs:"70%",sm:"50%" , md:"40%"}, boxShadow:"1px 1px 5px grey", display:"flex", flexDirection:"column", justifyContent:'center', alignItems:'flex-start'}}>
                    <Box sx={{width:"90%",display:"flex", justifyContent:"center"}}>
                         <h1>SignIn</h1>
