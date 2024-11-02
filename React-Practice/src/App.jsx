@@ -1,15 +1,12 @@
-import { useState } from 'react'
 import './App.css'
 import { Homepage } from './Components/HomePage'
-import { Provider } from 'react-redux'
-import { store } from './redux/store'
+import {CounterProvider} from './context/CounterContext'
 function App() {
-  const [count, setCount] = useState(0)
-
+  
   return (
-    <Provider store={store}>
+    <CounterProvider >
       <Homepage/>
-    </Provider>
+    </CounterProvider>
   )
 }
 

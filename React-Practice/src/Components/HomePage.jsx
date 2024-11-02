@@ -1,13 +1,12 @@
-import {useSelector , useDispatch} from 'react-redux'
-import { increment, decrement } from '../redux/slices/CounterSlice'
+import { useContext } from "react"
+import { CounterContext } from "../context/CounterContext"
 export const Homepage=()=>{
-    const dispatch=useDispatch()
-     const {counter}=useSelector((state)=>state.Counter);
+    const {counter, setCounter}=useContext(CounterContext)
     return (
         <>
            <h1>Hiii page {counter}</h1>
-           <button onClick={()=>dispatch(increment())}>increment</button>
-           <button onClick={()=>dispatch(decrement())}>decrement</button>
+           <button onClick={()=>setCounter((prev)=>prev++)} >increment</button>
+           <button>decrement</button>
         </>
     )
 }
